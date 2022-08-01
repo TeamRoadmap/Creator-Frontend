@@ -9,6 +9,7 @@ import {
 	useColorMode,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import Navbar from '../components/LandingPage/Navbar';
 import Header from "../components/LandingPage/Header";
 
 export default function Home() {
@@ -24,6 +25,7 @@ export default function Home() {
 			{/* <Heading color={useColorModeValue("brand.500", "brand.300")}>
 					Hello Creator!
 				</Heading> */}
+			<Navbar />
 			<Header />
 			{/* <Button onClick={toggleColorMode}>
 				Toggle {colorMode === "light" ? "Dark" : "Light"}
