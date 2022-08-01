@@ -11,6 +11,7 @@ import {
 } from "@chakra-ui/react";
 import Navbar from '../components/LandingPage/Navbar';
 import Header from "../components/LandingPage/Header";
+import Footer from '../components/LandingPage/Footer';
 
 export default function Home() {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -27,6 +28,7 @@ export default function Home() {
 				</Heading> */}
 			<Navbar />
 			<Header />
+			<Footer />
 			{/* <Button onClick={toggleColorMode}>
 				Toggle {colorMode === "light" ? "Dark" : "Light"}
 			</Button> */}
