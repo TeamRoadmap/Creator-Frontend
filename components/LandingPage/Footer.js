@@ -23,15 +23,19 @@ export default function Footer() {
   return (
     <Box bg={testimonialBg} py={"2rem"}>
       <Flex
-        justify={{base: "center" , md: "space-between"}}
+        justify={{ base: "center", md: "space-between" }}
         direction={{ base: "column", md: "row" }}
         align={"center"}
-        mx={{base:"1rem", md: "11rem"}}
+        mx={{ base: "1rem", md: "11rem" }}
         py={"4rem"}
       >
-        <Flex direction={"column"} justify={{base: "start", md:"center"}} mb={"2rem"}>
-            <Text fontSize={"2xl"}>Ready to get started?</Text>
-            <Text fontSize={"md"}>Sign up or contact us</Text>
+        <Flex
+          direction={"column"}
+          justify={{ base: "start", md: "center" }}
+          mb={"2rem"}
+        >
+          <Text fontSize={"2xl"}>Ready to get started?</Text>
+          <Text fontSize={"md"}>Sign up or contact us</Text>
         </Flex>
         <Flex gap={"1rem"}>
           <Button
@@ -60,40 +64,47 @@ export default function Footer() {
           </Button>
         </Flex>
       </Flex>
-      <Flex
-        justify={{base: "center" , md: "space-between"}}
-        direction={{ base: "column", md: "row" }}
-        align={"center"}
-        mx={{base:"0", md: "11rem"}}
-        py={"3rem"}
-      >
-        <Flex direction={"column"} gap={"1.5rem"} mb={"2rem"} align={"start"}>
-          <Flex align={"baseline"}>
-            <Text
-              textAlign={useBreakpointValue({ base: "start", md: "left" })}
-              fontFamily={"heading"}
-              fontSize="xl"
-              mr="3px"
-              color={useColorModeValue("gray.800", "white")}
-            >
-              ROADMAP
-            </Text>
-            <Text fontSize="xs">CREATOR</Text>
+      <Flex justify={{ base: "center", md: "start" }}>
+        <Flex
+          justify={{ base: "center", md: "space-between" }}
+          direction={{ base: "column", md: "row" }}
+          align={"start"}
+          mx={{ base: "0", md: "11rem" }}
+        >
+          <Flex direction={"column"} gap={"3rem"} mb={"2rem"} align={"start"}>
+            <Flex align={"baseline"}>
+              <Text
+                textAlign={useBreakpointValue({ base: "start", md: "left" })}
+                fontFamily={"heading"}
+                fontSize="xl"
+                mr="3px"
+                color={useColorModeValue("gray.800", "white")}
+              >
+                ROADMAP
+              </Text>
+              <Text fontSize="xs">CREATOR</Text>
+            </Flex>
+            <div>
+              <h1>© 2022</h1>
+              <h1>Privacy — Terms</h1>
+            </div>
           </Flex>
-          <div>
-            <h1>© 2022</h1>
-            <h1>Privacy — Terms</h1>
-          </div>
-        </Flex>
-        <Flex direction={"column"} gap={"1.5rem"}>
-          <h4>Join NewsLetter</h4>
-          <div>
-            <h4>Your Email</h4>
-            <Input placeholder="Basic usage" />
-          </div>
-          <Button maxW={"9rem"} color={"white"} bg="purple.600" variant="solid">
-            Button
-          </Button>
+          <Flex direction={"column"} gap={"0.8rem"}>
+            <Text fontSize={"lg"}>Join NewsLetter</Text>
+            <Flex direction={"column"} gap={"0.4rem"}>
+              <Text fontSize={"sm"}>Your Email</Text>
+              <Input placeholder="Your Email" />
+            </Flex>
+            <Button
+              p={1}
+              maxW={"9rem"}
+              color={"white"}
+              bg="purple.600"
+              variant="solid"
+            >
+              Subscribe
+            </Button>
+          </Flex>
         </Flex>
       </Flex>
     </Box>
