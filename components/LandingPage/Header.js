@@ -20,7 +20,8 @@ const Header = () => {
 			<Stack
 				minH={"90vh"}
 				direction={{ base: "column-reverse", md: "row" }}
-				margin={{ base: "2rem", md: "4rem" }}
+				mx={{ base: "2rem", md: "4rem" }}
+				mb={{ base: "2rem", md: "4rem" }}
 				spacing="2rem"
 			>
 				<Flex flex={1} align={"center"} justify={"center"}>

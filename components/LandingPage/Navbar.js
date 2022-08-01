@@ -26,9 +26,8 @@ export default function Navbar() {
   const { isOpen, onToggle } = useDisclosure();
 
   return (
-    <Box p={"1rem"}>
+    <Box bg={useColorModeValue("white", "gray.800")} p={"1rem"} position={"fixed"} width={'full'} zIndex={"sticky"}>
       <Flex
-        bg={useColorModeValue("white", "gray.800")}
         color={useColorModeValue("gray.600", "white")}
         minH={"60px"}
         py={{ base: 2 }}
