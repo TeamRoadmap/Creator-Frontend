@@ -1,20 +1,12 @@
-import Head from 'next/head'
-import Image from 'next/image'
-import styles from "../styles/Home.module.css";
-import {
-	Box,
-	Button,
-	ButtonGroup,
-	Heading,
-	useColorMode,
-	useColorModeValue,
-} from "@chakra-ui/react";
-import Navbar from '../components/LandingPage/Navbar';
+import Head from "next/head";
+import { useColorMode } from "@chakra-ui/react";
+import Navbar from "../components/LandingPage/Navbar";
 import Header from "../components/LandingPage/Header";
 import Footer from '../components/LandingPage/Footer';
+import About from "../components/LandingPage/About";
 
 export default function Home() {
-	const { colorMode, toggleColorMode } = useColorMode();
+	// const { colorMode, toggleColorMode } = useColorMode();
 
 	return (
 		<>
@@ -28,6 +20,7 @@ export default function Home() {
 				</Heading> */}
 			<Navbar />
 			<Header />
+			<About />
 			<Footer />
 			{/* <Button onClick={toggleColorMode}>
 				Toggle {colorMode === "light" ? "Dark" : "Light"}
