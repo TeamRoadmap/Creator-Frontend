@@ -15,6 +15,7 @@ const About = () => {
 	return (
 		<>
 			<Stack
+				id="aboutus"
 				minH={"50vh"}
 				direction={{ base: "column-reverse", md: "row" }}
 				m={{ base: "2rem", md: "4rem" }}

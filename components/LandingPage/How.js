@@ -27,7 +27,7 @@ const How = () => {
 					How it works??
 				</Heading>
 				<SimpleGrid
-					columns={2}
+					columns={{ base: "1", md: "2" }}
 					spacingX={{ base: "10px", md: "60px" }}
 					spacingY={{ base: "10px", md: "60px" }}
 				>

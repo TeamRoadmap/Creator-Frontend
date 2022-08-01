@@ -1,7 +1,7 @@
 import '../styles/globals.css'
 import { ChakraProvider, CSSReset } from "@chakra-ui/react";
 // 1. Import the extendTheme function
-import theme from "./lib/theme";
+import theme from "../lib/theme";
 
 function MyApp({ Component, pageProps }) {
 	return (

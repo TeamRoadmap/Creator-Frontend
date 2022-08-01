@@ -91,12 +91,6 @@ const Header = () => {
 						<WrapItem>
 							<Avatar />
 						</WrapItem>
-						<WrapItem>
-							<Avatar />
-						</WrapItem>
-						<WrapItem>
-							<Avatar />
-						</WrapItem>
 					</Wrap>
 				</Stack>
 			</Stack>
