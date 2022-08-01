@@ -16,23 +16,28 @@ const How = () => {
 	return (
 		<>
 			<Stack
+				id="features"
 				direction={"column"}
 				p={{ base: "2rem", md: "4rem" }}
 				spacing="2rem"
-				margin={{ base: "2rem", md: "4rem", lg: "6rem", xl: "12rem" }}
+				margin={{ base: "0", md: "4rem", lg: "6rem", xl: "12rem" }}
 				justify={"center"}
 			>
 				<Heading align="center" colorScheme={"white"}>
 					How it works??
 				</Heading>
-				<SimpleGrid columns={2} spacingX="60px" spacingY="60px">
+				<SimpleGrid
+					columns={2}
+					spacingX={{ base: "10px", md: "60px" }}
+					spacingY={{ base: "10px", md: "60px" }}
+				>
 					<Box rounded={"8px"} bg={useColorModeValue("gray.100", "gray.700")}>
 						<Flex
 							direction={"column"}
 							p={{ base: "2rem", md: "3rem", lg: "4rem" }}
 							gap="2rem"
 						>
-							<Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>
+							<Heading fontSize={{ base: "lg", md: "2xl", lg: "3xl" }}>
 								<Text as={"span"} position={"relative"}>
 									Sign Up and create text based course or roadmap.
 								</Text>
@@ -52,7 +57,7 @@ const How = () => {
 							p={{ base: "2rem", md: "3rem", lg: "4rem" }}
 							gap="2rem"
 						>
-							<Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>
+							<Heading fontSize={{ base: "lg", md: "2xl", lg: "3xl" }}>
 								<Text as={"span"} position={"relative"}>
 									Add quizzes to your course to make it interactive.
 								</Text>
@@ -72,7 +77,7 @@ const How = () => {
 							p={{ base: "2rem", md: "3rem", lg: "4rem" }}
 							gap="2rem"
 						>
-							<Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>
+							<Heading fontSize={{ base: "lg", md: "2xl", lg: "3xl" }}>
 								<Text as={"span"} position={"relative"}>
 									Upload your course in just one click.{" "}
 								</Text>
@@ -92,7 +97,7 @@ const How = () => {
 							p={{ base: "2rem", md: "3rem", lg: "4rem" }}
 							gap="2rem"
 						>
-							<Heading fontSize={{ base: "xl", md: "2xl", lg: "3xl" }}>
+							<Heading fontSize={{ base: "lg", md: "2xl", lg: "3xl" }}>
 								<Text as={"span"} position={"relative"}>
 									Get statistics based on learner’s response{" "}
 								</Text>
