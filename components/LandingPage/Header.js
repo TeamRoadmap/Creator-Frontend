@@ -1,19 +1,19 @@
 import {
-	Button,
-	Flex,
-	Heading,
-	Stack,
-	Text,
-	Avatar,
-	Wrap,
-	WrapItem,
-	useColorModeValue,
+  Button,
+  Flex,
+  Heading,
+  Stack,
+  Text,
+  Avatar,
+  Wrap,
+  WrapItem,
+  useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
 import HeaderImage from "../../images/CreatorDashboard.png";
 
 const Header = () => {
-	const testimonialBg = useColorModeValue("gray.100", "gray.700");
+  const testimonialBg = useColorModeValue("gray.100", "gray.700");
 
 	return (
 		<>

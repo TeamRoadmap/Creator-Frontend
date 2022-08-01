@@ -1,6 +1,7 @@
 import Head from "next/head";
 import Navbar from "../components/LandingPage/Navbar";
 import Header from "../components/LandingPage/Header";
+import Footer from '../components/LandingPage/Footer';
 import About from "../components/LandingPage/About";
 import How from "../components/LandingPage/How";
 
@@ -19,6 +20,7 @@ export default function Home() {
 			<Header />
 			<About />
 			<How />
+			<Footer />
 		</>
 	);
 }
