@@ -7,6 +7,7 @@ import {
 	ButtonGroup,
 	Heading,
 	useColorMode,
+	useColorModeValue,
 } from "@chakra-ui/react";
 
 export default function Home() {
@@ -26,7 +27,9 @@ export default function Home() {
 				gap="2rem"
 				alignItems="center"
 			>
-				<Heading>Hello Creator!</Heading>
+				<Heading color={useColorModeValue("brand.500", "brand.300")}>
+					Hello Creator!
+				</Heading>
 				<Button onClick={toggleColorMode}>
 					Toggle {colorMode === "light" ? "Dark" : "Light"}
 				</Button>
