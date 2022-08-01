@@ -9,6 +9,7 @@ import {
 	useColorMode,
 	useColorModeValue,
 } from "@chakra-ui/react";
+import Navbar from '../components/LandingPage/Navbar';
 
 export default function Home() {
 	const { colorMode, toggleColorMode } = useColorMode();
@@ -20,7 +21,8 @@ export default function Home() {
 				<meta name="description" content="Roadmap Creator App" />
 				<link rel="icon" href="/favicon.ico" />
 			</Head>
-			<Box
+			<Navbar />
+			{/* <Box
 				display="flex"
 				flexDirection="column"
 				mt="2rem"
@@ -33,7 +35,7 @@ export default function Home() {
 				<Button onClick={toggleColorMode}>
 					Toggle {colorMode === "light" ? "Dark" : "Light"}
 				</Button>
-			</Box>
+			</Box> */}
 		</>
 	);
 }
