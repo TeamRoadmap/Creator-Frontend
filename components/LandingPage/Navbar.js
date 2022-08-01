@@ -15,17 +15,20 @@ import {
 	useBreakpointValue,
 	useDisclosure,
 	Divider,
+	useColorMode,
 } from "@chakra-ui/react";
 import {
 	HamburgerIcon,
 	CloseIcon,
 	ChevronDownIcon,
 	ChevronRightIcon,
+	MoonIcon,
+	SunIcon,
 } from "@chakra-ui/icons";
 
 export default function Navbar() {
 	const { isOpen, onToggle } = useDisclosure();
-
+	const { colorMode, toggleColorMode } = useColorMode();
 	return (
 		<Box
 			bg={useColorModeValue("white", "gray.800")}
@@ -103,6 +106,9 @@ export default function Navbar() {
 						}}
 					>
 						Sign Up
+					</Button>
+					<Button onClick={toggleColorMode}>
+						{colorMode === "light" ? <MoonIcon /> : <SunIcon />}
 					</Button>
 				</Stack>
 			</Flex>
