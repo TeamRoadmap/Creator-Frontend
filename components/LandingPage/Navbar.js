@@ -7,7 +7,7 @@ import {
 	Stack,
 	Collapse,
 	Icon,
-	Link,
+	Link as ChakraLink,
 	Popover,
 	PopoverTrigger,
 	PopoverContent,
@@ -25,10 +25,16 @@ import {
 	MoonIcon,
 	SunIcon,
 } from "@chakra-ui/icons";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 export default function Navbar() {
 	const { isOpen, onToggle } = useDisclosure();
 	const { colorMode, toggleColorMode } = useColorMode();
+	const linkColor = useColorModeValue("gray.600", "gray.200");
+	const linkHoverColor = useColorModeValue("gray.800", "white");
+	const router = useRouter();
+	const showAbout = router.pathname === "/" ? true : false;
 	return (
 		<Box
 			bg={useColorModeValue("white", "gray.800")}
@@ -57,23 +63,39 @@ export default function Navbar() {
 						aria-label={"Toggle Navigation"}
 					/>
 				</Flex>
-				<Flex flex={{ base: 1 }} justify={{ base: "start", md: "start" }} al>
-					<Flex align={"baseline"}>
+				<Flex flex={{ base: 1 }} justify={{ base: "start", md: "start" }}>
+					<Flex align={"baseline"} as={"a"} href="/">
 						<Text
 							textAlign={useBreakpointValue({ base: "start", md: "left" })}
 							fontFamily={"heading"}
-							fontSize={{ base: "xl", md: "2xl" }}
+							fontSize={{ base: "md", md: "xl" }}
 							fontWeight={"600"}
 							mr="3px"
 							color={useColorModeValue("gray.800", "white")}
 						>
 							ROADMAP
 						</Text>
-						<Text fontSize={{ base: "md", md: "xl" }}>CREATOR</Text>
+						<Text fontSize={"xs"}>CREATOR</Text>
 					</Flex>
 				</Flex>
 				<Flex display={{ base: "none", md: "flex" }} ml={10} mr={10}>
-					<DesktopNav />
+					{showAbout ? (
+						<DesktopNav />
+					) : (
+						<ChakraLink
+							p={2}
+							href="/"
+							fontSize={"md"}
+							fontWeight={500}
+							color={linkColor}
+							_hover={{
+								textDecoration: "none",
+								color: linkHoverColor,
+							}}
+						>
+							Home
+						</ChakraLink>
+					)}
 				</Flex>
 				<Stack
 					flex={{ base: 1, md: 0 }}
@@ -81,32 +103,33 @@ export default function Navbar() {
 					direction={"row"}
 					spacing={6}
 				>
-					<Button
-						display={{ base: "none", md: "inline-flex" }}
-						as={"a"}
-						fontSize={"lg"}
-						fontWeight={400}
-						borderColor={"purple.500"}
-						variant={"outline"}
-						rounded="8px"
-						href={"#"}
-					>
-						Login
-					</Button>
-					<Button
-						display={{ base: "none", md: "inline-flex" }}
-						fontSize={"lg"}
-						fontWeight={600}
-						color={"white"}
-						bg={"purple.600"}
-						rounded="8px"
-						href={"#"}
-						_hover={{
-							bg: "purple.800",
-						}}
-					>
-						Sign Up
-					</Button>
+					<Link href="/login">
+						<Button
+							display={{ base: "none", md: "inline-flex" }}
+							fontSize={"sm"}
+							fontWeight={400}
+							borderColor={"purple.500"}
+							variant={"outline"}
+							rounded="8px"
+						>
+							Login
+						</Button>
+					</Link>
+					<Link href="/signup">
+						<Button
+							display={{ base: "none", md: "inline-flex" }}
+							fontSize={"sm"}
+							fontWeight={600}
+							color={"white"}
+							bg={"purple.600"}
+							rounded="8px"
+							_hover={{
+								bg: "purple.800",
+							}}
+						>
+							Sign Up
+						</Button>
+					</Link>
 					<Button onClick={toggleColorMode}>
 						{colorMode === "light" ? <MoonIcon /> : <SunIcon />}
 					</Button>
@@ -131,10 +154,10 @@ const DesktopNav = () => {
 				<Box key={navItem.label}>
 					<Popover trigger={"hover"} placement={"bottom-start"}>
 						<PopoverTrigger>
-							<Link
+							<ChakraLink
 								p={2}
 								href={navItem.href ?? "#"}
-								fontSize={"lg"}
+								fontSize={"md"}
 								fontWeight={500}
 								color={linkColor}
 								_hover={{
@@ -143,7 +166,7 @@ const DesktopNav = () => {
 								}}
 							>
 								{navItem.label}
-							</Link>
+							</ChakraLink>
 						</PopoverTrigger>
 
 						{navItem.children && (
@@ -171,7 +194,7 @@ const DesktopNav = () => {
 
 const DesktopSubNav = ({ label, href, subLabel }) => {
 	return (
-		<Link
+		<ChakraLink
 			href={href}
 			role={"group"}
 			display={"block"}
@@ -202,11 +225,15 @@ const DesktopSubNav = ({ label, href, subLabel }) => {
 					<Icon color={"pink.400"} w={5} h={5} as={ChevronRightIcon} />
 				</Flex>
 			</Stack>
-		</Link>
+		</ChakraLink>
 	);
 };
 
 const MobileNav = () => {
+	const router = useRouter();
+	const showAbout = router.pathname === "/" ? true : false;
+
+	const TextColor = useColorModeValue("gray.600", "gray.200");
 	return (
 		<Stack
 			bg={useColorModeValue("white", "gray.800")}
@@ -216,40 +243,60 @@ const MobileNav = () => {
 			justify={"center"}
 			spacing={"2rem"}
 		>
-			<Stack>
-				{NAV_ITEMS.map((navItem) => (
-					<MobileNavItem key={navItem.label} {...navItem} />
-				))}
-			</Stack>
-
-			<Divider orientation="horizontal" />
-			<Stack justify={"center"} direction={"column"} align="center">
-				<Button
-					px="16%"
-					as={"a"}
-					fontSize={"lg"}
-					fontWeight={400}
-					borderColor={"purple.500"}
-					variant={"outline"}
-					rounded="8px"
-					href={"#"}
-				>
-					Login
-				</Button>
-				<Button
-					px="14.4%"
-					fontSize={"lg"}
-					fontWeight={600}
-					color={"white"}
-					bg={"purple.600"}
-					rounded="8px"
-					href={"#"}
+			{showAbout ? (
+				<>
+					<Stack>
+						{NAV_ITEMS.map((navItem) => (
+							<MobileNavItem key={navItem.label} {...navItem} />
+						))}
+					</Stack>
+					<Divider orientation="horizontal" />
+				</>
+			) : (
+				<Flex
+					py={1}
+					as={ChakraLink}
+					href="/"
+					justify={"center"}
+					align={"center"}
 					_hover={{
-						bg: "purple.800",
+						textDecoration: "none",
 					}}
 				>
-					Sign Up
-				</Button>
+					<Text fontWeight={600} fontSize={"lg"} color={TextColor}>
+						Home
+					</Text>
+				</Flex>
+			)}
+
+			<Stack justify={"center"} direction={"column"} align="center">
+				<Link href="/login">
+					<Button
+						px="10%"
+						fontSize={"sm"}
+						fontWeight={400}
+						borderColor={"purple.500"}
+						variant={"outline"}
+						rounded="8px"
+					>
+						Login
+					</Button>
+				</Link>
+				<Link href="/signup">
+					<Button
+						px="8.6%"
+						fontSize={"sm"}
+						fontWeight={600}
+						color={"white"}
+						bg={"purple.600"}
+						rounded="8px"
+						_hover={{
+							bg: "purple.800",
+						}}
+					>
+						Sign Up
+					</Button>
+				</Link>
 			</Stack>
 		</Stack>
 	);
@@ -260,15 +307,14 @@ const MobileNavItem = ({ label, children, href }) => {
 
 	return (
 		<Stack
-			spacing={4}
 			onClick={onToggle}
 			justify={"center"}
 			direction={"column"}
 			align="center"
 		>
 			<Flex
-				py={2}
-				as={Link}
+				py={1}
+				as={ChakraLink}
 				href={href ?? "#"}
 				justify={"space-between"}
 				align={"center"}
@@ -278,7 +324,7 @@ const MobileNavItem = ({ label, children, href }) => {
 			>
 				<Text
 					fontWeight={600}
-					fontSize={"lg"}
+					fontSize={"md"}
 					color={useColorModeValue("gray.600", "gray.200")}
 				>
 					{label}
