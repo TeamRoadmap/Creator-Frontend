@@ -11,9 +11,10 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 import HeaderImage from "../../images/CreatorDashboard.png";
+import Link from "next/link";
 
 const Header = () => {
-  const testimonialBg = useColorModeValue("gray.100", "gray.700");
+	const testimonialBg = useColorModeValue("gray.100", "gray.700");
 
 	return (
 		<>
@@ -39,18 +40,20 @@ const Header = () => {
 							Create Interactive courses with our course creator which allows
 							you to create courses with ease.
 						</Text>
-						<Button
-							rounded={"8px"}
-							color={"white"}
-							bg="purple.600"
-							_hover={{
-								bg: "purple.800",
-							}}
-							p="1rem"
-							maxW={"50%"}
-						>
-							Sign Up
-						</Button>
+						<Link href="/signup" passHref>
+							<Button
+								rounded={"8px"}
+								color={"white"}
+								bg="purple.600"
+								_hover={{
+									bg: "purple.800",
+								}}
+								p="1rem"
+								maxW={"50%"}
+							>
+								Sign Up
+							</Button>
+						</Link>
 					</Stack>
 				</Flex>
 				<Flex
