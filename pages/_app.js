@@ -1,14 +1,15 @@
 import '../styles/globals.css'
-import { ChakraProvider, CSSReset } from "@chakra-ui/react";
+import { CSSReset } from "@chakra-ui/react";
 // 1. Import the extendTheme function
 import theme from "../lib/theme";
+import { Chakra } from "../lib/Chakra";
 
 function MyApp({ Component, pageProps }) {
 	return (
-		<ChakraProvider theme={theme} cssVarsRoot="body">
+		<Chakra cookies={pageProps.cookies} theme={theme} cssVarsRoot="body">
 			<CSSReset />
 			<Component {...pageProps} />
-		</ChakraProvider>
+		</Chakra>
 	);
 }
 
