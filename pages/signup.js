@@ -111,3 +111,5 @@ export default function SignUp() {
 		</Layout>
 	);
 }
+
+export { getServerSideProps } from "../lib/Chakra";

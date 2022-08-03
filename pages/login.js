@@ -86,3 +86,5 @@ export default function Login() {
 		</Layout>
 	);
 }
+
+export { getServerSideProps } from "../lib/Chakra";
