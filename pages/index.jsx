@@ -1,8 +1,5 @@
 import Head from "next/head";
-import Header from "../landing-page/components/header";
-import About from "../landing-page/components/about";
-import How from "../landing-page/components/how";
-import Footer from "../landing-page/components/footer";
+import { Header, How, About, Footer } from "../landing-page/components";
 import Layout from "../shared/components/layout";
 
 export default function Home() {
