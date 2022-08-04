@@ -8,8 +8,8 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 
-import AboutImage1 from "../../images/about1.png";
-import Stats from "../../images/stats.png";
+import AboutImage1 from "../../public/images/about1.png";
+import Stats from "../../public/images/stats.png";
 
 const About = () => {
 	return (

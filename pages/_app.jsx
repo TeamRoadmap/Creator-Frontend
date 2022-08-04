@@ -1,8 +1,9 @@
-import '../styles/globals.css'
+import "../styles/globals.css";
 import { CSSReset } from "@chakra-ui/react";
 // 1. Import the extendTheme function
-import theme from "../lib/theme";
-import { Chakra } from "../lib/Chakra";
+
+import { Chakra } from "../shared/lib/chakra";
+import theme from "../shared/lib/theme";
 
 function MyApp({ Component, pageProps }) {
 	return (
@@ -13,4 +14,4 @@ function MyApp({ Component, pageProps }) {
 	);
 }
 
-export default MyApp
+export default MyApp;

@@ -1,16 +1,16 @@
 import {
-  Button,
-  Flex,
-  Heading,
-  Stack,
-  Text,
-  Avatar,
-  Wrap,
-  WrapItem,
-  useColorModeValue,
+	Button,
+	Flex,
+	Heading,
+	Stack,
+	Text,
+	Avatar,
+	Wrap,
+	WrapItem,
+	useColorModeValue,
 } from "@chakra-ui/react";
 import Image from "next/image";
-import HeaderImage from "../../images/CreatorDashboard.png";
+import HeaderImage from "../../public/images/creator-dashboard.png";
 import Link from "next/link";
 
 const Header = () => {
