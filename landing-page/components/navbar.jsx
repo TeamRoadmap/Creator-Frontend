@@ -18,12 +18,11 @@ import {
 	useColorMode,
 } from "@chakra-ui/react";
 import {
-	HamburgerIcon,
-	CloseIcon,
-	ChevronDownIcon,
-	ChevronRightIcon,
-	MoonIcon,
-	SunIcon,
+  HamburgerIcon,
+  CloseIcon,
+  ChevronRightIcon,
+  MoonIcon,
+  SunIcon,
 } from "@chakra-ui/icons";
 import Link from "next/link";
 import { useRouter } from "next/router";
