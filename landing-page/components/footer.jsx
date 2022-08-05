@@ -1,22 +1,12 @@
 import React from "react";
 import {
-	Box,
-	Flex,
-	Text,
-	IconButton,
-	Input,
-	Button,
-	Stack,
-	Collapse,
-	Icon,
-	Link,
-	Popover,
-	PopoverTrigger,
-	PopoverContent,
-	useColorModeValue,
-	useBreakpointValue,
-	useDisclosure,
-	Heading,
+  Box,
+  Flex,
+  Text,
+  Input,
+  Button,
+  useColorModeValue,
+  useBreakpointValue,
 } from "@chakra-ui/react";
 
 export default function Footer() {

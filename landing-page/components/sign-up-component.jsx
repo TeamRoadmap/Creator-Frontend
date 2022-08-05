@@ -17,9 +17,9 @@ import {
 import { useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
-import Layout from "../components/Layout";
+import Layout from "../../shared/components/layout";
 
-export default function SignUp() {
+const SignUpComponent = () => {
 	const [showPassword, setShowPassword] = useState(false);
 
 	return (
@@ -110,6 +110,6 @@ export default function SignUp() {
 			</Flex>
 		</Layout>
 	);
-}
+};
 
-export { getServerSideProps } from "../lib/Chakra";
+export default SignUpComponent;
