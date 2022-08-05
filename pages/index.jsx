@@ -1,8 +1,10 @@
 import Head from "next/head";
 import { Header, How, About, Footer } from "../landing-page/components";
 import Layout from "../shared/components/layout";
+import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
+	const { user } = useSelector((store) => store.user); // just for testing
 	return (
 		<Layout>
 			<Head>
