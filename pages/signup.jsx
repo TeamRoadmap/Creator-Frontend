@@ -15,6 +15,8 @@ import {
   Text,
   useColorModeValue,
 } from "@chakra-ui/react";
+import { useRouter } from "next/router";
+import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
@@ -24,15 +26,17 @@ import { signUpHandler } from "../redux/feature/user/thunk";
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { user } = useSelector((state) => state.user);
-  const submitHandler = () => {
-    dispatch(signUpHandler({ firstName: "hello" }));
-  };
+  const { isAuth } = useSelector((state) => state.user);
+  const router = useRouter();
+  const { register, handleSubmit } = useForm();
   useEffect(() => {
-    if (Object.keys(user).length !== 0) {
-      console.log(user);
+    if (isAuth) {
+      router.push("/dashboard", undefined, { shallow: true });
     }
-  }, [user]);
+  }, [isAuth]);
+  const onSubmit = (data) => {
+    dispatch(signUpHandler(data));
+  };
 
   return (
     <Layout>
@@ -69,91 +73,108 @@ export default function SignUp() {
             boxShadow={"lg"}
             p={8}
           >
-            <Stack spacing={4}>
-              <HStack>
-                <Box>
-                  <FormControl
-                    id="firstName"
-                    isRequired
-                  >
-                    <FormLabel>First Name</FormLabel>
-                    <Input
-                      type="text"
-                      focusBorderColor="purple.500"
-                    />
-                  </FormControl>
-                </Box>
-                <Box>
-                  <FormControl id="lastName">
-                    <FormLabel>Last Name</FormLabel>
-                    <Input
-                      type="text"
-                      focusBorderColor="purple.500"
-                    />
-                  </FormControl>
-                </Box>
-              </HStack>
-              <FormControl
-                id="email"
-                isRequired
-              >
-                <FormLabel>Email address</FormLabel>
-                <Input
-                  focusBorderColor="purple.500"
-                  type="email"
-                />
-              </FormControl>
-              <FormControl
-                id="password"
-                isRequired
-              >
-                <FormLabel>Password</FormLabel>
-                <InputGroup>
+            <form onSubmit={handleSubmit(onSubmit)}>
+              <Stack spacing={4}>
+                <HStack>
+                  <Box>
+                    <FormControl
+                      id="firstName"
+                      isRequired
+                    >
+                      <FormLabel>First Name</FormLabel>
+                      <Input
+                        type="text"
+                        focusBorderColor="purple.500"
+                        {...register("firstName")}
+                        required
+                      />
+                    </FormControl>
+                  </Box>
+                  <Box>
+                    <FormControl id="lastName">
+                      <FormLabel>Last Name</FormLabel>
+                      <Input
+                        type="text"
+                        focusBorderColor="purple.500"
+                        {...register("lastName")}
+                        required
+                      />
+                    </FormControl>
+                  </Box>
+                </HStack>
+                <FormControl
+                  id="email"
+                  isRequired
+                >
+                  <FormLabel>Email address</FormLabel>
                   <Input
                     focusBorderColor="purple.500"
-                    type={showPassword ? "text" : "password"}
+                    type="email"
+                    {...register("email", {
+                      pattern: {
+                        value:
+                          /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/,
+                        message:
+                          "Only alphabets, numbers and hyphens (-) are allowed",
+                      },
+                    })}
+                    required
                   />
-                  <InputRightElement h={"full"}>
-                    <Button
-                      variant={"ghost"}
-                      onClick={() =>
-                        setShowPassword((showPassword) => !showPassword)
-                      }
-                    >
-                      {showPassword ? <ViewIcon /> : <ViewOffIcon />}
-                    </Button>
-                  </InputRightElement>
-                </InputGroup>
-              </FormControl>
-              <Stack
-                spacing={10}
-                pt={2}
-              >
-                <Button
-                  loadingText="Submitting"
-                  size="lg"
-                  bg={"purple.600"}
-                  color={"white"}
-                  _hover={{
-                    bg: "purple.800",
-                  }}
-                  onClick={submitHandler}
+                </FormControl>
+                <FormControl
+                  id="password"
+                  isRequired
                 >
-                  Sign up
-                </Button>
-              </Stack>
-              <Stack pt={6}>
-                <Text align={"center"}>
-                  Already a user?{" "}
-                  <NextLink
-                    href="/login"
-                    passHref
+                  <FormLabel>Password</FormLabel>
+                  <InputGroup>
+                    <Input
+                      focusBorderColor="purple.500"
+                      type={showPassword ? "text" : "password"}
+                      {...register("password")}
+                      required
+                    />
+                    <InputRightElement h={"full"}>
+                      <Button
+                        variant={"ghost"}
+                        onClick={() =>
+                          setShowPassword((showPassword) => !showPassword)
+                        }
+                      >
+                        {showPassword ? <ViewIcon /> : <ViewOffIcon />}
+                      </Button>
+                    </InputRightElement>
+                  </InputGroup>
+                </FormControl>
+                <Stack
+                  spacing={10}
+                  pt={2}
+                >
+                  <Button
+                    loadingText="Submitting"
+                    size="lg"
+                    bg={"purple.600"}
+                    color={"white"}
+                    _hover={{
+                      bg: "purple.800",
+                    }}
+                    type="submit"
                   >
-                    <Link color="purple.500">Login</Link>
-                  </NextLink>
-                </Text>
+                    Sign up
+                  </Button>
+                </Stack>
+                <Stack pt={6}>
+                  <Text align={"center"}>
+                    Already a user?{" "}
+                    <NextLink
+                      href="/login"
+                      passHref
+                    >
+                      <Link color="purple.500">Login</Link>
+                    </NextLink>
+                  </Text>
+                </Stack>
               </Stack>
-            </Stack>
+            </form>
           </Box>
         </Stack>
       </Flex>
