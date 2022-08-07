@@ -21,3 +21,5 @@ function MyApp({ Component, pageProps }) {
 }
 
 export default MyApp;
+
+export { getServerSideProps } from "../shared/lib/chakra";
