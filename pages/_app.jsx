@@ -4,8 +4,11 @@ import { Chakra } from "../shared/lib/chakra";
 import theme from "../shared/lib/theme";
 import { Provider } from "react-redux";
 import { store } from "../redux/store";
-
+import ProtectedPath from "../shared/components/ProtectedPath";
+import { useRouter } from "next/router";
 function MyApp({ Component, pageProps }) {
+  const route = useRouter();
+  const publicPaths = ["/login", "/signup", "/"];
   return (
     <Provider store={store}>
       <Chakra
@@ -13,8 +16,17 @@ function MyApp({ Component, pageProps }) {
         theme={theme}
         cssVarsRoot="body"
       >
-        <CSSReset />
-        <Component {...pageProps} />
+        {publicPaths.includes(route.pathname) ? (
+          <>
+            <CSSReset />
+            <Component {...pageProps} />
+          </>
+        ) : (
+          <ProtectedPath>
+            <CSSReset />
+            <Component {...pageProps} />
+          </ProtectedPath>
+        )}
       </Chakra>
     </Provider>
   );
