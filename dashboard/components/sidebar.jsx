@@ -1,7 +1,5 @@
 import {
-  Avatar,
   Box,
-  Collapse,
   Drawer,
   DrawerContent,
   DrawerOverlay,
@@ -9,27 +7,26 @@ import {
   Flex,
   Icon,
   IconButton,
-  Input,
-  InputGroup,
-  InputLeftElement,
   Text,
   useColorModeValue,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import { MoonIcon, SunIcon } from "@chakra-ui/icons";
-import { FaBell, FaClipboardCheck, FaRss } from "react-icons/fa";
-import { AiFillGift } from "react-icons/ai";
-import { BsGearFill } from "react-icons/bs";
-import { FiMenu, FiSearch } from "react-icons/fi";
-import { HiCode, HiCollection } from "react-icons/hi";
-import { MdHome, MdKeyboardArrowRight } from "react-icons/md";
+import {
+  AiOutlineContainer,
+  AiOutlineFund,
+  AiOutlineHome,
+  AiOutlineLeft,
+  AiOutlineRight,
+  AiOutlineSetting,
+} from "react-icons/ai";
+import { FiMoon, FiSun } from "react-icons/fi";
 import React from "react";
+import NavLink from "../../shared/components/nav-link";
 
 const Sidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const sidebar = useDisclosure();
-  const integrations = useDisclosure();
   const color = useColorModeValue("gray.600", "gray.300");
 
   const NavItem = (props) => {
@@ -80,8 +77,9 @@ const Sidebar = () => {
       overflowX="hidden"
       overflowY="auto"
       bg="white"
-      _dark={{ bg: "gray.800" }}
+      _dark={{ bg: "gray.900" }}
       border
+      borderColor={useColorModeValue("gray.100", "gray.700")}
       color="inherit"
       borderRightWidth="1px"
       w="60"
@@ -91,41 +89,62 @@ const Sidebar = () => {
         px="4"
         py="5"
         align="center"
+        justify="space-between"
         gap="4"
       >
         <Text
-          fontSize="2xl"
+          fontSize="xl"
           ml="2"
           color="brand.500"
           _dark={{ color: "white" }}
-          fontWeight="semibold"
+          fontWeight="bold"
         >
           Creator Dashboard
         </Text>
-        <Button onClick={toggleColorMode}>
-          {colorMode === "light" ? <MoonIcon /> : <SunIcon />}
-        </Button>
+        <IconButton
+          aria-label="Menu"
+          display={{ base: "inline-flex", md: "none" }}
+          my="4"
+          onClick={sidebar.onClose}
+          icon={<AiOutlineLeft />}
+          size="sm"
+        />
       </Flex>
       <Flex
         direction="column"
         as="nav"
         fontSize="sm"
         color="gray.600"
+        gap="2"
         aria-label="Main Navigation"
       >
-        <NavItem icon={MdHome}>Home</NavItem>
-        <NavItem icon={HiCollection}>Courses</NavItem>
-        <NavItem icon={FaClipboardCheck}>Statistics</NavItem>
+        <NavLink to="/dashboard">
+          <NavItem icon={AiOutlineHome}>Home</NavItem>
+        </NavLink>
+        <NavLink to="/dashboard/course">
+          <NavItem icon={AiOutlineContainer}>Courses</NavItem>
+        </NavLink>
+        <NavLink to="/dashboard/statistics">
+          <NavItem icon={AiOutlineFund}>Statistics</NavItem>
+        </NavLink>
+        <NavLink to="/dashboard/settings">
+          <NavItem icon={AiOutlineSetting}>Settings</NavItem>
+        </NavLink>
 
-        <NavItem icon={BsGearFill}>Settings</NavItem>
+        <Button
+          m="6"
+          onClick={toggleColorMode}
+        >
+          {colorMode === "light" ? <FiMoon /> : <FiSun color="#A0AEC0" />}
+        </Button>
       </Flex>
     </Box>
   );
   return (
     <Box
       as="section"
-      bg="gray.50"
-      _dark={{ bg: "gray.700" }}
+      bg="#F9F9F6"
+      _dark={{ bg: "gray.800" }}
     >
       <SidebarContent display={{ base: "none", md: "unset" }} />
       <Drawer
@@ -141,6 +160,18 @@ const Sidebar = () => {
           />
         </DrawerContent>
       </Drawer>
+      <IconButton
+        aria-label="Menu"
+        display={{
+          base: "inline-flex",
+          md: "none",
+        }}
+        mx="10"
+        mt="4"
+        onClick={sidebar.onOpen}
+        icon={<AiOutlineRight />}
+        size="md"
+      />
     </Box>
   );
 };
