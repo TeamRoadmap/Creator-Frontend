@@ -1,2 +1,3 @@
 export { default as Sidebar } from "./sidebar";
-export { default as HomeComp } from "./home/home-comp";
+export { default as HomeCard } from "./home/home-card";
+export { default as Layout } from "./layout";
