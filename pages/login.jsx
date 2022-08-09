@@ -26,7 +26,7 @@ import { loginHandler } from "../redux/feature/user/thunk";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isAuth } = useSelector((state) => state.user);
+  const { isAuth, loading } = useSelector((state) => state.user);
   const router = useRouter();
 
   const { register, handleSubmit } = useForm();
@@ -132,6 +132,7 @@ export default function Login() {
                       bg: "purple.800",
                     }}
                     type="submit"
+                    isLoading={loading}
                   >
                     Sign in
                   </Button>
