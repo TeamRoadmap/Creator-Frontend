@@ -16,3 +16,20 @@ export const signUpHandler = createAsyncThunk(
     }
   }
 );
+
+export const loginHandler = createAsyncThunk(
+  "user/user-login",
+  async ({ logInData }) => {
+    try {
+      const res = await axios.post(
+        "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/test",
+        {
+          ...logInData,
+        }
+      );
+      return res.data;
+    } catch (err) {
+      console.log(err);
+    }
+  }
+);
