@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { signUpHandler } from "./thunk";
+import { loginHandler, signUpHandler } from "./thunk";
 
 const initialState = {
   user: {}, // contain all the user's data in object in short (users janam kundali)
@@ -26,6 +26,18 @@ const userSlice = createSlice({
         state.isAuth = true;
       })
       .addCase(signUpHandler.rejected, (state) => {
+        state.loading = false;
+        state.user = undefined;
+      })
+      .addCase(loginHandler.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loginHandler.fulfilled, (state, action) => {
+        state.loading = false;
+        state.user = action.payload;
+        state.isAuth = true;
+      })
+      .addCase(loginHandler.rejected, (state) => {
         state.loading = false;
         state.user = undefined;
       });
