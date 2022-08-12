@@ -35,6 +35,7 @@ export default function SignUp() {
     }
   }, [isAuth]);
   const onSubmit = (data) => {
+    console.log(data)
     dispatch(signUpHandler(data));
   };
 
