@@ -97,6 +97,7 @@ const CourseCard = ({ data }) => {
       </Box>
       <Divider
         orientation="horizontal"
+        w="100"
         p="2"
       />
       <ButtonGroup
