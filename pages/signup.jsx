@@ -13,6 +13,7 @@ import {
   Button,
   Heading,
   Text,
+  Alert,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -22,26 +23,30 @@ import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { signUpHandler } from "../redux/feature/user/thunk";
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isAuth, loading } = useSelector((state) => state.user);
+  const { token, loading, error } = useSelector((state) => state.user);
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   useEffect(() => {
-    if (isAuth) {
+    if (token !== "") {
       router.push("/dashboard", undefined, { shallow: true });
     }
-  }, [isAuth]);
+  }, [token]);
+
   const onSubmit = (data) => {
     dispatch(signUpHandler(data));
   };
 
+  console.log(error);
+
   return (
     <Layout>
       <Flex
-        minH={"100vh"}
+        minH={"105vh"}
         align={"center"}
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -149,6 +154,17 @@ export default function SignUp() {
                   spacing={10}
                   pt={2}
                 >
+                  {error.length > 0 ? (
+                    <Alert
+                      status="error"
+                      rounded="6"
+                    >
+                      <FiAlertCircle style={{ marginRight: "6px" }} />
+                      There was an error processing your request - {error}
+                    </Alert>
+                  ) : (
+                    <></>
+                  )}
                   <Button
                     loadingText="Submitting"
                     size="lg"
