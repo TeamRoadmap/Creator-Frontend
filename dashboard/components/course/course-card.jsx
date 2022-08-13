@@ -25,6 +25,7 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 
 const CourseCard = ({ data }) => {
+  const color = useColorModeValue("white", "gray.800");
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
   return (
     <Box
@@ -101,8 +102,10 @@ const CourseCard = ({ data }) => {
         p="2"
       />
       <ButtonGroup
-        p="1"
-        variant="ghost"
+        p="4"
+        variant="link"
+        bg="none"
+        style={{ display: "flex", justifyContent: "space-around" }}
       >
         <Button
           bg="none"
@@ -110,6 +113,11 @@ const CourseCard = ({ data }) => {
         >
           Preview
         </Button>
+        <Divider
+          orientation="vertical"
+          w="100"
+          p="2"
+        />
         <Button
           bg="none"
           rightIcon={<AiOutlineEdit />}
@@ -117,6 +125,11 @@ const CourseCard = ({ data }) => {
           {" "}
           Edit
         </Button>
+        <Divider
+          orientation="vertical"
+          w="100"
+          p="2"
+        />
         <Button
           bg="none"
           rightIcon={<AiOutlineInfoCircle />}
