@@ -13,7 +13,7 @@ import {
   useColorModeValue,
   InputGroup,
   InputRightElement,
-  FormHelperText,
+  Alert,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Layout from "../shared/components/layout";
@@ -23,6 +23,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { loginHandler } from "../redux/feature/user/thunk";
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -117,13 +118,6 @@ export default function Login() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
-                  {error.length > 0 ? (
-                    <FormHelperText color="red.500">
-                      {error} Please try again
-                    </FormHelperText>
-                  ) : (
-                    <FormHelperText>Click on Submit</FormHelperText>
-                  )}
                 </FormControl>
                 <Stack spacing={10}>
                   <Stack
@@ -134,6 +128,17 @@ export default function Login() {
                     <Checkbox colorScheme="purple">Remember me</Checkbox>
                     <Link color={"purple.400"}>Forgot password?</Link>
                   </Stack>
+                  {error.length > 0 ? (
+                    <Alert
+                      status="error"
+                      rounded="6"
+                    >
+                      <FiAlertCircle style={{ marginRight: "6px" }} />
+                      There was an error processing your request - {error}
+                    </Alert>
+                  ) : (
+                    <></>
+                  )}
                   <Button
                     bg={"purple.600"}
                     color={"white"}

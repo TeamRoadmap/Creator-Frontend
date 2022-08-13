@@ -13,8 +13,7 @@ import {
   Button,
   Heading,
   Text,
-  FormHelperText,
-  FormErrorMessage,
+  Alert,
   useColorModeValue,
 } from "@chakra-ui/react";
 import { useRouter } from "next/router";
@@ -24,6 +23,7 @@ import { useEffect, useState } from "react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { signUpHandler } from "../redux/feature/user/thunk";
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
@@ -149,18 +149,22 @@ export default function SignUp() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
-                  {error.length > 0 ? (
-                    <FormHelperText color="red.500">
-                      {error} Please try again
-                    </FormHelperText>
-                  ) : (
-                    <FormHelperText>Click on Submit</FormHelperText>
-                  )}
                 </FormControl>
                 <Stack
                   spacing={10}
                   pt={2}
                 >
+                  {error.length > 0 ? (
+                    <Alert
+                      status="error"
+                      rounded="6"
+                    >
+                      <FiAlertCircle style={{ marginRight: "6px" }} />
+                      There was an error processing your request - {error}
+                    </Alert>
+                  ) : (
+                    <></>
+                  )}
                   <Button
                     loadingText="Submitting"
                     size="lg"

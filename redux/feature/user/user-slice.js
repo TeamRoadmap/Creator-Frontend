@@ -33,7 +33,7 @@ const userSlice = createSlice({
       .addCase(signUpHandler.rejected, (state, action) => {
         state.loading = false;
         state.user = undefined;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase(loginHandler.pending, (state) => {
         state.loading = true;
@@ -46,7 +46,7 @@ const userSlice = createSlice({
       .addCase(loginHandler.rejected, (state, action) => {
         state.loading = false;
         state.user = undefined;
-        state.error = action.payload.message;
+        state.error = action.payload?.message;
       })
       .addCase("user/logout", (state) => {
         state.loading = false;

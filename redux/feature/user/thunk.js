@@ -21,7 +21,7 @@ export const signUpHandler = createAsyncThunk(
 
 export const loginHandler = createAsyncThunk(
   "user/user-login",
-  async ({ logInData }) => {
+  async (logInData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
         "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/test",
@@ -31,7 +31,7 @@ export const loginHandler = createAsyncThunk(
       );
       return res.data;
     } catch (err) {
-      console.log(err);
+      return rejectWithValue(err);
     }
   }
 );
