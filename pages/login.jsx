@@ -13,6 +13,7 @@ import {
   useColorModeValue,
   InputGroup,
   InputRightElement,
+  FormHelperText,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Layout from "../shared/components/layout";
@@ -26,16 +27,17 @@ import { loginHandler } from "../redux/feature/user/thunk";
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isAuth, loading } = useSelector((state) => state.user);
+  const { token, loading, error } = useSelector((state) => state.user);
   const router = useRouter();
 
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    if (isAuth) {
+    if (token !== "") {
       router.push("/dashboard", undefined, { shallow: true });
     }
-  }, [isAuth]);
+  }, [token]);
+
   const onSubmit = (data) => {
     dispatch(loginHandler(data));
   };
@@ -43,7 +45,7 @@ export default function Login() {
   return (
     <Layout>
       <Flex
-        minH={"100vh"}
+        minH={"105vh"}
         align={"center"}
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -115,6 +117,13 @@ export default function Login() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
+                  {error.length > 0 ? (
+                    <FormHelperText color="red.500">
+                      {error} Please try again
+                    </FormHelperText>
+                  ) : (
+                    <FormHelperText>Click on Submit</FormHelperText>
+                  )}
                 </FormControl>
                 <Stack spacing={10}>
                   <Stack
