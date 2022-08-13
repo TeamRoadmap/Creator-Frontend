@@ -13,6 +13,7 @@ import {
   useColorModeValue,
   InputGroup,
   InputRightElement,
+  Alert,
 } from "@chakra-ui/react";
 import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import Layout from "../shared/components/layout";
@@ -22,20 +23,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { loginHandler } from "../redux/feature/user/thunk";
+import { FiAlertCircle } from "react-icons/fi";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { isAuth, loading } = useSelector((state) => state.user);
+  const { token, loading, error } = useSelector((state) => state.user);
   const router = useRouter();
 
   const { register, handleSubmit } = useForm();
 
   useEffect(() => {
-    if (isAuth) {
+    if (token !== "") {
       router.push("/dashboard", undefined, { shallow: true });
     }
-  }, [isAuth]);
+  }, [token]);
+
   const onSubmit = (data) => {
     dispatch(loginHandler(data));
   };
@@ -43,7 +46,7 @@ export default function Login() {
   return (
     <Layout>
       <Flex
-        minH={"100vh"}
+        minH={"105vh"}
         align={"center"}
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -125,6 +128,17 @@ export default function Login() {
                     <Checkbox colorScheme="purple">Remember me</Checkbox>
                     <Link color={"purple.400"}>Forgot password?</Link>
                   </Stack>
+                  {error.length > 0 ? (
+                    <Alert
+                      status="error"
+                      rounded="6"
+                    >
+                      <FiAlertCircle style={{ marginRight: "6px" }} />
+                      There was an error processing your request - {error}
+                    </Alert>
+                  ) : (
+                    <></>
+                  )}
                   <Button
                     bg={"purple.600"}
                     color={"white"}
