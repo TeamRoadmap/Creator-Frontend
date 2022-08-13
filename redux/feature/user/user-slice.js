@@ -1,11 +1,13 @@
 import { createSlice } from "@reduxjs/toolkit";
 import { loginHandler, signUpHandler } from "./thunk";
 
+
 const initialState = {
   user: {}, // contain all the user's data in object in short (users janam kundali)
   token: "",
   isAuth: false,
   loading: false,
+  error: "",
 };
 const userSlice = createSlice({
   name: "user",
@@ -14,6 +16,9 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    resetList: (state) => {
+      return (state = []);
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -21,25 +26,32 @@ const userSlice = createSlice({
         state.loading = true;
       })
       .addCase(signUpHandler.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loading = true;
+        state.token = action.payload?.token;
         state.user = action.payload;
-        state.isAuth = true;
       })
-      .addCase(signUpHandler.rejected, (state) => {
+      .addCase(signUpHandler.rejected, (state, action) => {
         state.loading = false;
         state.user = undefined;
+        state.error = action.payload.message;
       })
       .addCase(loginHandler.pending, (state) => {
         state.loading = true;
       })
       .addCase(loginHandler.fulfilled, (state, action) => {
-        state.loading = false;
+        state.loading = true;
+        state.token = action.payload?.token;
         state.user = action.payload;
-        state.isAuth = true;
       })
-      .addCase(loginHandler.rejected, (state) => {
+      .addCase(loginHandler.rejected, (state, action) => {
         state.loading = false;
         state.user = undefined;
+        state.error = action.payload.message;
+      })
+      .addCase("user/logout", (state) => {
+        state.loading = false;
+        state.token = "";
+        state.user = {};
       });
   },
 });
