@@ -155,7 +155,7 @@ export default function SignUp() {
                   spacing={10}
                   pt={2}
                 >
-                  {error.length > 0 ? (
+                  {error?.length > 0 ? (
                     <Alert
                       status="error"
                       rounded="6"

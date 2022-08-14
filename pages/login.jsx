@@ -128,7 +128,7 @@ export default function Login() {
                     <Checkbox colorScheme="purple">Remember me</Checkbox>
                     <Link color={"purple.400"}>Forgot password?</Link>
                   </Stack>
-                  {error.length > 0 ? (
+                  {error?.length > 0 ? (
                     <Alert
                       status="error"
                       rounded="6"
