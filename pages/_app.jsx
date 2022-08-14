@@ -3,14 +3,16 @@ import { CSSReset } from "@chakra-ui/react";
 import { Chakra } from "../shared/lib/chakra";
 import theme from "../shared/lib/theme";
 import { Provider } from "react-redux";
-import { store } from "../redux/store";
+import { store , persistor} from "../redux/store";
 import ProtectedPath from "../shared/components/ProtectedPath";
 import { useRouter } from "next/router";
+import { PersistGate } from "redux-persist/lib/integration/react";
 function MyApp({ Component, pageProps }) {
   const route = useRouter();
   const publicPaths = ["/login", "/signup", "/"];
   return (
     <Provider store={store}>
+      <PersistGate loading={null} persistor={persistor}>
       <Chakra
         cookies={pageProps.cookies}
         theme={theme}
@@ -28,6 +30,7 @@ function MyApp({ Component, pageProps }) {
           </ProtectedPath>
         )}
       </Chakra>
+      </PersistGate>
     </Provider>
   );
 }

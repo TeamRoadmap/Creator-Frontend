@@ -38,6 +38,7 @@ export default function SignUp() {
   }, [token]);
 
   const onSubmit = (data) => {
+    console.log(data)
     dispatch(signUpHandler(data));
   };
 
@@ -154,7 +155,7 @@ export default function SignUp() {
                   spacing={10}
                   pt={2}
                 >
-                  {error.length > 0 ? (
+                  {error?.length > 0 ? (
                     <Alert
                       status="error"
                       rounded="6"

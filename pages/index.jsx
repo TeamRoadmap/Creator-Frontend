@@ -5,6 +5,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 export default function Home() {
 	const { user } = useSelector((store) => store.user); // just for testing
+	console.log(user)
 	return (
 		<Layout>
 			<Head>
