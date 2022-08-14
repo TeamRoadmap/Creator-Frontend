@@ -23,6 +23,7 @@ import {
 } from "react-icons/ai";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
+import NextLink from "next/link";
 
 const CourseCard = ({ data }) => {
   const color = useColorModeValue("white", "gray.800");
@@ -107,12 +108,15 @@ const CourseCard = ({ data }) => {
         bg="none"
         style={{ display: "flex", justifyContent: "space-around" }}
       >
-        <Button
-          bg="none"
-          rightIcon={<AiOutlineEye />}
-        >
-          Preview
-        </Button>
+        <NextLink href={`/dashboard/course/${data.id}`}>
+          <Button
+            bg="none"
+            rightIcon={<AiOutlineEye />}
+          >
+            Preview
+          </Button>
+        </NextLink>
+
         <Divider
           orientation="vertical"
           w="100"
