@@ -7,7 +7,7 @@ import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { AiOutlineSave } from "react-icons/ai";
 import Quill from "../../../dashboard/components/course/quill";
 
-export const course = () => {
+export const Course = () => {
   const { courses } = useSelector((state) => state.course);
 
   // const router = useRouter();
@@ -37,4 +37,4 @@ export const course = () => {
   );
 };
 
-export default course;
+export default Course;
