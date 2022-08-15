@@ -13,3 +13,39 @@ a {
 * {
   box-sizing: border-box;
 }
+
+
+.ql-snow.ql-toolbar button:hover {
+  color: var(--chakra-colors-chakra-body-text) !important
+}
+
+
+.ql-toolbar .ql-stroke {
+  fill: none !important;
+  stroke: var(--chakra-colors-chakra-body-text) !important;
+  
+}
+.ql-snow.ql-toolbar .ql-picker-label:hover {
+  color: var(--chakra-colors-chakra-body-text) !important
+}
+.ql-toolbar.ql-snow {
+  border-radius: 8px 8px 0 0 !important;
+}
+
+.ql-snow .ql-picker-options {
+  background-color: var(--chakra-colors-chakra-body-bg) !important;;
+
+}
+
+.ql-container.ql-snow  {
+  border-radius:  0 0  8px 8px !important;
+}
+
+.ql-toolbar .ql-fill {
+  fill: var(--chakra-colors-chakra-body-text) !important;
+  stroke: none !important;
+}
+
+.ql-toolbar .ql-picker {
+  color: var(--chakra-colors-chakra-body-text) !important;
+}
