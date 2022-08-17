@@ -6,6 +6,7 @@ import { Layout } from "../../../dashboard/components";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { AiOutlineSave } from "react-icons/ai";
 import Quill from "../../../dashboard/components/course/quill";
+import { CourseBuildLayout } from "../../../dashboard/components/course/course-build-layout";
 
 export const Course = () => {
   const { courses } = useSelector((state) => state.course);
@@ -18,7 +19,7 @@ export const Course = () => {
   console.log(courses);
 
   return (
-    <Layout>
+    <CourseBuildLayout>
       <Stack
         direction="row"
         justify="space-between"
@@ -33,7 +34,7 @@ export const Course = () => {
         <Button leftIcon={<AiOutlineSave />}>Save</Button>
       </Stack>
       <Quill />
-    </Layout>
+    </CourseBuildLayout>
   );
 };
 
