@@ -25,6 +25,7 @@ import React from "react";
 import NavLink from "../../../shared/components/nav-link";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import Sections from "./sections";
 
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -112,7 +113,7 @@ export const CourseSidebar = () => {
           _dark={{ color: "white" }}
           fontWeight="bold"
         >
-          Creator Dashboard
+          Cousrse Builder
         </Text>
         <IconButton
           aria-label="Menu"
@@ -123,44 +124,28 @@ export const CourseSidebar = () => {
           size="sm"
         />
       </Flex>
-      {/* side bar's main content area */}
-      <Flex
-        direction="column"
-        as="nav"
-        fontSize="sm"
-        color="gray.600"
-        gap="2"
-        aria-label="Main Navigation"
+      <Text
+        px="4"
+        py="2"
+        fontSize="xl"
+        ml="2"
+        mb="2"
+        color="brand.500"
+        _dark={{ color: "white" }}
+        fontWeight="bold"
       >
-        <NavLink to="/dashboard">
-          <NavItem icon={AiOutlineHome}>Home</NavItem>
-        </NavLink>
-        <NavLink to="/dashboard/courses">
-          <NavItem icon={AiOutlineContainer}>Courses</NavItem>
-        </NavLink>
-        <NavLink to="/dashboard/statistics">
-          <NavItem icon={AiOutlineFund}>Statistics</NavItem>
-        </NavLink>
-        <NavLink to="/dashboard/settings">
-          <NavItem icon={AiOutlineSetting}>Settings</NavItem>
-        </NavLink>
-
+        Sections
+      </Text>
+      {/* side bar's main content area */}
+      <Sections />
+      <Box m="5">
         <Button
-          m="6"
+          w="full"
           onClick={toggleColorMode}
         >
           {colorMode === "light" ? <FiMoon /> : <FiSun color="#A0AEC0" />}
         </Button>
-
-        <Button
-          m="6"
-          leftIcon={<FiLogOut />}
-          onClick={onLogOut}
-          color={color}
-        >
-          Log Out
-        </Button>
-      </Flex>
+      </Box>
     </Box>
   );
   return (
@@ -197,4 +182,4 @@ export const CourseSidebar = () => {
       />
     </Box>
   );
-}
+};

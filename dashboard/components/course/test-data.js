@@ -1,4 +1,4 @@
-export const coursesection = [
+export const coursesectiondata = [
   {
     id: 1,
     title: "section1",
