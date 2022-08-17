@@ -1,5 +1,7 @@
 import { Box, useColorModeValue } from "@chakra-ui/react";
 import dynamic from "next/dynamic";
+import hljs from "highlight.js";
+import "highlight.js/styles/monokai-sublime.css";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
   ssr: false,
@@ -10,7 +12,9 @@ const modules = {
   toolbar: [
     [{ header: "1" }, { header: "2" }, { font: [] }],
     [{ size: [] }],
+
     ["bold", "italic", "underline", "strike", "blockquote"],
+    ["code-block"],
     [
       { list: "ordered" },
       { list: "bullet" },
@@ -20,6 +24,9 @@ const modules = {
     ["link", "image", "video"],
     ["clean"],
   ],
+  syntax: {
+    highlight: (text) => hljs.highlightAuto(text).value,
+  }, // Include syntax module
   clipboard: {
     // toggle to add extra line breaks when pasting HTML:
     matchVisual: false,
@@ -44,6 +51,7 @@ const formats = [
   "link",
   "image",
   "video",
+  "code-block",
 ];
 
 const Quill = () => {
