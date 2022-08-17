@@ -7,7 +7,7 @@ import { store , persistor} from "../redux/store";
 import ProtectedPath from "../shared/components/ProtectedPath";
 import { useRouter } from "next/router";
 import { PersistGate } from "redux-persist/lib/integration/react";
-import "react-quill/dist/quill.snow.css";
+import "../styles/quill.css";
 
 function MyApp({ Component, pageProps }) {
   const route = useRouter();

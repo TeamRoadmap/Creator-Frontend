@@ -56,11 +56,10 @@ const formats = [
 
 const Quill = () => {
   return (
-    <Box m="12">
+    <Box mx="24">
       <QuillNoSSRWrapper
         modules={modules}
         formats={formats}
-        theme="snow"
       />
     </Box>
   );
