@@ -13,6 +13,7 @@ import { AiOutlinePlus } from "react-icons/ai";
 
 const data = [
   {
+    id: 1,
     isNew: false,
     imageURL: "/images/react-course.webp",
     courseName: " Basics of React",
@@ -22,6 +23,7 @@ const data = [
   },
 
   {
+    id: 2,
     isNew: false,
     imageURL: "/images/react-course.webp",
     courseName: " Basics of React",
@@ -30,6 +32,7 @@ const data = [
     tutor: "Devansh",
   },
   {
+    id: 3,
     isNew: false,
     imageURL: "/images/react-course.webp",
     courseName: " Basics of React",
@@ -38,6 +41,7 @@ const data = [
     tutor: "Devansh",
   },
 ];
+
 export default function Course() {
   const { isOpen, onOpen, onClose } = useDisclosure();
 
