@@ -12,12 +12,14 @@ import {
   ModalOverlay,
   Text,
   Textarea,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useRef } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 
-const CourseSidebarModal = ({ isOpen, onClose, type }) => {
+const CourseSidebarModal = ({ type }) => {
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit } = useForm();
   const initialRef = useRef(null);
   const onSubmit = (data) => {
@@ -25,6 +27,15 @@ const CourseSidebarModal = ({ isOpen, onClose, type }) => {
   };
   return (
     <>
+      <Button
+        onClick={onOpen}
+        color="brand.500"
+        _dark={{ color: "white" }}
+        my="5"
+        w="full"
+      >
+        + Add {type}
+      </Button>
       <Modal
         initialFocusRef={initialRef}
         isOpen={isOpen}
@@ -40,15 +51,15 @@ const CourseSidebarModal = ({ isOpen, onClose, type }) => {
                 <FormLabel>{type} Title</FormLabel>
                 <Input
                   ref={initialRef}
-                  placeholder="title"
-                  {...register("title")}
+                  placeholder={`${type} title`}
+                  {...register(`${type}Title`)}
                 />
               </FormControl>
               <FormControl mt={4}>
                 <Text mb="8px">{type} Description</Text>
                 <Textarea
-                  placeholder="Description"
-                  {...register("description", {
+                  placeholder={`${type} Description`}
+                  {...register(`${type}Description`, {
                     maxLength: {
                       value: 25,
                       message: "Please Enter word less than 25 Character",

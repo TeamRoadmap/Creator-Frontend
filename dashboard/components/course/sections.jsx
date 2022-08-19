@@ -66,20 +66,7 @@ export default function Sections() {
                     );
                   })}
                 </List>
-                <Button
-                  onClick={onOpen}
-                  color="brand.500"
-                  _dark={{ color: "white" }}
-                  my="5"
-                  w="full"
-                >
-                  + Add Item
-                </Button>
-                <CourseSidebarModal
-                  isOpen={isOpen}
-                  onClose={onClose}
-                  type="Subsection"
-                />
+                <CourseSidebarModal type="Subsection" />
               </AccordionPanel>
             </AccordionItem>
           );
@@ -91,17 +78,7 @@ export default function Sections() {
         color="brand.500"
         _dark={{ color: "white" }}
       >
-        <Button
-          onClick={onOpen}
-          w="full"
-        >
-          + Add Item
-        </Button>
-        <CourseSidebarModal
-          isOpen={isOpen}
-          onClose={onClose}
-          type="Section"
-        />
+        <CourseSidebarModal type="Section" />
       </Box>
     </Flex>
   );
