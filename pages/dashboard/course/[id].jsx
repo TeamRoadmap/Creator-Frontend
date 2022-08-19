@@ -4,6 +4,7 @@ import { useSelector } from "react-redux";
 import { Button, Heading, Stack, Text } from "@chakra-ui/react";
 import { AiOutlineSave } from "react-icons/ai";
 import { Quill, CourseBuildLayout } from "../../../dashboard/components";
+
 export const Course = () => {
   const { courses } = useSelector((state) => state.course);
 

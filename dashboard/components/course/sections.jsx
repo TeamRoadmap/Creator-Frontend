@@ -11,9 +11,14 @@ import {
   Button,
   List,
   ListItem,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { MdModeEdit } from "react-icons/md";
+import CourseSidebarModal from "./course-sidebar-modal";
+
 export default function Sections() {
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
   return (
     <Flex
       direction="column"
@@ -62,6 +67,7 @@ export default function Sections() {
                   })}
                 </List>
                 <Button
+                  onClick={onOpen}
                   color="brand.500"
                   _dark={{ color: "white" }}
                   my="5"
@@ -69,6 +75,11 @@ export default function Sections() {
                 >
                   + Add Item
                 </Button>
+                <CourseSidebarModal
+                  isOpen={isOpen}
+                  onClose={onClose}
+                  type="Subsection"
+                />
               </AccordionPanel>
             </AccordionItem>
           );
@@ -80,7 +91,17 @@ export default function Sections() {
         color="brand.500"
         _dark={{ color: "white" }}
       >
-        <Button w="full">+ Add Item</Button>
+        <Button
+          onClick={onOpen}
+          w="full"
+        >
+          + Add Item
+        </Button>
+        <CourseSidebarModal
+          isOpen={isOpen}
+          onClose={onClose}
+          type="Section"
+        />
       </Box>
     </Flex>
   );

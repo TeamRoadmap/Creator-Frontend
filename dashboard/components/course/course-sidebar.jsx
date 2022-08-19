@@ -5,78 +5,20 @@ import {
   DrawerOverlay,
   Button,
   Flex,
-  Icon,
   IconButton,
   Text,
   useColorModeValue,
   useColorMode,
   useDisclosure,
 } from "@chakra-ui/react";
-import {
-  AiOutlineContainer,
-  AiOutlineFund,
-  AiOutlineHome,
-  AiOutlineLeft,
-  AiOutlineRight,
-  AiOutlineSetting,
-} from "react-icons/ai";
-import { FiLogOut, FiMoon, FiSun } from "react-icons/fi";
+import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
+import { FiMoon, FiSun } from "react-icons/fi";
 import React from "react";
-import NavLink from "../../../shared/components/nav-link";
-import { useDispatch } from "react-redux";
-import { useRouter } from "next/router";
 import Sections from "./sections";
 
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const sidebar = useDisclosure();
-  const color = useColorModeValue("gray.600", "gray.300");
-
-  const dispatch = useDispatch();
-
-  const router = useRouter();
-
-  const onLogOut = (e) => {
-    e.preventDefault();
-    dispatch({ type: "user/logout" });
-    router.push("/login", undefined, { shallow: true });
-  };
-
-  const NavItem = (props) => {
-    const { icon, children, ...rest } = props;
-    return (
-      <Flex
-        align="center"
-        px="4"
-        pl="4"
-        py="3"
-        cursor="pointer"
-        color="inherit"
-        _dark={{ color: "gray.400" }}
-        _hover={{
-          bg: "gray.100",
-          _dark: { bg: "gray.900" },
-          color: "gray.900",
-        }}
-        role="group"
-        fontWeight="semibold"
-        transition=".15s ease"
-        {...rest}
-      >
-        {icon && (
-          <Icon
-            mx="2"
-            boxSize="4"
-            _groupHover={{
-              color: color,
-            }}
-            as={icon}
-          />
-        )}
-        {children}
-      </Flex>
-    );
-  };
 
   const SidebarContent = (props) => (
     <Box
