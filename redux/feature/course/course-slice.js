@@ -22,6 +22,9 @@ const courseSlice = createSlice({
     setSection: (state, action) => {
       state.editorSection = action.payload;
     },
+    setEditorSectionContent: (state, action) => {
+      state.editorSection.content = action.payload;
+    },
     resetList: (state) => {
       return (state = []);
     },
