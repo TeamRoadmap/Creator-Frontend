@@ -24,6 +24,8 @@ import { useEffect, useState } from "react";
 import NextLink from "next/link";
 import { loginHandler } from "../redux/feature/user/thunk";
 import { FiAlertCircle } from "react-icons/fi";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../shared/lib/firebase";
 
 export default function Login() {
   const [showPassword, setShowPassword] = useState(false);
@@ -39,8 +41,11 @@ export default function Login() {
     }
   }, [token]);
 
-  const onSubmit = (data) => {
-    dispatch(loginHandler(data));
+  const onSubmit = async(data) => {
+    const res = await signInWithEmailAndPassword(auth,data.email,data.password)
+    const token = await res.user.getIdToken();
+    dispatch(loginHandler(token));
+    dispatch({ type: "user/setToken", payload: token });
   };
 
   return (

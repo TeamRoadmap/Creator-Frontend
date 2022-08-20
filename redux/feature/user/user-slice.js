@@ -16,6 +16,9 @@ const userSlice = createSlice({
     setUser: (state, action) => {
       state.user = action.payload;
     },
+    setToken: (state, action) => {
+      state.token = action.payload;
+    },
     resetList: (state) => {
       return (state = []);
     },
@@ -27,7 +30,6 @@ const userSlice = createSlice({
       })
       .addCase(signUpHandler.fulfilled, (state, action) => {
         state.loading = true;
-        state.token = action.payload?.token;
         state.user = action.payload;
       })
       .addCase(signUpHandler.rejected, (state, action) => {
@@ -40,7 +42,6 @@ const userSlice = createSlice({
       })
       .addCase(loginHandler.fulfilled, (state, action) => {
         state.loading = true;
-        state.token = action.payload?.token;
         state.user = action.payload;
       })
       .addCase(loginHandler.rejected, (state, action) => {

@@ -7,7 +7,7 @@ export const signUpHandler = createAsyncThunk(
   async (signUpData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/test",
+        "https://roadmap-backend-host.herokuapp.com/api/v1/auth/signup",
         {
           ...signUpData,
         }
@@ -21,12 +21,14 @@ export const signUpHandler = createAsyncThunk(
 
 export const loginHandler = createAsyncThunk(
   "user/user-login",
-  async (logInData, { rejectWithValue }) => {
+  async ( token ,{ rejectWithValue }) => {
     try {
-      const res = await axios.post(
-        "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/test",
+      const res = await axios.get(
+        "https://roadmap-backend-host.herokuapp.com/api/v1/auth/login",
         {
-          ...logInData,
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
         }
       );
       return res.data;

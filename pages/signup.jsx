@@ -16,6 +16,10 @@ import {
   Alert,
   useColorModeValue,
 } from "@chakra-ui/react";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
 import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -24,11 +28,12 @@ import { ViewIcon, ViewOffIcon } from "@chakra-ui/icons";
 import NextLink from "next/link";
 import { signUpHandler } from "../redux/feature/user/thunk";
 import { FiAlertCircle } from "react-icons/fi";
+import { auth } from "../shared/lib/firebase";
 
 export default function SignUp() {
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
-  const { token, loading, error } = useSelector((state) => state.user);
+  const { token, user, loading, error } = useSelector((state) => state.user);
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   useEffect(() => {
@@ -36,12 +41,26 @@ export default function SignUp() {
       router.push("/dashboard", undefined, { shallow: true });
     }
   }, [token]);
-
-  const onSubmit = (data) => {
-    console.log(data)
-    dispatch(signUpHandler(data));
+  const onSubmit = async (data) => {
+    try {
+      const response = await createUserWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const token = await response.user.getIdToken();
+      dispatch(
+        signUpHandler({
+          name: `${data.firstName} ${data.lastName}`,
+          email: data.email,
+          role: "creator",
+        })
+      );
+      dispatch({ type: "user/setToken", payload: token });
+    } catch (err) {
+      console.log(err);
+    }
   };
-
   console.log(error);
 
   return (
