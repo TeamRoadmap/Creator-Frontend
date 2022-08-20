@@ -14,11 +14,13 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { MdModeEdit } from "react-icons/md";
+import { useSelector } from "react-redux";
 import CourseSidebarModal from "./course-sidebar-modal";
 
 export default function Sections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-
+  const { course } = useSelector((state) => state.course)
+  console.log(course,"section module")
   return (
     <Flex
       direction="column"
@@ -29,7 +31,7 @@ export default function Sections() {
       aria-label="Main Navigation"
     >
       <Accordion allowMultiple>
-        {coursesectiondata.map((sectionData, index) => {
+        {course?.map((sectionData, index) => {
           return (
             <AccordionItem key={sectionData.id}>
               <AccordionButton>
