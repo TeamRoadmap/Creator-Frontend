@@ -32,10 +32,8 @@ export default function Sections() {
     const res = await axios.get(
       `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSection?id=${sectionId}`
     );
-    console.log(res);
     dispatch({ type: "course/setSection", payload: res.data });
   };
-  console.log(course, "section module");
   return (
     <Flex
       direction="column"
