@@ -37,6 +37,15 @@ const CourseSidebarModal = ({ type }) => {
         courseId: courseId,
       }
     );
+    // const res = await axios.post(
+    //   "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addSubSection",
+    //   {
+    //     title: data.title,
+    //     description: data.description,
+    //     content: "",
+    //     sectionId: sectionId,
+    //   }
+    // );
     onClose();
     reset({ title: "", description: "" });
   };
