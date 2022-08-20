@@ -12,15 +12,30 @@ import {
   List,
   ListItem,
   useDisclosure,
+  Text,
+  useColorModeValue,
+  IconButton,
 } from "@chakra-ui/react";
 import { MdModeEdit } from "react-icons/md";
 import { useSelector } from "react-redux";
 import CourseSidebarModal from "./course-sidebar-modal";
+import axios from "axios";
+import { useDispatch } from "react-redux";
+import { EditIcon } from "@chakra-ui/icons";
 
 export default function Sections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { course } = useSelector((state) => state.course)
-  console.log(course,"section module")
+  const { course } = useSelector((state) => state.course);
+  const dispatch = useDispatch();
+  const color = useColorModeValue("gray.500", "white");
+  const getSectionData = async (sectionId) => {
+    const res = await axios.get(
+      `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSection?id=${sectionId}`
+    );
+    console.log(res);
+    dispatch({ type: "course/setSection", payload: res.data });
+  };
+  console.log(course, "section module");
   return (
     <Flex
       direction="column"
@@ -30,41 +45,64 @@ export default function Sections() {
       gap="2"
       aria-label="Main Navigation"
     >
-      <Accordion allowMultiple>
-        {course?.map((sectionData, index) => {
+      <Accordion
+        allowMultiple
+        allowToggle="false"
+      >
+        {course?.section?.map((sectionData, index) => {
           return (
             <AccordionItem key={sectionData.id}>
-              <AccordionButton>
-                <Box
-                  flex="1"
-                  textAlign="left"
-                  px="2"
+              <Flex
+                m="2"
+                direction="row"
+                justifyContent="space-around"
+                alignItems="center"
+                px="2"
+              >
+                <Text
+                  fontSize="1rem"
                   color="brand.500"
                   _dark={{ color: "white" }}
                 >
                   {sectionData.title}
-                </Box>
-                <Flex gap="0.5rem">
-                  <MdModeEdit />
-                  <AccordionIcon />
+                </Text>
+                <Flex alignItems="center">
+                  <IconButton
+                    icon={<MdModeEdit size="1rem" />}
+                    color={color}
+                    onClick={() => getSectionData(sectionData.id)}
+                  />
+                  <AccordionButton w="fit">
+                    <AccordionIcon />
+                  </AccordionButton>
                 </Flex>
-              </AccordionButton>
+              </Flex>
+
               <AccordionPanel>
                 <List px="5">
                   {sectionData.subSection.map((subSec) => {
                     return (
-                      <ListItem
-                        py="2"
-                        key={subSec.id}
-                        color="brand.500"
-                        _dark={{ color: "white" }}
-                        display="flex"
-                        alignItems="center"
+                      <Flex
+                        mb="4"
+                        direction="row"
+                        gap="2"
                         justifyContent="space-between"
+                        alignItems="center"
+                        key={subSec.id}
                       >
-                        {subSec.title}
-                        <MdModeEdit />
-                      </ListItem>
+                        <Text
+                          fontSize="1rem"
+                          color="brand.500"
+                          _dark={{ color: "white" }}
+                        >
+                          {subSec.title}
+                        </Text>
+                        <IconButton
+                          icon={<MdModeEdit size="1rem" />}
+                          color={color}
+                          onClick={() => getSectionData(sectionData.id)}
+                        />
+                      </Flex>
                     );
                   })}
                 </List>
