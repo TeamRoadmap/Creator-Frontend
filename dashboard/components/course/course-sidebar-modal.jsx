@@ -17,13 +17,32 @@ import {
 import { useRef } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
-
+import axios from "axios";
+import { useSelector } from "react-redux";
 const CourseSidebarModal = ({ type }) => {
+  const { courseId } = useSelector((state) => state.course);
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { register, handleSubmit } = useForm();
+  const { register, handleSubmit , reset} = useForm();
   const initialRef = useRef(null);
+  const getUpdatedCourse = async () => {
+
+  }
+  const addSectionPost = async (data) => {
+    const res = await axios.post(
+      "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addsection",
+      {
+        title: data.title,
+        description: data.description,
+        content: "",
+        courseId: courseId,
+      }
+    );
+    onClose();
+    reset({title: "" , description: ""})
+    console.log(res)
+  };
   const onSubmit = (data) => {
-    console.log(data);
+    addSectionPost(data)
   };
   return (
     <>
@@ -52,19 +71,21 @@ const CourseSidebarModal = ({ type }) => {
                 <Input
                   ref={initialRef}
                   placeholder={`${type} title`}
-                  {...register(`${type}Title`)}
+                  {...register(`title`)}
+                  required
                 />
               </FormControl>
               <FormControl mt={4}>
                 <Text mb="8px">{type} Description</Text>
                 <Textarea
                   placeholder={`${type} Description`}
-                  {...register(`${type}Description`, {
+                  {...register(`description`, {
                     maxLength: {
                       value: 25,
                       message: "Please Enter word less than 25 Character",
                     },
                   })}
+                  required
                 />
               </FormControl>
             </ModalBody>
