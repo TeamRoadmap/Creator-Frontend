@@ -38,8 +38,7 @@ const CourseSidebarModal = ({ type }) => {
       }
     );
     onClose();
-    reset({title: "" , description: ""})
-    console.log(res)
+    reset({ title: "", description: "" });
   };
   const onSubmit = (data) => {
     addSectionPost(data)
@@ -81,8 +80,8 @@ const CourseSidebarModal = ({ type }) => {
                   placeholder={`${type} Description`}
                   {...register(`description`, {
                     maxLength: {
-                      value: 25,
-                      message: "Please Enter word less than 25 Character",
+                      value: 150,
+                      message: "Please Enter word less than 150 Character",
                     },
                   })}
                   required
