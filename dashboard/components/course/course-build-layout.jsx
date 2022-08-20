@@ -2,7 +2,7 @@ import React from "react";
 import { Box } from "@chakra-ui/react";
 import { CourseSidebar } from "./course-sidebar";
 
-export const CourseBuildLayout = ({ children }) => {
+const CourseBuildLayout = ({ children }) => {
   return (
     <Box
       ml={{ base: 0, md: 60 }}
@@ -25,3 +25,5 @@ export const CourseBuildLayout = ({ children }) => {
     </Box>
   );
 };
+
+export default CourseBuildLayout;
