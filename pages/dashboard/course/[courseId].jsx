@@ -1,33 +1,43 @@
 import React, { useEffect } from "react";
 import { useRouter } from "next/router";
 import { useSelector } from "react-redux";
-import { Button, Heading, Stack, Text } from "@chakra-ui/react";
-import { AiOutlineSave } from "react-icons/ai";
+import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
+import { AiFillCodeSandboxCircle, AiOutlineSave } from "react-icons/ai";
 import { Quill, CourseBuildLayout } from "../../../dashboard/components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 export const Course = () => {
-  const { course } = useSelector((state) => state.course);
+  const { course, editorSection } = useSelector((state) => state.course);
   const dispatch = useDispatch();
   const router = useRouter();
   const { courseId } = router.query;
+
   const getCourseDetail = async () => {
     const res = await axios.get(
       `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getCourse?id=${courseId}`,
       {
         headers: {
-          "Content-Type" : "application/json"
+          "Content-Type": "application/json",
         },
       }
     );
-    dispatch({type: "course/setCourse", payload: res.data.data})
+    dispatch({ type: "course/setCourse", payload: res.data });
+  };
+
+  const updateSection = async () => {
+    const res = await axios.patch(
+      `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSection?id=${editorSection.id}`,
+      {
+        title: editorSection.title,
+        description: editorSection.description,
+        content: editorSection.content,
+      }
+    );
   };
   useEffect(() => {
-    dispatch({type: "course/setCourseId", payload: courseId})
+    dispatch({ type: "course/setCourseId", payload: courseId });
     getCourseDetail();
   }, []);
-
-
 
   return (
     <CourseBuildLayout>
@@ -38,13 +48,43 @@ export const Course = () => {
         align="center"
       >
         <Stack direction="column">
-          <Heading>{course?.courseName}</Heading>
+          <Heading>{course?.title}</Heading>
           <Text>{course?.description}</Text>
         </Stack>
 
-        <Button leftIcon={<AiOutlineSave />}>Save</Button>
+        <Button
+          leftIcon={<AiOutlineSave />}
+          onClick={updateSection}
+        >
+          Save
+        </Button>
       </Stack>
-      <Quill />
+      {editorSection != "" && (
+        <Box
+          my="12"
+          bg="white"
+          rounded="8"
+          _dark={{ bg: "gray.900" }}
+          mx="6"
+          p="8"
+        >
+          <Flex
+            gap="6"
+            direction="column"
+          >
+            <Flex
+              gap="2"
+              direction="column"
+            >
+              <Text fontSize="1rem">{editorSection.id}</Text>
+              <Text>{editorSection.title}</Text>
+              <Text>{editorSection.description}</Text>
+            </Flex>
+
+            <Quill value={editorSection.content} />
+          </Flex>
+        </Box>
+      )}
     </CourseBuildLayout>
   );
 };

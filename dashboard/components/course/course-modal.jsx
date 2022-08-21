@@ -27,7 +27,6 @@ const CourseModal = ({ isOpen, onClose }) => {
   const initialRef = useRef(null);
 
   const onSubmit = async (data) => {
-    console.log(data);
     const res = await axios.post(
       "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addCourse",
       data
@@ -73,8 +72,8 @@ const CourseModal = ({ isOpen, onClose }) => {
                   placeholder="Description"
                   {...register("description", {
                     maxLength: {
-                      value: 25,
-                      message: "Please Enter word less than 25 Character",
+                      value: 150,
+                      message: "Please Enter word less than 150 Character",
                     },
                   })}
                 />

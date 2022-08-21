@@ -2,7 +2,8 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   course: [],
-  courseId: ""
+  courseId: "",
+  editorSection: "",
   // contain all the courses's data in an array of object.
 };
 const courseSlice = createSlice({
@@ -17,6 +18,12 @@ const courseSlice = createSlice({
     },
     setCourse: (state, action) => {
       state.course = action.payload;
+    },
+    setSection: (state, action) => {
+      state.editorSection = action.payload;
+    },
+    setEditorSectionContent: (state, action) => {
+      state.editorSection.content = action.payload;
     },
     resetList: (state) => {
       return (state = []);

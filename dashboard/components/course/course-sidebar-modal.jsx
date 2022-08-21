@@ -37,9 +37,17 @@ const CourseSidebarModal = ({ type }) => {
         courseId: courseId,
       }
     );
+    // const res = await axios.post(
+    //   "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addSubSection",
+    //   {
+    //     title: data.title,
+    //     description: data.description,
+    //     content: "",
+    //     sectionId: sectionId,
+    //   }
+    // );
     onClose();
-    reset({title: "" , description: ""})
-    console.log(res)
+    reset({ title: "", description: "" });
   };
   const onSubmit = (data) => {
     addSectionPost(data)
@@ -81,8 +89,8 @@ const CourseSidebarModal = ({ type }) => {
                   placeholder={`${type} Description`}
                   {...register(`description`, {
                     maxLength: {
-                      value: 25,
-                      message: "Please Enter word less than 25 Character",
+                      value: 150,
+                      message: "Please Enter word less than 150 Character",
                     },
                   })}
                   required
