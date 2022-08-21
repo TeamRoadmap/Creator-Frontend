@@ -24,8 +24,9 @@ import {
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import NextLink from "next/link";
+// import Courseimg from "/images/react-course.webp";
 
-const CourseCard = ({ data }) => {
+const CourseCard = ({ title, id, description, public_id }) => {
   const color = useColorModeValue("white", "gray.800");
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
   return (
@@ -38,13 +39,13 @@ const CourseCard = ({ data }) => {
       zIndex={1}
     >
       <Box maxW="full">
-        <Img
+        {/* <Img
           p="4"
           width="100%"
           height="100%"
           style={{ borderRadius: "1.2rem", objectFit: "contain" }}
           src={data.imageURL}
-        />
+        /> */}
       </Box>
 
       <Box px="4">
@@ -63,14 +64,14 @@ const CourseCard = ({ data }) => {
               fontWeight="semibold"
               color={useColorModeValue("gray.700", "gray.200")}
             >
-              {data.courseName}
+              {title}
             </Text>
             <Text
               as="p"
               fontSize="sm"
               color={useColorModeValue("gray.600", "gray.300")}
             >
-              {data.type}
+              {id}
             </Text>
           </Flex>
           <Flex
@@ -78,7 +79,7 @@ const CourseCard = ({ data }) => {
             justifyContent="space-between"
             alignItems="start"
           >
-            {data.lastUpdated && (
+            {/* {data.lastUpdated && (
               <Text
                 as="p"
                 fontSize="sm"
@@ -86,13 +87,13 @@ const CourseCard = ({ data }) => {
               >
                 Last Updated on - {data.lastUpdated}
               </Text>
-            )}
+            )} */}
             <Text
               as="p"
               fontSize="sm"
               color={lastUpdatedColor}
             >
-              By: {data.tutor}
+              {description}
             </Text>
           </Flex>
         </Flex>
@@ -108,27 +109,27 @@ const CourseCard = ({ data }) => {
         bg="none"
         style={{ display: "flex", justifyContent: "space-around" }}
       >
-        <NextLink href={`/dashboard/course/${data.id}`}>
-          <Button
-            bg="none"
-            rightIcon={<AiOutlineEye />}
-          >
-            Preview
-          </Button>
-        </NextLink>
+        <Button
+          bg="none"
+          rightIcon={<AiOutlineEye />}
+        >
+          Preview
+        </Button>
 
         <Divider
           orientation="vertical"
           w="100"
           p="2"
         />
-        <Button
-          bg="none"
-          rightIcon={<AiOutlineEdit />}
-        >
-          {" "}
-          Edit
-        </Button>
+        <NextLink href={`/dashboard/course/${public_id}`}>
+          <Button
+            bg="none"
+            rightIcon={<AiOutlineEdit />}
+          >
+            {" "}
+            Edit
+          </Button>
+        </NextLink>
         <Divider
           orientation="vertical"
           w="100"
