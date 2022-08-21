@@ -21,19 +21,59 @@ import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
 import { toast } from 'react-toastify';
+import { useSelector, useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { useState } from "react";
+
 const CourseModal = ({ isOpen, onClose }) => {
   const router = useRouter();
-  const { register, handleSubmit } = useForm();
+  const { token } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.course);
+  const { register, handleSubmit, reset } = useForm();
+  const [type, setType] = useState();
   const initialRef = useRef(null);
-  const notify = () => toast("Course Created successfully")
-  const onSubmit = async (data) => {
+  const notify = () => toast("Course Created successfully");
+
+  const onSubmit = async (data, e) => {
+    console.log(data);
     const res = await axios.post(
-      "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addCourse",
-      data
+      "https://roadmap-backend-host.herokuapp.com/api/v1/course",
+      {
+        title: data?.title,
+        description: data?.description,
+        types: [data?.types],
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-    router.push(`/dashboard/course/${res.data.courseID}`);
+    e.target.reset();
+
+    console.log(res);
+    router.push(`/dashboard/course/${res.data.data.course.public_id}`);
     notify();
   };
+
+  const getType = async () => {
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/coursetype`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setType(res.data.data.courseTypes);
+  };
+
+  useEffect(() => {
+    getType();
+    onSubmit();
+    console.log(type);
+  }, []);
+
   return (
     <>
       <Modal
@@ -50,7 +90,6 @@ const CourseModal = ({ isOpen, onClose }) => {
               <FormControl>
                 <FormLabel>Course Name</FormLabel>
                 <Input
-                  ref={initialRef}
                   placeholder="Course Name"
                   {...register("title")}
                 />
@@ -60,11 +99,18 @@ const CourseModal = ({ isOpen, onClose }) => {
                 <FormLabel>Course Type</FormLabel>
                 <Select
                   placeholder="Select Type"
-                  {...register("courseType")}
+                  {...register("types")}
                 >
-                  <option value="frontend">Front-End</option>
-                  <option value="backend">Back-End</option>
-                  <option value="devops">DevOps</option>
+                  {type?.map((type, id) => {
+                    return (
+                      <option
+                        key={id}
+                        value={type.public_id}
+                      >
+                        {type.name}
+                      </option>
+                    );
+                  })}
                 </Select>
               </FormControl>
               <FormControl mt={4}>

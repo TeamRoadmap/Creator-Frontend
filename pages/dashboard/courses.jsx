@@ -10,6 +10,10 @@ import {
   useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
+import axios from "axios";
+import { useEffect } from "react";
+
+import { useSelector, useDispatch } from "react-redux";
 
 const data = [
   {
@@ -44,6 +48,27 @@ const data = [
 
 export default function Course() {
   const { isOpen, onOpen, onClose } = useDisclosure();
+  const dispatch = useDispatch();
+  const { token, user } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.course);
+
+  const getCourses = async () => {
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user.data.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res.data.data.courses);
+    dispatch({ type: "course/setCourses", payload: res.data.data.courses });
+  };
+
+  useEffect(() => {
+    getCourses();
+    console.log(courses);
+  }, []);
 
   return (
     <Layout>
@@ -68,7 +93,7 @@ export default function Course() {
           justify="space-between"
         >
           <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
-            Courses(2)
+            Courses({courses.length})
           </Heading>
           <Button
             onClick={onOpen}
@@ -91,11 +116,14 @@ export default function Course() {
             columns={{ base: "1", md: "2", lg: "3" }}
             spacing="4"
           >
-            {data.map((data, index) => {
+            {courses.map((data, index) => {
               return (
                 <CourseCard
                   key={index}
-                  data={data}
+                  id={data.id}
+                  description={data.description}
+                  title={data.title}
+                  public_id={data.public_id}
                 />
               );
             })}
