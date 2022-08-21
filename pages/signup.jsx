@@ -29,8 +29,9 @@ import NextLink from "next/link";
 import { signUpHandler } from "../redux/feature/user/thunk";
 import { FiAlertCircle } from "react-icons/fi";
 import { auth } from "../shared/lib/firebase";
-
+import { toast } from 'react-toastify';
 export default function SignUp() {
+  const notify = () => toast("Wellcome User")
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { token, user, loading, error } = useSelector((state) => state.user);
@@ -57,6 +58,7 @@ export default function SignUp() {
         })
       );
       dispatch({ type: "user/setToken", payload: token });
+      notify();
     } catch (err) { console.log(err)}
   };
 

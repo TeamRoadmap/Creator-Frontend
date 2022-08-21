@@ -26,8 +26,9 @@ import { loginHandler } from "../redux/feature/user/thunk";
 import { FiAlertCircle } from "react-icons/fi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../shared/lib/firebase";
-
+import { toast } from 'react-toastify';
 export default function Login() {
+  const notify = () => toast("logged in succesfully")
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { token, loading, error } = useSelector((state) => state.user);
@@ -51,6 +52,7 @@ export default function Login() {
       const token = await res.user.getIdToken();
       dispatch(loginHandler(token));
       dispatch({ type: "user/setToken", payload: token });
+      notify();
     } catch (err) {
       console.log(err);
     }

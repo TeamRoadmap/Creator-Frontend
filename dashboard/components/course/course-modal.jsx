@@ -20,18 +20,19 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
-
+import { toast } from 'react-toastify';
 const CourseModal = ({ isOpen, onClose }) => {
   const router = useRouter();
   const { register, handleSubmit } = useForm();
   const initialRef = useRef(null);
-
+  const notify = () => toast("Course Created successfully")
   const onSubmit = async (data) => {
     const res = await axios.post(
       "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addCourse",
       data
     );
     router.push(`/dashboard/course/${res.data.courseID}`);
+    notify();
   };
   return (
     <>

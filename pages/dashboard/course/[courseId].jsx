@@ -6,7 +6,9 @@ import { AiFillCodeSandboxCircle, AiOutlineSave } from "react-icons/ai";
 import { Quill, CourseBuildLayout } from "../../../dashboard/components";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { toast } from 'react-toastify';
 export const Course = () => {
+  const notify = () => toast("Saved")
   const { course, editorSection } = useSelector((state) => state.course);
   const dispatch = useDispatch();
   const router = useRouter();
@@ -33,6 +35,7 @@ export const Course = () => {
         content: editorSection.content,
       }
     );
+    notify();
   };
   useEffect(() => {
     dispatch({ type: "course/setCourseId", payload: courseId });
