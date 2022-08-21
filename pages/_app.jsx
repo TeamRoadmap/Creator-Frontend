@@ -8,7 +8,8 @@ import ProtectedPath from "../shared/components/ProtectedPath";
 import { useRouter } from "next/router";
 import { PersistGate } from "redux-persist/lib/integration/react";
 import "../styles/quill.css";
-
+import { ToastContainer } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 function MyApp({ Component, pageProps }) {
   const route = useRouter();
   const publicPaths = ["/login", "/signup", "/"];
@@ -31,6 +32,7 @@ function MyApp({ Component, pageProps }) {
             <Component {...pageProps} />
           </ProtectedPath>
         )}
+        <ToastContainer theme='dark' hideProgressBar={true} position="bottom-center" autoClose={1000} />
       </Chakra>
       </PersistGate>
     </Provider>

@@ -1,7 +1,7 @@
 import Head from "next/head";
 import { Layout, HomeCard } from "../../dashboard/components";
 import { Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-
+import { toast } from "react-toastify";
 const data = [
   {
     isNew: false,
