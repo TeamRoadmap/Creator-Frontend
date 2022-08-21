@@ -1,5 +1,4 @@
 import React from "react";
-import { coursesectiondata } from "./test-data";
 import {
   Accordion,
   AccordionItem,
@@ -32,11 +31,14 @@ export default function Sections() {
     const res = await axios.get(
       `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSection?id=${sectionId}`
     );
-    // const res = await axios.get(
-    //   `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSubSection?id=${subSectionId}`
-    // );
     dispatch({ type: "course/setSection", payload: res.data });
   };
+  const getSubsectionData = async (id) => {
+    const res = await axios.get(
+      `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSubSection?id=${id}`
+    );
+    dispatch({ type: "course/setSection", payload: res.data });
+  }
   return (
     <Flex
       direction="column"
@@ -101,13 +103,13 @@ export default function Sections() {
                         <IconButton
                           icon={<MdModeEdit size="1rem" />}
                           color={color}
-                          onClick={() => getSectionData(sectionData.id)}
+                          onClick={() => getSubsectionData(subSec.id)}
                         />
                       </Flex>
                     );
                   })}
                 </List>
-                <CourseSidebarModal type="Subsection" />
+                <CourseSidebarModal type="Subsection" sectionId={sectionData.id} />
               </AccordionPanel>
             </AccordionItem>
           );

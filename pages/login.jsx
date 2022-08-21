@@ -41,11 +41,19 @@ export default function Login() {
     }
   }, [token]);
 
-  const onSubmit = async(data) => {
-    const res = await signInWithEmailAndPassword(auth,data.email,data.password)
-    const token = await res.user.getIdToken();
-    dispatch(loginHandler(token));
-    dispatch({ type: "user/setToken", payload: token });
+  const onSubmit = async (data) => {
+    try {
+      const res = await signInWithEmailAndPassword(
+        auth,
+        data.email,
+        data.password
+      );
+      const token = await res.user.getIdToken();
+      dispatch(loginHandler(token));
+      dispatch({ type: "user/setToken", payload: token });
+    } catch (err) {
+      console.log(err);
+    }
   };
 
   return (

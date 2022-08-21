@@ -19,7 +19,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useSelector } from "react-redux";
-const CourseSidebarModal = ({ type }) => {
+const CourseSidebarModal = ({ type , sectionId }) => {
   const { courseId } = useSelector((state) => state.course);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit , reset} = useForm();
@@ -37,20 +37,29 @@ const CourseSidebarModal = ({ type }) => {
         courseId: courseId,
       }
     );
-    // const res = await axios.post(
-    //   "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addSubSection",
-    //   {
-    //     title: data.title,
-    //     description: data.description,
-    //     content: "",
-    //     sectionId: sectionId,
-    //   }
-    // );
     onClose();
     reset({ title: "", description: "" });
   };
+  const addSubSectionPost = async(data) => {
+    const res = await axios.post(
+      "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addSubSection",
+      {
+        title: data.title,
+        description: data.description,
+        content: "",
+        sectionId: sectionId,
+      }
+    );
+    onClose();
+    reset({ title: "", description: "" });
+  }
   const onSubmit = (data) => {
-    addSectionPost(data)
+    if(type == "Section") {
+       addSectionPost(data)
+    }else {
+      addSubSectionPost(data)
+    }
+   
   };
   return (
     <>

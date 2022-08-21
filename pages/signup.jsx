@@ -57,7 +57,7 @@ export default function SignUp() {
         })
       );
       dispatch({ type: "user/setToken", payload: token });
-    } catch (err) {}
+    } catch (err) { console.log(err)}
   };
 
   return (
