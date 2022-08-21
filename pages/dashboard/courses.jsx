@@ -49,12 +49,12 @@ const data = [
 export default function Course() {
   const { isOpen, onOpen, onClose } = useDisclosure();
   const dispatch = useDispatch();
-  const { token } = useSelector((state) => state.user);
+  const { token, user } = useSelector((state) => state.user);
   const { courses } = useSelector((state) => state.course);
 
   const getCourses = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course`,
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user.data.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -93,7 +93,7 @@ export default function Course() {
           justify="space-between"
         >
           <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
-            Courses(2)
+            Courses({courses.length})
           </Heading>
           <Button
             onClick={onOpen}
