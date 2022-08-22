@@ -2,6 +2,7 @@ import Head from "next/head";
 import { Layout, HomeCard } from "../../dashboard/components";
 import { Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { toast } from "react-toastify";
+import { useSelector } from "react-redux";
 const data = [
   {
     isNew: false,
@@ -50,6 +51,7 @@ const data2 = [
 ];
 
 export default function Home() {
+  const { user } = useSelector((state) => state.user)
   return (
     <Layout>
       <Head>
@@ -79,7 +81,7 @@ export default function Home() {
             color={"purple.600"}
             as={"span"}
           >
-            Devansh Bajaj!
+            {user?.name}!
           </Text>{" "}
         </Heading>
         <Stack
