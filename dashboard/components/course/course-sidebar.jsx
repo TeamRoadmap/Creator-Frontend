@@ -15,11 +15,11 @@ import { AiOutlineLeft, AiOutlineRight } from "react-icons/ai";
 import { FiMoon, FiSun } from "react-icons/fi";
 import React from "react";
 import Sections from "./sections";
-
+import { useRouter } from "next/router";
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const sidebar = useDisclosure();
-
+  const router =  useRouter();
   const SidebarContent = (props) => (
     <Box
       as="nav"
@@ -80,14 +80,20 @@ export const CourseSidebar = () => {
       </Text>
       {/* side bar's main content area */}
       <Sections />
-      <Box m="5">
+      <Flex direction="column" m="5" gap="5">
         <Button
           w="full"
           onClick={toggleColorMode}
         >
           {colorMode === "light" ? <FiMoon /> : <FiSun color="#A0AEC0" />}
         </Button>
-      </Box>
+        <Button
+          w="full"
+          onClick={() => router.push("/dashboard/courses")}
+        >
+          Dashboard
+        </Button>
+      </Flex>
     </Box>
   );
   return (

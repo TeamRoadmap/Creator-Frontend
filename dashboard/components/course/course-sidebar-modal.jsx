@@ -18,38 +18,64 @@ import { useRef } from "react";
 import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import axios from "axios";
-import { useSelector } from "react-redux";
-const CourseSidebarModal = ({ type , sectionId }) => {
-  const { courseId } = useSelector((state) => state.course);
+import { useSelector,useDispatch } from "react-redux";
+const CourseSidebarModal = ({ type , sectionId, order }) => {
+  const dispatch = useDispatch();
+  const { courseId , course } = useSelector((state) => state.course);
+  const {token} = useSelector((state) => state.user);
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { register, handleSubmit , reset} = useForm();
   const initialRef = useRef(null);
   const getUpdatedCourse = async () => {
-
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course/${courseId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res)
+    dispatch({ type: "course/setCourse", payload: res.data.data });
   }
   const addSectionPost = async (data) => {
     const res = await axios.post(
-      "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addsection",
+      "https://roadmap-backend-host.herokuapp.com/api/v1/section",
       {
+        order: order,
         title: data.title,
         description: data.description,
         content: "",
-        courseId: courseId,
+        course_id: course?.course?.id,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
+    getUpdatedCourse();
+    console.log(res)
     onClose();
     reset({ title: "", description: "" });
   };
   const addSubSectionPost = async(data) => {
     const res = await axios.post(
-      "https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/addSubSection",
+      "https://roadmap-backend-host.herokuapp.com/api/v1/subsection",
       {
+        order: order,
         title: data.title,
         description: data.description,
         content: "",
-        sectionId: sectionId,
+        section_id: sectionId,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
       }
     );
+    getUpdatedCourse();
     onClose();
     reset({ title: "", description: "" });
   }
