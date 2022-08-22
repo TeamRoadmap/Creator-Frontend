@@ -54,20 +54,20 @@ export default function Course() {
 
   const getCourses = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user.data.id}`,
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
         },
       }
     );
-    console.log(res.data.data.courses);
     dispatch({ type: "course/setCourses", payload: res.data.data.courses });
   };
 
   useEffect(() => {
-    getCourses();
-    console.log(courses);
+    if(user?.id){
+      getCourses();
+    }
   }, []);
 
   return (

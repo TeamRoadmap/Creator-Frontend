@@ -70,8 +70,6 @@ const CourseModal = ({ isOpen, onClose }) => {
 
   useEffect(() => {
     getType();
-    onSubmit();
-    console.log(type);
   }, []);
 
   return (

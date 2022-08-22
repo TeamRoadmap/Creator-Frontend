@@ -12,7 +12,7 @@ export const signUpHandler = createAsyncThunk(
           ...signUpData,
         }
       );
-      return res.data;
+      return res.data.data;
     } catch (err) {
       return rejectWithValue(err);
     }
@@ -31,7 +31,7 @@ export const loginHandler = createAsyncThunk(
           },
         }
       );
-      return res.data;
+      return res.data.data;
     } catch (err) {
       return rejectWithValue(err);
     }
