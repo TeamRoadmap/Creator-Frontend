@@ -93,7 +93,7 @@ export default function Course() {
           justify="space-between"
         >
           <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
-            Courses({courses.length})
+            Courses({courses?.length})
           </Heading>
           <Button
             onClick={onOpen}
@@ -116,7 +116,7 @@ export default function Course() {
             columns={{ base: "1", md: "2", lg: "3" }}
             spacing="4"
           >
-            {courses.map((data, index) => {
+            {courses?.map((data, index) => {
               return (
                 <CourseCard
                   key={index}
