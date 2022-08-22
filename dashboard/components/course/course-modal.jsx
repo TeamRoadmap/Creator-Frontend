@@ -35,7 +35,6 @@ const CourseModal = ({ isOpen, onClose }) => {
   const notify = () => toast("Course Created successfully");
 
   const onSubmit = async (data, e) => {
-    console.log(data);
     const res = await axios.post(
       "https://roadmap-backend-host.herokuapp.com/api/v1/course",
       {
@@ -50,8 +49,6 @@ const CourseModal = ({ isOpen, onClose }) => {
       }
     );
     e.target.reset();
-
-    console.log(res);
     router.push(`/dashboard/course/${res.data.data.course.public_id}`);
     notify();
   };
@@ -90,6 +87,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                 <Input
                   placeholder="Course Name"
                   {...register("title")}
+                  required
                 />
               </FormControl>
 
@@ -98,6 +96,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                 <Select
                   placeholder="Select Type"
                   {...register("types")}
+                  required
                 >
                   {type?.map((type, id) => {
                     return (
@@ -121,6 +120,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                       message: "Please Enter word less than 150 Character",
                     },
                   })}
+                  required
                 />
               </FormControl>
             </ModalBody>

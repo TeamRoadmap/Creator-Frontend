@@ -31,7 +31,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { auth } from "../shared/lib/firebase";
 import { toast } from 'react-toastify';
 export default function SignUp() {
-  const notify = () => toast("Wellcome User")
+  const notify = (msg) => toast(msg)
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
   const { token, user, loading, error } = useSelector((state) => state.user);
@@ -58,8 +58,10 @@ export default function SignUp() {
         })
       );
       dispatch({ type: "user/setToken", payload: token });
-      notify();
-    } catch (err) { console.log(err)}
+      notify("Welcome User");
+    } catch (err) { 
+      notify(`${err.code}`)
+    }
   };
 
   return (
@@ -154,7 +156,9 @@ export default function SignUp() {
                     <Input
                       focusBorderColor="purple.500"
                       type={showPassword ? "text" : "password"}
-                      {...register("password")}
+                      {...register("password",{
+                        min:6
+                      })}
                       required
                     />
                     <InputRightElement h={"full"}>

@@ -17,7 +17,6 @@ export const Course = () => {
   const router = useRouter();
   const { courseId } = router.query;
   const [previewToggle, setPreviewToggle] = useState(false);
-  console.log(courseId);
   const getCourseDetail = async () => {
     const res = await axios.get(
       `https://roadmap-backend-host.herokuapp.com/api/v1/course/${courseId}`,
@@ -27,11 +26,9 @@ export const Course = () => {
         },
       }
     );
-    console.log(res);
     dispatch({ type: "course/setCourse", payload: res.data.data });
   };
   useEffect(() => {
-    console.log("changes");
     dispatch({ type: "course/setSection", payload: "" });
     dispatch({type:"course/setEditFlag", payload: false})
   }, [courseId]);
@@ -50,14 +47,12 @@ export const Course = () => {
         },
       }
     );
-    console.log(res);
     dispatch({
       type: "course/setEditFlag",
       payload: false,
     });
     notify();
   };
-  console.log(editFlag);
   useEffect(() => {
     dispatch({ type: "course/setCourseId", payload: courseId });
     getCourseDetail();

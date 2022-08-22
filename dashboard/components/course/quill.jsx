@@ -62,7 +62,6 @@ const formats = [
 const Quill = ({ value }) => {
   const dispatch = useDispatch();
   const { editorSection } = useSelector((state) => state.course);
-  console.log(editorSection);
   return (
     <>
       <QuillNoSSRWrapper
