@@ -55,7 +55,7 @@ export const CourseSidebar = () => {
           _dark={{ color: "white" }}
           fontWeight="bold"
         >
-          Cousrse Builder
+          Course Builder
         </Text>
         <IconButton
           aria-label="Menu"
