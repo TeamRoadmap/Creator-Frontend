@@ -20,24 +20,46 @@ import { useSelector } from "react-redux";
 import CourseSidebarModal from "./course-sidebar-modal";
 import axios from "axios";
 import { useDispatch } from "react-redux";
+import { toast } from "react-toastify";
 import { EditIcon } from "@chakra-ui/icons";
 
 export default function Sections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { course } = useSelector((state) => state.course);
+  const { course , editFlag } = useSelector((state) => state.course);
+  const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
+  const notify = (msg) => toast(msg);
   const color = useColorModeValue("gray.500", "white");
   const getSectionData = async (sectionId) => {
-    const res = await axios.get(
-      `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSection?id=${sectionId}`
+    if(editFlag) {
+      notify("Please Save Latest Changes")
+    }else {
+     const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/section/${sectionId}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-    dispatch({ type: "course/setSection", payload: res.data });
+    dispatch({ type: "course/setSection", payload:{ ...res.data.data.section , type: "section" }}); 
+    }
+    
   };
   const getSubsectionData = async (id) => {
+    if(editFlag){
+      notify("Please Save Latest Changes")
+    }else {
     const res = await axios.get(
-      `https://e2b008aa-8ef7-4125-8063-532dfb7d0c2e.mock.pstmn.io/getSubSection?id=${id}`
+      `https://roadmap-backend-host.herokuapp.com/api/v1/subsection/${id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
-    dispatch({ type: "course/setSection", payload: res.data });
+    dispatch({ type: "course/setSection", payload:{ ...res.data.data.subsection , type: "subsection" } });
+    }
   }
   return (
     <Flex
@@ -52,7 +74,7 @@ export default function Sections() {
         allowMultiple
         allowToggle="false"
       >
-        {course?.section?.map((sectionData, index) => {
+        {course?.sections?.map((sectionData, index) => {
           return (
             <AccordionItem key={sectionData.id}>
               <Flex
@@ -73,7 +95,7 @@ export default function Sections() {
                   <IconButton
                     icon={<MdModeEdit size="1rem" />}
                     color={color}
-                    onClick={() => getSectionData(sectionData.id)}
+                    onClick={() => getSectionData(sectionData.public_id)}
                   />
                   <AccordionButton w="fit">
                     <AccordionIcon />
@@ -83,7 +105,7 @@ export default function Sections() {
 
               <AccordionPanel>
                 <List px="5">
-                  {sectionData.subSection.map((subSec) => {
+                  {sectionData.subsections?.map((subSec, index) => {
                     return (
                       <Flex
                         mb="4"
@@ -103,13 +125,13 @@ export default function Sections() {
                         <IconButton
                           icon={<MdModeEdit size="1rem" />}
                           color={color}
-                          onClick={() => getSubsectionData(subSec.id)}
+                          onClick={() => getSubsectionData(subSec.public_id)}
                         />
                       </Flex>
                     );
                   })}
                 </List>
-                <CourseSidebarModal type="Subsection" sectionId={sectionData.id} />
+                <CourseSidebarModal order={course?.sections?.subsections?.length ? course?.sections?.subsections?.length + 1 : 1 } type="Subsection" sectionId={sectionData.id} />
               </AccordionPanel>
             </AccordionItem>
           );
@@ -121,7 +143,7 @@ export default function Sections() {
         color="brand.500"
         _dark={{ color: "white" }}
       >
-        <CourseSidebarModal type="Section" />
+        <CourseSidebarModal order={course?.sections?.length ? course?.sections?.length + 1 : 1 }  type="Section" />
       </Box>
     </Flex>
   );

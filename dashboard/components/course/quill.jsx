@@ -62,7 +62,7 @@ const formats = [
 const Quill = ({ value }) => {
   const dispatch = useDispatch();
   const { editorSection } = useSelector((state) => state.course);
-
+  console.log(editorSection);
   return (
     <>
       <QuillNoSSRWrapper
@@ -70,18 +70,22 @@ const Quill = ({ value }) => {
         formats={formats}
         value={editorSection?.content}
         onChange={(value) =>
-          dispatch({
+          {dispatch({
             type: "course/setEditorSectionContent",
             payload: value,
           })
+          dispatch({
+            type: "course/setEditFlag",
+            payload: true
+          })}
         }
       />
-      <Box>
+      {/* <Box>
         <Text>Preview: </Text>
         <div style={{ fontWeight: "unset", fontSize: "unset" }}>
           {parse(editorSection?.content)}
         </div>
-      </Box>
+      </Box> */}
     </>
   );
 };
