@@ -51,7 +51,6 @@ export default function Course() {
   const dispatch = useDispatch();
   const { token, user } = useSelector((state) => state.user);
   const { courses } = useSelector((state) => state.course);
-  console.log(user)
   const getCourses = async () => {
     const res = await axios.get(
       `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
@@ -61,7 +60,6 @@ export default function Course() {
         },
       }
     );
-    console.log(res)
     dispatch({ type: "course/setCourses", payload: res.data.data.courses });
   };
 

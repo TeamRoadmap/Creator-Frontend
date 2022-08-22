@@ -35,7 +35,6 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
         },
       }
     );
-    console.log(res)
     dispatch({ type: "course/setCourse", payload: res.data.data });
   }
   const addSectionPost = async (data) => {
@@ -55,7 +54,6 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
       }
     );
     getUpdatedCourse();
-    console.log(res)
     onClose();
     reset({ title: "", description: "" });
   };
