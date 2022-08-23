@@ -53,6 +53,17 @@ export const Course = () => {
     });
     notify();
   };
+  const deleteSection = async () => {
+    const res = await axios.delete(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    console.log(res)
+  }
   useEffect(() => {
     dispatch({ type: "course/setCourseId", payload: courseId });
     getCourseDetail();

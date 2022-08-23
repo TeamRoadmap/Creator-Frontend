@@ -3,9 +3,6 @@ import dynamic from "next/dynamic";
 import hljs from "highlight.js";
 import "highlight.js/styles/monokai-sublime.css";
 import { useSelector } from "react-redux";
-import { useState } from "react";
-import { useEffect } from "react";
-import parse from "html-react-parser";
 import { useDispatch } from "react-redux";
 
 const QuillNoSSRWrapper = dynamic(import("react-quill"), {
@@ -67,24 +64,18 @@ const Quill = ({ value }) => {
       <QuillNoSSRWrapper
         modules={modules}
         formats={formats}
-        value={editorSection?.content}
-        onChange={(value) =>
-          {dispatch({
+        value={editorSection.content}
+        onChange={(value) => {
+          dispatch({
             type: "course/setEditorSectionContent",
             payload: value,
-          })
+          });
           dispatch({
             type: "course/setEditFlag",
-            payload: true
-          })}
-        }
+            payload: true,
+          });
+        }}
       />
-      {/* <Box>
-        <Text>Preview: </Text>
-        <div style={{ fontWeight: "unset", fontSize: "unset" }}>
-          {parse(editorSection?.content)}
-        </div>
-      </Box> */}
     </>
   );
 };
