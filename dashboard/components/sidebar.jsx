@@ -25,6 +25,8 @@ import React from "react";
 import NavLink from "../../shared/components/nav-link";
 import { useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { auth } from "../../shared/lib/firebase";
+import { signOut } from "firebase/auth";
 
 const Sidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
@@ -37,6 +39,9 @@ const Sidebar = () => {
 
   const onLogOut = (e) => {
     e.preventDefault();
+    signOut(auth)
+    .then(() => console.log("logged out"))
+    .catch((err) => console.log(err))
     dispatch({ type: "user/logout" });
     router.push("/login", undefined, { shallow: true });
   };
