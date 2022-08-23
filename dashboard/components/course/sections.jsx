@@ -1,15 +1,8 @@
 import React from "react";
 import {
-  Accordion,
-  AccordionItem,
-  AccordionButton,
-  AccordionPanel,
-  AccordionIcon,
   Flex,
   Box,
-  Button,
   List,
-  ListItem,
   useDisclosure,
   Text,
   useColorModeValue,
@@ -21,7 +14,6 @@ import CourseSidebarModal from "./course-sidebar-modal";
 import axios from "axios";
 import { useDispatch } from "react-redux";
 import { toast } from "react-toastify";
-import { EditIcon } from "@chakra-ui/icons";
 
 export default function Sections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -70,19 +62,16 @@ export default function Sections() {
       gap="2"
       aria-label="Main Navigation"
     >
-      <Accordion
-        allowMultiple
-        allowToggle="false"
+      <Box
       >
         {course?.sections?.map((sectionData, index) => {
           return (
-            <AccordionItem key={sectionData.id}>
+              <Box p="1rem">
               <Flex
-                m="2"
+                my="2"
                 direction="row"
-                justifyContent="space-around"
+                justifyContent="space-between"
                 alignItems="center"
-                px="2"
               >
                 <Text
                   fontSize="1rem"
@@ -97,23 +86,20 @@ export default function Sections() {
                     color={color}
                     onClick={() => getSectionData(sectionData.public_id)}
                   />
-                  <AccordionButton w="fit">
-                    <AccordionIcon />
-                  </AccordionButton>
                 </Flex>
               </Flex>
 
-              <AccordionPanel>
-                <List px="5">
+              <Box>
+                <List px="">
                   {sectionData.subsections?.map((subSec, index) => {
                     return (
                       <Flex
-                        mb="4"
-                        direction="row"
-                        gap="2"
-                        justifyContent="space-between"
-                        alignItems="center"
-                        key={subSec.id}
+                      my="2"
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center"
+                      pl="1rem"
+                      key={subSec.id}
                       >
                         <Text
                           fontSize="1rem"
@@ -132,11 +118,11 @@ export default function Sections() {
                   })}
                 </List>
                 <CourseSidebarModal order={course?.sections?.subsections?.length ? course?.sections?.subsections?.length + 1 : 1 } type="Subsection" sectionId={sectionData.id} />
-              </AccordionPanel>
-            </AccordionItem>
+              </Box>
+              </Box>
           );
         })}
-      </Accordion>
+      </Box>
       <Box
         mx="3"
         my="5"

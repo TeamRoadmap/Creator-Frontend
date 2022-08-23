@@ -54,7 +54,7 @@ const HomeCard = ({ data }) => {
               fontWeight="semibold"
               color={useColorModeValue("gray.700", "gray.200")}
             >
-              {data.courseName}
+              {data.title}
             </Text>
             <Text
               as="p"
@@ -69,7 +69,7 @@ const HomeCard = ({ data }) => {
             justifyContent="space-between"
             alignItems="end"
           >
-            {data.lastUpdated && (
+            {/* {data.lastUpdated && ( */}
               <Text
                 as="p"
                 fontSize="sm"
@@ -77,9 +77,6 @@ const HomeCard = ({ data }) => {
               >
                 Last Updated on - {data.lastUpdated}
               </Text>
-            )}
-
-            {data.edit && (
               <Button
                 px="4"
                 py="0"
@@ -88,7 +85,6 @@ const HomeCard = ({ data }) => {
               >
                 Edit
               </Button>
-            )}
           </Flex>
         </Flex>
       </Box>
