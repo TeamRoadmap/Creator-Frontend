@@ -1,57 +1,13 @@
 import Head from "next/head";
 import { Layout, HomeCard } from "../../dashboard/components";
-import { Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import { toast } from "react-toastify";
+import { Button, Flex, Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
 import { useSelector } from "react-redux";
-const data = [
-  {
-    isNew: false,
-    imageURL: "/images/react-course.webp",
-    courseName: " Basics of React",
-    type: "Frontend",
-    lastUpdated: "12/04/12",
-    edit: "some link",
-  },
-
-  {
-    isNew: false,
-    imageURL: "/images/react-course.webp",
-    courseName: " Basics of React",
-    type: "Frontend",
-    lastUpdated: "12/04/12",
-    edit: "some link",
-  },
-  {
-    isNew: false,
-    imageURL: "/images/react-course.webp",
-    courseName: " Basics of React",
-    type: "Frontend",
-    lastUpdated: "12/04/12",
-    edit: "some link",
-  },
-];
-
-const data2 = [
-  {
-    isNew: false,
-    imageURL: "/images/simple-chart.png",
-    courseName: "Upvotes/Downvotes",
-  },
-
-  {
-    isNew: false,
-    imageURL: "/images/user.png",
-    courseName: "User Engangement",
-  },
-  {
-    isNew: false,
-    imageURL: "/images/quiz.png",
-    courseName: " Quizzes Interaction",
-  },
-];
+import { useRouter } from "next/router";
 
 export default function Home() {
   const { user } = useSelector((state) => state.user)
+  const {courses} = useSelector((state) => state.course)
+  const router = useRouter();
   return (
     <Layout>
       <Head>
@@ -94,7 +50,7 @@ export default function Home() {
             columns={{ base: "1", md: "2", lg: "3" }}
             spacing="4"
           >
-            {data.map((data, index) => {
+            {courses.slice(0,3).map((data, index) => {
               return (
                 <HomeCard
                   key={index}
@@ -104,25 +60,14 @@ export default function Home() {
             })}
           </SimpleGrid>
         </Stack>
+        <Flex justifyContent="center">
+         {courses.length > 3 && <Button maxWidth="10rem" onClick={() => router.push("/dashboard/courses")}>View More</Button>} 
+        </Flex>
         <Stack
           m="6"
           direction="column"
           gap="6"
         >
-          <Heading fontSize="2xl"> Your Statistics</Heading>
-          <SimpleGrid
-            columns={{ base: "1", md: "2", lg: "3" }}
-            spacing="4"
-          >
-            {data2.map((data, index) => {
-              return (
-                <HomeCard
-                  key={index}
-                  data={data}
-                />
-              );
-            })}
-          </SimpleGrid>
         </Stack>
       </Stack>
     </Layout>
