@@ -16,6 +16,7 @@ import {
 import { AiOutlineEdit } from "react-icons/ai";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
+import NextLink from "next/link";
 
 const HomeCard = ({ data }) => {
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
@@ -77,6 +78,7 @@ const HomeCard = ({ data }) => {
               >
                 Last Updated on - {data.lastUpdated}
               </Text>
+              <NextLink href={`/dashboard/course/${data.public_id}`}>
               <Button
                 px="4"
                 py="0"
@@ -85,6 +87,7 @@ const HomeCard = ({ data }) => {
               >
                 Edit
               </Button>
+              </NextLink>
           </Flex>
         </Flex>
       </Box>
