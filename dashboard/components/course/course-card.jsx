@@ -66,28 +66,12 @@ const CourseCard = ({ title, id, description, public_id }) => {
             >
               {title}
             </Text>
-            <Text
-              as="p"
-              fontSize="sm"
-              color={useColorModeValue("gray.600", "gray.300")}
-            >
-              {id}
-            </Text>
           </Flex>
           <Flex
             direction="row"
             justifyContent="space-between"
             alignItems="start"
           >
-            {/* {data.lastUpdated && (
-              <Text
-                as="p"
-                fontSize="sm"
-                color={lastUpdatedColor}
-              >
-                Last Updated on - {data.lastUpdated}
-              </Text>
-            )} */}
             <Text
               as="p"
               fontSize="sm"
