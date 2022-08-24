@@ -83,24 +83,31 @@ export const Course = () => {
           <Heading>{course?.course?.title}</Heading>
           <Text>{course?.course?.description}</Text>
         </Stack>
-        <Flex gap="2" flexWrap="wrap">
-        {editorSection !== "" && 
-            <Button  onClick={() => setPreviewToggle((prev) => !prev)}>
+        <Flex
+          gap="2"
+          flexWrap="wrap"
+        >
+          {editorSection !== "" && (
+            <Button onClick={() => setPreviewToggle((prev) => !prev)}>
               {previewToggle ? "Open Editor" : "Preview"}
             </Button>
-        }
-        {editorSection != "" && <Button
-          leftIcon={<AiOutlineSave />}
-          onClick={updateSection}
-        >
-          {editFlag ? "Save" : "Saved"}
-        </Button>}
-        {editorSection != "" && <Button
-        leftIcon={<AiFillDelete />}
-        onClick={deleteSection}
-        >
-          Delete
-          </Button>}
+          )}
+          {editorSection != "" && (
+            <Button
+              leftIcon={<AiOutlineSave />}
+              onClick={updateSection}
+            >
+              {editFlag ? "Save" : "Saved"}
+            </Button>
+          )}
+          {editorSection != "" && (
+            <Button
+              leftIcon={<AiFillDelete />}
+              onClick={deleteSection}
+            >
+              Delete
+            </Button>
+          )}
         </Flex>
       </Stack>
       <Box
@@ -137,7 +144,9 @@ export const Course = () => {
                   direction="column"
                 >
                   <Text>Edit Title</Text>
-                    <Input value={editorSection.title} onChange={(e) => {
+                  <Input
+                    value={editorSection?.title}
+                    onChange={(e) => {
                       dispatch({
                         type: "course/setEditorSectionTitle",
                         payload: e.target.value,
@@ -146,9 +155,12 @@ export const Course = () => {
                         type: "course/setEditFlag",
                         payload: true,
                       });
-                      }} />
-                      <Text>Edit Description</Text>
-                      <Input value={editorSection.description} onChange={(e) => {
+                    }}
+                  />
+                  <Text>Edit Description</Text>
+                  <Input
+                    value={editorSection?.description}
+                    onChange={(e) => {
                       dispatch({
                         type: "course/setEditorSectionDescription",
                         payload: e.target.value,
@@ -157,7 +169,8 @@ export const Course = () => {
                         type: "course/setEditFlag",
                         payload: true,
                       });
-                      }} />
+                    }}
+                  />
                 </Flex>
 
                 <Quill value={editorSection?.content} />

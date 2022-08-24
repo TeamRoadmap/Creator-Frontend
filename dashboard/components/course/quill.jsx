@@ -64,7 +64,7 @@ const Quill = ({ value }) => {
       <QuillNoSSRWrapper
         modules={modules}
         formats={formats}
-        value={editorSection.content}
+        value={editorSection?.content}
         onChange={(value) => {
           dispatch({
             type: "course/setEditorSectionContent",
