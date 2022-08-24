@@ -16,6 +16,7 @@ import { FiMoon, FiSun } from "react-icons/fi";
 import React from "react";
 import Sections from "./sections";
 import { useRouter } from "next/router";
+import { useSelector, useDispatch } from "react-redux";
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
   const sidebar = useDisclosure();
@@ -40,10 +41,26 @@ export const CourseSidebar = () => {
       w="60"
       {...props}
     >
+      <Flex direction="row" mx="5" mt="5" mb="2" gap="5">
+        <Button
+          w="full"
+          p="0"
+          onClick={toggleColorMode}
+        >
+          {colorMode === "light" ? <FiMoon /> : <FiSun color="#A0AEC0" />}
+        </Button>
+        <Button
+          w="full"
+          p=""
+          onClick={() => {  router.push("/dashboard/courses")}}
+        >
+          Courses
+        </Button>
+      </Flex>
       {/* side bar's upper part */}
       <Flex
-        px="4"
-        py="5"
+        px="2"
+        py="1"
         align="center"
         justify="space-between"
         gap="4"
@@ -67,8 +84,8 @@ export const CourseSidebar = () => {
         />
       </Flex>
       <Text
-        px="4"
-        py="2"
+        px="2"
+        py="1"
         fontSize="xl"
         ml="2"
         mb="2"
@@ -80,7 +97,7 @@ export const CourseSidebar = () => {
       </Text>
       {/* side bar's main content area */}
       <Sections />
-      <Flex direction="column" m="5" gap="5">
+      {/* <Flex direction="column" m="5" gap="5">
         <Button
           w="full"
           onClick={toggleColorMode}
@@ -93,7 +110,7 @@ export const CourseSidebar = () => {
         >
           Dashboard
         </Button>
-      </Flex>
+      </Flex> */}
     </Box>
   );
   return (

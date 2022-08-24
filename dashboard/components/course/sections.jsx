@@ -72,6 +72,7 @@ export default function Sections() {
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
+                key={index}
               >
                 <Text
                   fontSize="1rem"
@@ -117,7 +118,7 @@ export default function Sections() {
                     );
                   })}
                 </List>
-                <CourseSidebarModal order={course?.sections?.subsections?.length ? course?.sections?.subsections?.length + 1 : 1 } type="Subsection" sectionId={sectionData.id} />
+                <CourseSidebarModal order={ sectionData.subsections.length ? sectionData.subsections[sectionData.subsections.length -1].order + 1 : 1 } type="Subsection" sectionId={sectionData.id} />
               </Box>
               </Box>
           );
@@ -129,7 +130,7 @@ export default function Sections() {
         color="brand.500"
         _dark={{ color: "white" }}
       >
-        <CourseSidebarModal order={course?.sections?.length ? course?.sections?.length + 1 : 1 }  type="Section" />
+        <CourseSidebarModal order={course?.sections?.length ? course?.sections[course.sections.length -1].order + 1 : 1 }  type="Section" />
       </Box>
     </Flex>
   );

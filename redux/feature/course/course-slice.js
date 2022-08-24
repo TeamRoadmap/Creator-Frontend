@@ -30,6 +30,12 @@ const courseSlice = createSlice({
     setEditorSectionContent: (state, action) => {
       state.editorSection.content = action.payload;
     },
+    setEditorSectionTitle: (state, action) => {
+      state.editorSection.title = action.payload;
+    },
+    setEditorSectionDescription: (state, action) => {
+      state.editorSection.description = action.payload;
+    },
     setEditFlag: (state, action) => {
       state.editFlag = action.payload;
     },
