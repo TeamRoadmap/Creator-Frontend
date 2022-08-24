@@ -1,13 +1,46 @@
 import Head from "next/head";
 import { Layout, HomeCard } from "../../dashboard/components";
-import { Button, Flex, Grid, Heading, SimpleGrid, Stack, Text } from "@chakra-ui/react";
-import { useSelector } from "react-redux";
+import {
+  Button,
+  Flex,
+  Grid,
+  Heading,
+  SimpleGrid,
+  Skeleton,
+  Spinner,
+  Stack,
+  Text,
+} from "@chakra-ui/react";
+import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
+import { useEffect, useState } from "react";
+import axios from "axios";
 
 export default function Home() {
-  const { user } = useSelector((state) => state.user)
-  const {courses} = useSelector((state) => state.course)
+  const dispatch = useDispatch();
+  const { user, token } = useSelector((state) => state.user);
+  const { courses } = useSelector((state) => state.course);
   const router = useRouter();
+  const [isLoadingCourses, setIsLoadingCourses] = useState(true);
+  const getCourses = async () => {
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    setIsLoadingCourses(true);
+    dispatch({ type: "course/setCourses", payload: res.data.data });
+  };
+
+  useEffect(() => {
+    if (user?.id) {
+      setIsLoadingCourses(false);
+      getCourses();
+    }
+  }, [user]);
   return (
     <Layout>
       <Head>
@@ -46,11 +79,32 @@ export default function Home() {
           gap="6"
         >
           <Heading fontSize="2xl"> Your Courses</Heading>
-          <SimpleGrid
+          {isLoadingCourses ? (
+            <SimpleGrid
+              columns={{ base: "1", md: "2", lg: "3" }}
+              spacing="4"
+            >
+              {courses?.slice(0, 3).map((data, index) => {
+                return (
+                  <HomeCard
+                    key={index}
+                    data={data}
+                  />
+                );
+              })}
+            </SimpleGrid>
+          ) : (
+            <Flex justifyContent="center">
+              {" "}
+              <Spinner size='xl' />{" "}
+            </Flex>
+          )}
+          {/* <Skeleton isLoaded={isLoadingCourses}>
+           <SimpleGrid
             columns={{ base: "1", md: "2", lg: "3" }}
             spacing="4"
           >
-            {courses.slice(0,3).map((data, index) => {
+            {courses?.slice(0,3).map((data, index) => {
               return (
                 <HomeCard
                   key={index}
@@ -58,17 +112,24 @@ export default function Home() {
                 />
               );
             })}
-          </SimpleGrid>
+          </SimpleGrid> 
+          </Skeleton> */}
         </Stack>
         <Flex justifyContent="center">
-         {courses.length > 3 && <Button maxWidth="10rem" onClick={() => router.push("/dashboard/courses")}>View More</Button>} 
+          {isLoadingCourses && courses?.length > 3 && (
+            <Button
+              maxWidth="10rem"
+              onClick={() => router.push("/dashboard/courses")}
+            >
+              View More
+            </Button>
+          )}
         </Flex>
         <Stack
           m="6"
           direction="column"
           gap="6"
-        >
-        </Stack>
+        ></Stack>
       </Stack>
     </Layout>
   );
