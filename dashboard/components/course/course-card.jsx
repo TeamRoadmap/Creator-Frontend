@@ -26,7 +26,7 @@ import { FiShoppingCart } from "react-icons/fi";
 import NextLink from "next/link";
 // import Courseimg from "/images/react-course.webp";
 
-const CourseCard = ({ title, id, description, public_id }) => {
+const CourseCard = ({ title, id, description, public_id, image }) => {
   const color = useColorModeValue("white", "gray.800");
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
   return (
@@ -39,13 +39,15 @@ const CourseCard = ({ title, id, description, public_id }) => {
       zIndex={1}
     >
       <Box maxW="full">
-        {/* <Img
-          p="4"
-          width="100%"
-          height="100%"
-          style={{ borderRadius: "1.2rem", objectFit: "contain" }}
-          src={data.imageURL}
-        /> */}
+        {image !== null && (
+          <Img
+            p="4"
+            width="100%"
+            height="100%"
+            style={{ borderRadius: "1.2rem", objectFit: "contain" }}
+            src={image}
+          />
+        )}
       </Box>
 
       <Box px="4">
