@@ -2,7 +2,6 @@ import {
   Flex,
   Circle,
   Box,
-  Image,
   Badge,
   useColorModeValue,
   Icon,
@@ -25,6 +24,7 @@ import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import NextLink from "next/link";
 // import Courseimg from "/images/react-course.webp";
+import Image from "next/image";
 
 const CourseCard = ({ title, id, description, public_id, image }) => {
   const color = useColorModeValue("white", "gray.800");
@@ -38,14 +38,36 @@ const CourseCard = ({ title, id, description, public_id, image }) => {
       pos={"relative"}
       zIndex={1}
     >
-      <Box maxW="full">
-        {image !== null && (
-          <Img
+      <Box
+        maxW="full"
+        p="2"
+        mb="8"
+      >
+        {image !== null ? (
+          <Image
+            alt="img"
             p="4"
-            width="100%"
-            height="100%"
-            style={{ borderRadius: "1.2rem", objectFit: "contain" }}
+            width="4"
+            height="2"
+            layout="responsive"
+            style={{
+              borderRadius: "8px",
+              objectFit: "contain",
+            }}
             src={image}
+          />
+        ) : (
+          <Image
+            alt="dummyimg"
+            p="4"
+            width="4"
+            height="2"
+            layout="responsive"
+            style={{
+              borderRadius: "8px",
+              objectFit: "contain",
+            }}
+            src="/images/dummy-img.webp"
           />
         )}
       </Box>
@@ -116,7 +138,7 @@ const CourseCard = ({ title, id, description, public_id, image }) => {
             Edit
           </Button>
         </NextLink>
-        <Divider
+        {/* <Divider
           orientation="vertical"
           w="100"
           p="2"
@@ -127,7 +149,7 @@ const CourseCard = ({ title, id, description, public_id, image }) => {
         >
           {" "}
           Info
-        </Button>
+        </Button> */}
       </ButtonGroup>
     </Box>
   );
