@@ -70,6 +70,7 @@ export default function Course() {
                   description={data.description}
                   title={data.title}
                   public_id={data.public_id}
+                  image={data.image}
                 />
               );
             })}

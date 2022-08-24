@@ -35,7 +35,7 @@ const HomeCard = ({ data }) => {
           width="100%"
           height="100%"
           style={{ borderRadius: "1.2rem", objectFit: "contain" }}
-          src={data.imageURL}
+          src={data?.imageURL}
         />
       </Box>
 
@@ -71,14 +71,14 @@ const HomeCard = ({ data }) => {
             alignItems="end"
           >
             {/* {data.lastUpdated && ( */}
-              <Text
-                as="p"
-                fontSize="sm"
-                color={lastUpdatedColor}
-              >
-                Last Updated on - {data.lastUpdated}
-              </Text>
-              <NextLink href={`/dashboard/course/${data.public_id}`}>
+            <Text
+              as="p"
+              fontSize="sm"
+              color={lastUpdatedColor}
+            >
+              Last Updated on - {data.lastUpdated}
+            </Text>
+            <NextLink href={`/dashboard/course/${data.public_id}`}>
               <Button
                 px="4"
                 py="0"
@@ -87,7 +87,7 @@ const HomeCard = ({ data }) => {
               >
                 Edit
               </Button>
-              </NextLink>
+            </NextLink>
           </Flex>
         </Flex>
       </Box>
