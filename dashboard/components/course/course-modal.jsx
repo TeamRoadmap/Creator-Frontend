@@ -20,7 +20,7 @@ import { AiOutlineCheck } from "react-icons/ai";
 import { useForm } from "react-hook-form";
 import axios from "axios";
 import { useRouter } from "next/router";
-import { toast } from 'react-toastify';
+import { toast } from "react-toastify";
 import { useSelector, useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { useState } from "react";
@@ -33,13 +33,33 @@ const CourseModal = ({ isOpen, onClose }) => {
   const [type, setType] = useState();
   const initialRef = useRef(null);
   const notify = () => toast("Course Created successfully");
+  const [image, setImage] = useState();
+  const [url, setUrl] = useState();
+  const uploadFile = () => {
+    const formData = new FormData();
 
+    formData.append("image", image);
+
+    let url = `https://roadmap-backend-host.herokuapp.com/api/v1/image`;
+
+    axios
+      .post(url, formData, {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then((res) => {
+        // then print response status
+        console.log(res.data.data.url);
+        setUrl(res.data.data.url);
+      });
+  };
   const onSubmit = async (data, e) => {
+    console.log(data);
     const res = await axios.post(
       "https://roadmap-backend-host.herokuapp.com/api/v1/course",
       {
         title: data?.title,
         description: data?.description,
+        image: url ,
         types: [data?.types],
       },
       {
@@ -52,7 +72,6 @@ const CourseModal = ({ isOpen, onClose }) => {
     router.push(`/dashboard/course/${res.data.data.course.public_id}`);
     notify();
   };
-
   const getType = async () => {
     const res = await axios.get(
       `https://roadmap-backend-host.herokuapp.com/api/v1/coursetype`,
@@ -123,6 +142,19 @@ const CourseModal = ({ isOpen, onClose }) => {
                   required
                 />
               </FormControl>
+              <FormControl mt={4} display="flex" gap="2">
+                <Input
+                  type="file"
+                  onChange={(e) => setImage(e.target.files[0])}
+                />
+                <Button onClick={uploadFile}>Upload</Button>
+              </FormControl>
+              {url ? (
+                <>
+                  <h2>Image uploaded successfully</h2>
+                  <img src={url}></img>
+                </>
+              ) : <Text>No Image Uploaded</Text>}
             </ModalBody>
 
             <ModalFooter>
