@@ -2,7 +2,6 @@ import {
   Flex,
   Circle,
   Box,
-  Image,
   Badge,
   useColorModeValue,
   Icon,
@@ -17,6 +16,7 @@ import { AiOutlineEdit } from "react-icons/ai";
 import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
 import { FiShoppingCart } from "react-icons/fi";
 import NextLink from "next/link";
+import Image from "next/image";
 
 const HomeCard = ({ data }) => {
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
@@ -29,16 +29,39 @@ const HomeCard = ({ data }) => {
       pos={"relative"}
       zIndex={1}
     >
-      <Box maxW="full">
-        <Img
-          p="4"
-          width="100%"
-          height="100%"
-          style={{ borderRadius: "1.2rem", objectFit: "contain" }}
-          src={data?.imageURL}
-        />
+      <Box
+        maxW="full"
+        p="2"
+        mb="8"
+      >
+        {data?.image !== null ? (
+          <Image
+            alt="img"
+            p="4"
+            width="4"
+            height="2"
+            layout="responsive"
+            style={{
+              borderRadius: "8px",
+              objectFit: "contain",
+            }}
+            src={data?.image}
+          />
+        ) : (
+          <Image
+            alt="dummyimg"
+            p="4"
+            width="4"
+            height="2"
+            layout="responsive"
+            style={{
+              borderRadius: "8px",
+              objectFit: "contain",
+            }}
+            src="/images/dummy-img.webp"
+          />
+        )}
       </Box>
-
       <Box p="4">
         <Flex
           direction="column"
