@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, Flex, Heading, Stack, Text } from "@chakra-ui/react";
-import { AiFillCodeSandboxCircle, AiOutlineSave } from "react-icons/ai";
+import { Box, Button, Flex, Heading, Input, Stack, Text, Editable, EditableInput, EditablePreview, TagLabel } from "@chakra-ui/react";
+import { AiFillCodeSandboxCircle, AiOutlineSave , AiFillDelete} from "react-icons/ai";
 import { Quill, CourseBuildLayout } from "../../../dashboard/components";
 import axios from "axios";
 import { toast } from "react-toastify";
@@ -47,6 +47,7 @@ export const Course = () => {
         },
       }
     );
+    getCourseDetail();
     dispatch({
       type: "course/setEditFlag",
       payload: false,
@@ -62,7 +63,8 @@ export const Course = () => {
         },
       }
     );
-    console.log(res)
+    dispatch({ type: "course/setSection", payload: "" });
+    getCourseDetail();
   }
   useEffect(() => {
     dispatch({ type: "course/setCourseId", payload: courseId });
@@ -81,13 +83,25 @@ export const Course = () => {
           <Heading>{course?.course?.title}</Heading>
           <Text>{course?.course?.description}</Text>
         </Stack>
-
+        <Flex gap="2" flexWrap="wrap">
+        {editorSection !== "" && 
+            <Button  onClick={() => setPreviewToggle((prev) => !prev)}>
+              {previewToggle ? "Open Editor" : "Preview"}
+            </Button>
+        }
         {editorSection != "" && <Button
           leftIcon={<AiOutlineSave />}
           onClick={updateSection}
         >
           {editFlag ? "Save" : "Saved"}
         </Button>}
+        {editorSection != "" && <Button
+        leftIcon={<AiFillDelete />}
+        onClick={deleteSection}
+        >
+          Delete
+          </Button>}
+        </Flex>
       </Stack>
       <Box
         my="12"
@@ -107,9 +121,6 @@ export const Course = () => {
         )}
         {editorSection != "" && (
           <>
-            <Button  onClick={() => setPreviewToggle((prev) => !prev)}>
-              Preview
-            </Button>
             {previewToggle ? (
               <Box>
                 <div style={{ fontWeight: "unset", fontSize: "unset" }}>
@@ -125,9 +136,28 @@ export const Course = () => {
                   gap="2"
                   direction="column"
                 >
-                  <Text fontSize="1rem">{editorSection?.id}</Text>
-                  <Text>{editorSection?.title}</Text>
-                  <Text>{editorSection?.description}</Text>
+                  <Text>Edit Title</Text>
+                    <Input value={editorSection.title} onChange={(e) => {
+                      dispatch({
+                        type: "course/setEditorSectionTitle",
+                        payload: e.target.value,
+                      });
+                      dispatch({
+                        type: "course/setEditFlag",
+                        payload: true,
+                      });
+                      }} />
+                      <Text>Edit Description</Text>
+                      <Input value={editorSection.description} onChange={(e) => {
+                      dispatch({
+                        type: "course/setEditorSectionDescription",
+                        payload: e.target.value,
+                      });
+                      dispatch({
+                        type: "course/setEditFlag",
+                        payload: true,
+                      });
+                      }} />
                 </Flex>
 
                 <Quill value={editorSection?.content} />
