@@ -59,7 +59,7 @@ const CourseModal = ({ isOpen, onClose }) => {
       {
         title: data?.title,
         description: data?.description,
-        image: url ,
+        image: url,
         types: [data?.types],
       },
       {
@@ -142,19 +142,31 @@ const CourseModal = ({ isOpen, onClose }) => {
                   required
                 />
               </FormControl>
-              <FormControl mt={4} display="flex" gap="2">
+              <FormControl
+                mt={4}
+                display="flex"
+                gap="2"
+              >
                 <Input
                   type="file"
                   onChange={(e) => setImage(e.target.files[0])}
                 />
-                <Button onClick={uploadFile}>Upload</Button>
+                <Button
+                  bg={"purple.600"}
+                  color={"white"}
+                  onClick={uploadFile}
+                >
+                  Upload
+                </Button>
               </FormControl>
               {url ? (
                 <>
                   <h2>Image uploaded successfully</h2>
                   <img src={url}></img>
                 </>
-              ) : <Text>No Image Uploaded</Text>}
+              ) : (
+                <Text>No Image Uploaded</Text>
+              )}
             </ModalBody>
 
             <ModalFooter>

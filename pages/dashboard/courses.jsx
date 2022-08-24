@@ -11,11 +11,29 @@ import {
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
 import { useSelector, useDispatch } from "react-redux";
-
+import { useEffect } from "react";
+import axios from "axios";
 export default function Course() {
+  const dispatch = useDispatch();
   const { isOpen, onOpen, onClose } = useDisclosure();
   const { courses } = useSelector((state) => state.course);
-
+  const { user, token } = useSelector((state) => state.user);
+  const getCourses = async () => {
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch({ type: "course/setCourses", payload: res.data.data });
+  };
+  useEffect(() => {
+    if (user?.id) {
+      getCourses();
+    }
+  }, [user]);
   return (
     <Layout>
       <Head>
@@ -67,6 +85,7 @@ export default function Course() {
                 <CourseCard
                   key={index}
                   id={data.id}
+                  type={data.type}
                   description={data.description}
                   title={data.title}
                   public_id={data.public_id}
