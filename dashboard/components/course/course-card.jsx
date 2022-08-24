@@ -14,21 +14,68 @@ import {
   Stack,
   ButtonGroup,
   Divider,
+  useDisclosure,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
+  FormControl,
+  FormLabel,
+  Input,
 } from "@chakra-ui/react";
 import {
   AiOutlineEdit,
   AiOutlineEye,
   AiOutlineInfoCircle,
 } from "react-icons/ai";
-import { BsStar, BsStarFill, BsStarHalf } from "react-icons/bs";
-import { FiShoppingCart } from "react-icons/fi";
 import NextLink from "next/link";
-// import Courseimg from "/images/react-course.webp";
 import Image from "next/image";
-
-const CourseCard = ({ title, id, description, public_id, image }) => {
+import { useForm } from "react-hook-form";
+import { AiOutlineCheck } from "react-icons/ai";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+const CourseCard = ({ title, id, description, public_id, image, type }) => {
+  const dispatch = useDispatch();
+  const { token, user } = useSelector((state) => state.user);
+  const { register, handleSubmit, reset } = useForm({
+    defaultValues: {
+      title: title,
+      description: description,
+    },
+  });
   const color = useColorModeValue("white", "gray.800");
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
+  const getCourses = async () => {
+    const res = await axios.get(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    dispatch({ type: "course/setCourses", payload: res.data.data });
+  };
+  const onSubmit = async (data) => {
+    const res = await axios.patch(
+      `https://roadmap-backend-host.herokuapp.com/api/v1/course/${public_id}`,
+      {
+        title: data.title,
+        description: data.description,
+      },
+      {
+        headers: {
+          Authorization: `Bearer ${token}`,
+        },
+      }
+    );
+    getCourses();
+    onClose();
+  };
   return (
     <Box
       maxW={"full"}
@@ -41,7 +88,7 @@ const CourseCard = ({ title, id, description, public_id, image }) => {
       <Box
         maxW="full"
         p="2"
-        mb="8"
+        mb="4"
       >
         {image !== null ? (
           <Image
@@ -82,13 +129,79 @@ const CourseCard = ({ title, id, description, public_id, image }) => {
             justifyContent="space-between"
             alignItems="end"
           >
+            <Flex
+              alignItems="center"
+              gap="2"
+            >
+              <Text
+                as="p"
+                fontSize="lg"
+                casing="capitalize"
+                fontWeight="semibold"
+                color={useColorModeValue("gray.700", "gray.200")}
+              >
+                {title}
+              </Text>
+              <Box
+                onClick={onOpen}
+                cursor="pointer"
+              >
+                <AiOutlineEdit />
+              </Box>
+              <Modal
+                isOpen={isOpen}
+                onClose={onClose}
+              >
+                <ModalOverlay />
+                <ModalContent>
+                  <form onSubmit={handleSubmit(onSubmit)}>
+                    <ModalHeader>Edit Course Details</ModalHeader>
+                    <ModalBody>
+                      <FormControl>
+                        <FormLabel>Title</FormLabel>
+                        <Input
+                          {...register("title")}
+                          required
+                        />
+                      </FormControl>
+                      <FormControl>
+                        <FormLabel>Description</FormLabel>
+                        <Input
+                          {...register("description")}
+                          required
+                        />
+                      </FormControl>
+                    </ModalBody>
+                    {/* </ModalContent> */}
+                    <ModalFooter>
+                      <Button
+                        leftIcon={<AiOutlineCheck />}
+                        bg={"purple.600"}
+                        color={"white"}
+                        mr={3}
+                        type="submit"
+                      >
+                        Save
+                      </Button>
+                      <Button
+                        type="button"
+                        onClick={onClose}
+                      >
+                        Cancel
+                      </Button>
+                    </ModalFooter>
+                  </form>
+                </ModalContent>
+              </Modal>
+            </Flex>
             <Text
               as="p"
               fontSize="md"
-              fontWeight="semibold"
+              casing="capitalize"
+              fontWeight="bold"
               color={useColorModeValue("gray.700", "gray.200")}
             >
-              {title}
+              {type}
             </Text>
           </Flex>
           <Flex
