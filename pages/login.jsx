@@ -28,6 +28,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../shared/lib/firebase";
 import { toast } from 'react-toastify';
+
 export default function Login() {
   const notify = () => toast("logged in succesfully")
   const [showPassword, setShowPassword] = useState(false);
@@ -62,7 +63,6 @@ export default function Login() {
   return (
     <Layout>
       <Flex
-        minH={"105vh"}
         align={"center"}
         justify={"center"}
         bg={useColorModeValue("gray.50", "gray.800")}
@@ -71,7 +71,7 @@ export default function Login() {
           spacing={8}
           mx={"auto"}
           maxW={"lg"}
-          py={12}
+          py={6}
           px={6}
         >
           <Stack align={"center"}>
@@ -107,13 +107,14 @@ export default function Login() {
                       pattern: {
                         value:
                           /^[a-z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-z0-9-]+(?:\.[a-z0-9-]+)*$/,
-                        message:
-                          "Please enter valid email (lowercase letter)",
+                        message: "Please enter valid email (lowercase letter)",
                       },
                     })}
                     required
                   />
-                  {errors.email?.message && <Text color="red">{errors.email?.message}</Text>}
+                  {errors.email?.message && (
+                    <Text color="red">{errors.email?.message}</Text>
+                  )}
                 </FormControl>
                 <FormControl id="password">
                   <FormLabel>Password</FormLabel>
@@ -122,9 +123,9 @@ export default function Login() {
                       focusBorderColor="purple.500"
                       type={showPassword ? "text" : "password"}
                       {...register("password", {
-                        minLength:{
+                        minLength: {
                           value: 6,
-                          message: "Please enter min 6 characters"
+                          message: "Please enter min 6 characters",
                         },
                       })}
                       required
@@ -140,7 +141,9 @@ export default function Login() {
                       </Button>
                     </InputRightElement>
                   </InputGroup>
-                  {errors.password?.message && <Text color="red">{errors.password?.message}</Text>}
+                  {errors.password?.message && (
+                    <Text color="red">{errors.password?.message}</Text>
+                  )}
                 </FormControl>
                 <Stack spacing={10}>
                   <Stack

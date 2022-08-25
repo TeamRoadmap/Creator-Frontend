@@ -17,8 +17,11 @@ import React from "react";
 import Sections from "./sections";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
+import { toast } from "react-toastify";
+
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const { editFlag } = useSelector((state) => state.course);
   const dispatch = useDispatch();
   const sidebar = useDisclosure();
   const router = useRouter();
@@ -97,7 +100,11 @@ export const CourseSidebar = () => {
         m="4"
         align="center"
         onClick={() => {
-          dispatch({ type: "course/setBuilderHome", payload: true });
+          if (editFlag === false) {
+            dispatch({ type: "course/setBuilderHome", payload: true });
+          } else {
+            toast("Please Save Latest Changes");
+          }
         }}
       >
         Editor Home

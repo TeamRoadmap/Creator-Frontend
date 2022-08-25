@@ -104,6 +104,7 @@ const CourseModal = ({ isOpen, onClose }) => {
               <FormControl>
                 <FormLabel>Course Name</FormLabel>
                 <Input
+                  focusBorderColor="purple.500"
                   placeholder="Course Name"
                   {...register("title")}
                   required
@@ -113,6 +114,7 @@ const CourseModal = ({ isOpen, onClose }) => {
               <FormControl mt={4}>
                 <FormLabel>Course Type</FormLabel>
                 <Select
+                  focusBorderColor="purple.500"
                   placeholder="Select Type"
                   {...register("types")}
                   required
@@ -132,6 +134,7 @@ const CourseModal = ({ isOpen, onClose }) => {
               <FormControl mt={4}>
               <FormLabel>Description</FormLabel>
                 <Textarea
+                  focusBorderColor="purple.500"
                   placeholder="Description"
                   {...register("description", {
                     maxLength: {

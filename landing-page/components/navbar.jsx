@@ -38,9 +38,7 @@ const Navbar = () => {
     <Box
       bg={useColorModeValue("white", "gray.800")}
       p={"1rem"}
-      position={"fixed"}
       width={"full"}
-      zIndex={"sticky"}
     >
       <Flex
         color={useColorModeValue("gray.600", "white")}

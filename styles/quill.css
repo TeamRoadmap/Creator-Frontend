@@ -846,7 +846,8 @@
   background-color: #000;
 }
 .ql-toolbar.ql-snow {
-  border: 1px solid #ccc;
+  border: 1px solid #efefef;
+  border-radius: 8px 8px 0px 0px;
   box-sizing: border-box;
   font-family: 'Helvetica Neue', 'Helvetica', 'Arial', sans-serif;
   padding: 8px;
@@ -875,11 +876,13 @@
   border-top: 0px;
 }
 .ql-snow .ql-tooltip {
-  background-color: #fff;
-  border: 1px solid #ccc;
-  box-shadow: 0px 0px 5px #ddd;
-  color: #444;
+  background-color: var(--chakra-colors-chakra-body-bg);
+  border-radius: px;
+  border: 1px solid var(--chakra-colors-purple-600);
+  color: var(--chakra-colors-chakra-body-text);
   padding: 5px 12px;
+  margin-left: 6rem;
+
   white-space: nowrap;
 }
 .ql-snow .ql-tooltip::before {
@@ -921,14 +924,17 @@
   display: none;
 }
 .ql-snow .ql-tooltip.ql-editing input[type=text] {
+  
   display: inline-block;
 }
 .ql-snow .ql-tooltip.ql-editing a.ql-action::after {
+  
   border-right: 0px;
   content: 'Save';
   padding-right: 0px;
 }
 .ql-snow .ql-tooltip[data-mode=link]::before {
+
   content: "Enter link:";
 }
 .ql-snow .ql-tooltip[data-mode=formula]::before {
@@ -942,4 +948,6 @@
 }
 .ql-container.ql-snow {
   border: 1px solid #ccc;
+  border-radius: 0px 0px 8px 8px;
+
 }

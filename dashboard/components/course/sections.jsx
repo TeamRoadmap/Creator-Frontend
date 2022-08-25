@@ -35,7 +35,6 @@ export default function Sections() {
           },
         }
       );
-      console.log("Isdad");
       dispatch({ type: "course/setBuilderHome", payload: false });
       dispatch({
         type: "course/setSection",

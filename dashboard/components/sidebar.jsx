@@ -144,9 +144,6 @@ const Sidebar = () => {
         <NavLink to="/dashboard/statistics">
           <NavItem icon={AiOutlineFund}>Statistics</NavItem>
         </NavLink>
-        <NavLink to="/dashboard/settings">
-          <NavItem icon={AiOutlineSetting}>Settings</NavItem>
-        </NavLink>
 
         <Button
           m="6"

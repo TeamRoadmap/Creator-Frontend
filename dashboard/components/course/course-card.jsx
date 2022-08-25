@@ -160,6 +160,7 @@ const CourseCard = ({ title, id, description, public_id, image, type }) => {
                       <FormControl>
                         <FormLabel>Title</FormLabel>
                         <Input
+                          focusBorderColor="purple.500"
                           {...register("title")}
                           required
                         />
@@ -167,6 +168,7 @@ const CourseCard = ({ title, id, description, public_id, image, type }) => {
                       <FormControl>
                         <FormLabel>Description</FormLabel>
                         <Input
+                          focusBorderColor="purple.500"
                           {...register("description")}
                           required
                         />
