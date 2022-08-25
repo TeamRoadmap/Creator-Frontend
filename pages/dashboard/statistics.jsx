@@ -5,6 +5,7 @@ import {
   Grid,
   Heading,
   SimpleGrid,
+  Skeleton,
   Stack,
   Text,
   useDisclosure,
@@ -19,6 +20,8 @@ export default function Statistics() {
   const { token } = useSelector((state) => state.user);
   const [loading, setLoading] = useState(false);
   const [stats, setStats] = useState();
+  const [totalStats, setTotalStats] = useState(0);
+
   const { isOpen, onOpen, onClose } = useDisclosure();
 
   const getStats = async () => {
@@ -42,6 +45,7 @@ export default function Statistics() {
   useEffect(() => {
     getStats();
   }, []);
+
   return (
     <Layout>
       <Head>
@@ -80,17 +84,21 @@ export default function Statistics() {
           >
             {stats?.map((data, index) => {
               return (
-                <StatsCard
+                <Skeleton
                   key={index}
-                  id={data.id}
-                  description={data.description}
-                  title={data.title}
-                  public_id={data.public_id}
-                  bookmarks={data.totalBookmarks}
-                  enrollment={data.totalEnrollments}
-                  votes={data.votes}
-                  image={data.image}
-                />
+                  isLoaded={!loading}
+                >
+                  <StatsCard
+                    id={data.id}
+                    description={data.description}
+                    title={data.title}
+                    public_id={data.public_id}
+                    bookmarks={data.totalBookmarks}
+                    enrollment={data.totalEnrollments}
+                    votes={data.votes}
+                    image={data.image}
+                  />
+                </Skeleton>
               );
             })}
           </SimpleGrid>

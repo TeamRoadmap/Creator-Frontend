@@ -19,8 +19,9 @@ import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
 export const CourseSidebar = () => {
   const { colorMode, toggleColorMode } = useColorMode();
+  const dispatch = useDispatch();
   const sidebar = useDisclosure();
-  const router =  useRouter();
+  const router = useRouter();
   const SidebarContent = (props) => (
     <Box
       as="nav"
@@ -41,7 +42,13 @@ export const CourseSidebar = () => {
       w="60"
       {...props}
     >
-      <Flex direction="row" mx="5" mt="5" mb="2" gap="5">
+      <Flex
+        direction="row"
+        mx="5"
+        mt="5"
+        mb="2"
+        gap="5"
+      >
         <Button
           w="full"
           p="0"
@@ -52,7 +59,9 @@ export const CourseSidebar = () => {
         <Button
           w="full"
           p=""
-          onClick={() => {  router.push("/dashboard/courses")}}
+          onClick={() => {
+            router.push("/dashboard/courses");
+          }}
         >
           Courses
         </Button>
@@ -83,12 +92,21 @@ export const CourseSidebar = () => {
           size="sm"
         />
       </Flex>
+      <Button
+        w="86%"
+        m="4"
+        align="center"
+        onClick={() => {
+          dispatch({ type: "course/setBuilderHome", payload: true });
+        }}
+      >
+        Editor Home
+      </Button>
       <Text
         px="2"
-        py="1"
+        pt="4"
         fontSize="xl"
         ml="2"
-        mb="2"
         color="brand.500"
         _dark={{ color: "white" }}
         fontWeight="bold"

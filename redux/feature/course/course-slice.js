@@ -5,7 +5,8 @@ const initialState = {
   course: [],
   courseId: "",
   editorSection: "",
-  editFlag: false
+  editFlag: false,
+  builderHome: true,
   // contain all the courses's data in an array of object.
 };
 const courseSlice = createSlice({
@@ -38,6 +39,9 @@ const courseSlice = createSlice({
     },
     setEditFlag: (state, action) => {
       state.editFlag = action.payload;
+    },
+    setBuilderHome: (state, action) => {
+      state.builderHome = action.payload;
     },
     resetList: (state) => {
       return (state = []);

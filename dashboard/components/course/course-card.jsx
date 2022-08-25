@@ -198,7 +198,6 @@ const CourseCard = ({ title, id, description, public_id, image, type }) => {
               as="p"
               fontSize="md"
               casing="capitalize"
-              fontWeight="bold"
               color={useColorModeValue("gray.700", "gray.200")}
             >
               {type}

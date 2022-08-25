@@ -17,42 +17,51 @@ import { toast } from "react-toastify";
 
 export default function Sections() {
   const { isOpen, onOpen, onClose } = useDisclosure();
-  const { course , editFlag } = useSelector((state) => state.course);
+  const { course, editFlag } = useSelector((state) => state.course);
   const { token } = useSelector((state) => state.user);
   const dispatch = useDispatch();
   const notify = (msg) => toast(msg);
   const color = useColorModeValue("gray.500", "white");
+
   const getSectionData = async (sectionId) => {
-    if(editFlag) {
-      notify("Please Save Latest Changes")
-    }else {
-     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/section/${sectionId}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    dispatch({ type: "course/setSection", payload:{ ...res.data.data.section , type: "section" }}); 
+    if (editFlag) {
+      notify("Please Save Latest Changes");
+    } else {
+      const res = await axios.get(
+        `https://roadmap-backend-host.herokuapp.com/api/v1/section/${sectionId}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      console.log("Isdad");
+      dispatch({ type: "course/setBuilderHome", payload: false });
+      dispatch({
+        type: "course/setSection",
+        payload: { ...res.data.data.section, type: "section" },
+      });
     }
-    
   };
   const getSubsectionData = async (id) => {
-    if(editFlag){
-      notify("Please Save Latest Changes")
-    }else {
-    const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/subsection/${id}`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-    dispatch({ type: "course/setSection", payload:{ ...res.data.data.subsection , type: "subsection" } });
+    if (editFlag) {
+      notify("Please Save Latest Changes");
+    } else {
+      const res = await axios.get(
+        `https://roadmap-backend-host.herokuapp.com/api/v1/subsection/${id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      dispatch({ type: "course/setBuilderHome", payload: false });
+      dispatch({
+        type: "course/setSection",
+        payload: { ...res.data.data.subsection, type: "subsection" },
+      });
     }
-  }
+  };
   return (
     <Flex
       direction="column"
@@ -62,17 +71,18 @@ export default function Sections() {
       gap="2"
       aria-label="Main Navigation"
     >
-      <Box
-      >
+      <Box>
         {course?.sections?.map((sectionData, index) => {
           return (
-              <Box p="1rem">
+            <Box
+              p="1rem"
+              key={index}
+            >
               <Flex
-                my="2"
+                my="1"
                 direction="row"
                 justifyContent="space-between"
                 alignItems="center"
-                key={index}
               >
                 <Text
                   fontSize="1rem"
@@ -95,12 +105,12 @@ export default function Sections() {
                   {sectionData.subsections?.map((subSec, index) => {
                     return (
                       <Flex
-                      my="2"
-                      direction="row"
-                      justifyContent="space-between"
-                      alignItems="center"
-                      pl="1rem"
-                      key={subSec.id}
+                        my="2"
+                        direction="row"
+                        justifyContent="space-between"
+                        alignItems="center"
+                        pl="1rem"
+                        key={subSec.id}
                       >
                         <Text
                           fontSize="1rem"
@@ -118,9 +128,19 @@ export default function Sections() {
                     );
                   })}
                 </List>
-                <CourseSidebarModal order={ sectionData.subsections.length ? sectionData.subsections[sectionData.subsections.length -1].order + 1 : 1 } type="Subsection" sectionId={sectionData.id} />
+                <CourseSidebarModal
+                  order={
+                    sectionData.subsections.length
+                      ? sectionData.subsections[
+                          sectionData.subsections.length - 1
+                        ].order + 1
+                      : 1
+                  }
+                  type="Subsection"
+                  sectionId={sectionData.id}
+                />
               </Box>
-              </Box>
+            </Box>
           );
         })}
       </Box>
@@ -130,7 +150,14 @@ export default function Sections() {
         color="brand.500"
         _dark={{ color: "white" }}
       >
-        <CourseSidebarModal order={course?.sections?.length ? course?.sections[course.sections.length -1].order + 1 : 1 }  type="Section" />
+        <CourseSidebarModal
+          order={
+            course?.sections?.length
+              ? course?.sections[course.sections.length - 1].order + 1
+              : 1
+          }
+          type="Section"
+        />
       </Box>
     </Flex>
   );

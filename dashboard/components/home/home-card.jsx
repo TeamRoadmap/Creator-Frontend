@@ -32,7 +32,7 @@ const HomeCard = ({ data }) => {
       <Box
         maxW="full"
         p="2"
-        mb="8"
+        mb="2"
       >
         {data?.image !== null ? (
           <Image
@@ -83,6 +83,7 @@ const HomeCard = ({ data }) => {
             <Text
               as="p"
               fontSize="sm"
+              casing="capitalize"
               color={useColorModeValue("gray.600", "gray.300")}
             >
               {data.type}
@@ -94,13 +95,7 @@ const HomeCard = ({ data }) => {
             alignItems="end"
           >
             {/* {data.lastUpdated && ( */}
-            <Text
-              as="p"
-              fontSize="sm"
-              color={lastUpdatedColor}
-            >
-              Last Updated on - {data.lastUpdated}
-            </Text>
+
             <NextLink href={`/dashboard/course/${data.public_id}`}>
               <Button
                 px="4"
