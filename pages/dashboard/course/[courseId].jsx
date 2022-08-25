@@ -252,7 +252,7 @@ const Course = () => {
         p="8"
       >
         <div></div>
-        {builderHome ? (
+        {builderHome && editFlag === false ? (
           <>
             {course.sections == "" ? (
               <Text

@@ -28,6 +28,7 @@ import { FiAlertCircle } from "react-icons/fi";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth } from "../shared/lib/firebase";
 import { toast } from 'react-toastify';
+
 export default function Login() {
   const notify = () => toast("logged in succesfully")
   const [showPassword, setShowPassword] = useState(false);

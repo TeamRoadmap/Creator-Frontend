@@ -38,7 +38,7 @@ export default function Statistics() {
       setStats(res.data.data.courses);
       setLoading(false);
     } catch (error) {
-      console.log(err);
+      console.log(error);
     }
   };
 
