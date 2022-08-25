@@ -64,6 +64,10 @@ export const Course = () => {
       }
     );
     dispatch({ type: "course/setSection", payload: "" });
+    dispatch({
+      type: "course/setEditFlag",
+      payload: false,
+    });
     getCourseDetail();
   }
   useEffect(() => {
