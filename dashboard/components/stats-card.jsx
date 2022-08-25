@@ -54,7 +54,7 @@ const StatsCard = ({
       pos={"relative"}
       zIndex={1}
     >
-      <Box maxW="full">
+      {/* <Box maxW="full">
         {image !== null && (
           <Img
             p="4"
@@ -64,7 +64,7 @@ const StatsCard = ({
             src={image}
           />
         )}
-      </Box>
+      </Box> */}
 
       <Flex
         direction="column"
