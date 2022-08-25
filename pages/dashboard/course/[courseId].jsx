@@ -68,6 +68,7 @@ export const Course = () => {
       type: "course/setEditFlag",
       payload: false,
     });
+    dispatch({ type: "course/setBuilderHome", payload: true });
     getCourseDetail();
   };
   useEffect(() => {
