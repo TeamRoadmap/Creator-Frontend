@@ -1,13 +1,38 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { useSelector, useDispatch } from "react-redux";
-import { Box, Button, Flex, Heading, Input, Stack, Text, Editable, EditableInput, EditablePreview, TagLabel } from "@chakra-ui/react";
-import { AiFillCodeSandboxCircle, AiOutlineSave , AiFillDelete} from "react-icons/ai";
+import {
+  Box,
+  Button,
+  Flex,
+  Heading,
+  Input,
+  Stack,
+  Text,
+  Editable,
+  EditableInput,
+  EditablePreview,
+  TagLabel,
+  Link,
+  Code,
+  useColorModeValue,
+} from "@chakra-ui/react";
+import {
+  AiFillCodeSandboxCircle,
+  AiOutlineSave,
+  AiFillDelete,
+} from "react-icons/ai";
 import { Quill, CourseBuildLayout } from "../../../dashboard/components";
 import axios from "axios";
 import { toast } from "react-toastify";
-import parse from "html-react-parser";
-export const Course = () => {
+import parse, {
+  attributesToProps,
+  domToReact,
+  Element,
+} from "html-react-parser";
+import Image from "next/image";
+
+const Course = () => {
   const notify = () => toast("Saved");
   const { course, editorSection, editFlag, builderHome } = useSelector(
     (state) => state.course
@@ -17,6 +42,10 @@ export const Course = () => {
   const router = useRouter();
   const { courseId } = router.query;
   const [previewToggle, setPreviewToggle] = useState(false);
+  const linkColor = useColorModeValue("purple.500", "purple.200");
+  const codeColor = useColorModeValue("gray.200", "gray.700");
+  const contentColor = useColorModeValue("gray.700", "gray.200");
+
   const getCourseDetail = async () => {
     const res = await axios.get(
       `https://roadmap-backend-host.herokuapp.com/api/v1/course/${courseId}`,
@@ -32,6 +61,7 @@ export const Course = () => {
     dispatch({ type: "course/setSection", payload: "" });
     dispatch({ type: "course/setEditFlag", payload: false });
   }, [courseId]);
+
   const updateSection = async () => {
     const res = await axios.patch(
       `https://roadmap-backend-host.herokuapp.com/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
@@ -77,6 +107,98 @@ export const Course = () => {
     getCourseDetail();
   }, []);
 
+  const options = {
+    replace: (domNode) => {
+      // Look for an img tag and replace it with Image.
+      if (domNode instanceof Element && domNode.name === "img") {
+        const { src, alt } = domNode.attribs;
+
+        return (
+          <Image
+            src={`${src}`}
+            width={`200px`}
+            height={`200px`}
+            alt={alt}
+            layout="intrinsic"
+            objectFit="cover"
+          />
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "h1") {
+        const props = attributesToProps(domNode.attribs);
+        return (
+          <Heading
+            as="h1"
+            fontSize="1.2rem"
+            color={contentColor}
+          >
+            {domNode.children[0].data}
+          </Heading>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "h2") {
+        const props = attributesToProps(domNode.attribs);
+        return (
+          <Heading
+            as="h1"
+            fontSize="1rem"
+            color={contentColor}
+          >
+            {domNode.children[0].data}
+          </Heading>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "a") {
+        const props = attributesToProps(domNode.attribs);
+        return (
+          <Link
+            {...props}
+            as="a"
+            fontSize="1rem"
+            color={linkColor}
+          >
+            {domNode.children[0].data}
+          </Link>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "pre") {
+        const props = attributesToProps(domNode.attribs);
+        return (
+          <Code
+            bg={codeColor}
+            px="6"
+            py="4"
+            mb="4"
+            rounded="8"
+          >
+            {domToReact(domNode.children)}
+          </Code>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "iframe") {
+        const { src, alt } = domNode.attribs;
+        return (
+          <iframe
+            width="260"
+            src={`${src}`}
+          >
+            {domToReact(domNode.children)}
+          </iframe>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "ol") {
+        return (
+          <ol style={{ padding: "0 16px" }}>{domToReact(domNode.children)}</ol>
+        );
+      }
+      if (domNode instanceof Element && domNode.name === "ul") {
+        return (
+          <ul style={{ padding: "0 16px" }}>{domToReact(domNode.children)}</ul>
+        );
+      }
+    },
+  };
+
   return (
     <CourseBuildLayout>
       <Stack
@@ -90,11 +212,15 @@ export const Course = () => {
           <Text>{course?.course?.description}</Text>
         </Stack>
         <Flex
+          style={builderHome ? { display: "none" } : {}}
           gap="2"
           flexWrap="wrap"
         >
           {editorSection !== "" && (
-            <Button onClick={() => setPreviewToggle((prev) => !prev)}>
+            <Button
+              isDisabled={builderHome}
+              onClick={() => setPreviewToggle((prev) => !prev)}
+            >
               {previewToggle ? "Open Editor" : "Preview"}
             </Button>
           )}
@@ -108,6 +234,7 @@ export const Course = () => {
           )}
           {editorSection != "" && (
             <Button
+              isDisabled={builderHome}
               leftIcon={<AiFillDelete />}
               onClick={deleteSection}
             >
@@ -152,7 +279,7 @@ export const Course = () => {
                 {previewToggle ? (
                   <Box>
                     <div style={{ fontWeight: "unset", fontSize: "unset" }}>
-                      {parse(editorSection?.content)}
+                      {parse(`${editorSection?.content}`, options)}
                     </div>
                   </Box>
                 ) : (
