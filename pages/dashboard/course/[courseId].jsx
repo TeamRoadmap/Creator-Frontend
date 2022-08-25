@@ -9,7 +9,7 @@ import { toast } from "react-toastify";
 import parse from "html-react-parser";
 export const Course = () => {
   const notify = () => toast("Saved");
-  const { course, editorSection, editFlag } = useSelector(
+  const { course, editorSection, editFlag, builderHome } = useSelector(
     (state) => state.course
   );
   const { token, user } = useSelector((state) => state.user);
@@ -30,7 +30,7 @@ export const Course = () => {
   };
   useEffect(() => {
     dispatch({ type: "course/setSection", payload: "" });
-    dispatch({type:"course/setEditFlag", payload: false})
+    dispatch({ type: "course/setEditFlag", payload: false });
   }, [courseId]);
   const updateSection = async () => {
     const res = await axios.patch(
@@ -69,8 +69,9 @@ export const Course = () => {
       payload: false,
     });
     getCourseDetail();
-  }
+  };
   useEffect(() => {
+    dispatch({ type: "course/setBuilderHome", payload: true });
     dispatch({ type: "course/setCourseId", payload: courseId });
     getCourseDetail();
   }, []);
@@ -122,63 +123,80 @@ export const Course = () => {
         mx="6"
         p="8"
       >
-        {editorSection == "" && (
-          <Text
-            fontSize="xl"
-            textAlign="center"
-          >
-            Start Building your Course By Adding Section
-          </Text>
-        )}
-        {editorSection != "" && (
+        <div></div>
+        {builderHome ? (
           <>
-            {previewToggle ? (
-              <Box>
-                <div style={{ fontWeight: "unset", fontSize: "unset" }}>
-                  {parse(editorSection?.content)}
-                </div>
-              </Box>
-            ) : (
-              <Flex
-                gap="6"
-                direction="column"
+            {course.sections == "" ? (
+              <Text
+                fontSize="xl"
+                textAlign="center"
               >
-                <Flex
-                  gap="2"
-                  direction="column"
-                >
-                  <Text>Edit Title</Text>
-                  <Input
-                    value={editorSection?.title}
-                    onChange={(e) => {
-                      dispatch({
-                        type: "course/setEditorSectionTitle",
-                        payload: e.target.value,
-                      });
-                      dispatch({
-                        type: "course/setEditFlag",
-                        payload: true,
-                      });
-                    }}
-                  />
-                  <Text>Edit Description</Text>
-                  <Input
-                    value={editorSection?.description}
-                    onChange={(e) => {
-                      dispatch({
-                        type: "course/setEditorSectionDescription",
-                        payload: e.target.value,
-                      });
-                      dispatch({
-                        type: "course/setEditFlag",
-                        payload: true,
-                      });
-                    }}
-                  />
-                </Flex>
+                Start Building your Course By Adding Section
+              </Text>
+            ) : (
+              <Text
+                fontSize="xl"
+                textAlign="center"
+              >
+                You already Have started working on the course.
+                <br /> Create more Content. Have a good day!
+              </Text>
+            )}
+          </>
+        ) : (
+          <>
+            <div></div>
+            {editorSection != "" && (
+              <>
+                {previewToggle ? (
+                  <Box>
+                    <div style={{ fontWeight: "unset", fontSize: "unset" }}>
+                      {parse(editorSection?.content)}
+                    </div>
+                  </Box>
+                ) : (
+                  <Flex
+                    gap="6"
+                    direction="column"
+                  >
+                    <Flex
+                      gap="2"
+                      direction="column"
+                    >
+                      <Text>Edit Title</Text>
+                      <Input
+                        value={editorSection?.title}
+                        onChange={(e) => {
+                          dispatch({
+                            type: "course/setEditorSectionTitle",
+                            payload: e.target.value,
+                          });
+                          dispatch({
+                            type: "course/setEditFlag",
+                            payload: true,
+                          });
+                        }}
+                      />
+                      <Text>Edit Description</Text>
+                      <Input
+                        value={editorSection?.description}
+                        onChange={(e) => {
+                          dispatch({
+                            type: "course/setEditorSectionDescription",
+                            payload: e.target.value,
+                          });
+                          dispatch({
+                            type: "course/setEditFlag",
+                            payload: true,
+                          });
+                        }}
+                      />
+                    </Flex>
 
-                <Quill value={editorSection?.content} />
-              </Flex>
+                    <Quill value={editorSection?.content} />
+                  </Flex>
+                )}
+              </>
             )}
           </>
         )}
