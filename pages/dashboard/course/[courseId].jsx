@@ -279,6 +279,8 @@ const Course = () => {
                 {previewToggle ? (
                   <Box>
                     <div style={{ fontWeight: "unset", fontSize: "unset" }}>
+                      <Text>{editorSection.title}</Text>
+                      <Text>{editorSection.description}</Text>
                       {parse(`${editorSection?.content}`, options)}
                     </div>
                   </Box>

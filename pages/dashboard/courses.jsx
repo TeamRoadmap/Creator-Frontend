@@ -7,6 +7,7 @@ import {
   SimpleGrid,
   Stack,
   Text,
+  Flex,
   useDisclosure,
 } from "@chakra-ui/react";
 import { AiOutlinePlus } from "react-icons/ai";
@@ -76,24 +77,32 @@ export default function Course() {
           direction="column"
           gap="6"
         >
-          <SimpleGrid
-            columns={{ base: "1", md: "2", lg: "3" }}
-            spacing="4"
-          >
-            {courses?.map((data, index) => {
-              return (
-                <CourseCard
-                  key={index}
-                  id={data.id}
-                  type={data.type}
-                  description={data.description}
-                  title={data.title}
-                  public_id={data.public_id}
-                  image={data.image}
-                />
-              );
-            })}
-          </SimpleGrid>
+          {courses?.length !== 0 ? (
+            <SimpleGrid
+              columns={{ base: "1", md: "2", lg: "3" }}
+              spacing="4"
+            >
+              {courses?.map((data, index) => {
+                return (
+                  <CourseCard
+                    key={index}
+                    id={data.id}
+                    type={data.type}
+                    description={data.description}
+                    title={data.title}
+                    public_id={data.public_id}
+                    image={data.image}
+                  />
+                );
+              })}
+            </SimpleGrid>
+          ) : (
+            <Flex
+              justifyContent="center"
+            >
+              <Text fontSize="2xl" fontWeight="semibold">Start Your Course Building Journey</Text>
+            </Flex>
+          )}
         </Stack>
       </Stack>
     </Layout>
