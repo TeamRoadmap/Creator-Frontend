@@ -13,3 +13,11 @@ a {
 * {
   box-sizing: border-box;
 }
+input[type=file]::-webkit-file-upload-button {
+  border: 2px solid transparent;
+  font: inherit;
+  font-weight: 500;
+  background-color: var(--chakra-colors-gray-100);
+  border-radius: .2em;
+  color: #6B46C1;
+}
