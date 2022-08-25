@@ -80,40 +80,33 @@ export default function Home() {
         >
           <Heading fontSize="2xl"> Your Courses</Heading>
           {isLoadingCourses ? (
-            <SimpleGrid
-              columns={{ base: "1", md: "2", lg: "3" }}
-              spacing="4"
-            >
-              {courses?.slice(0, 3).map((data, index) => {
-                return (
-                  <HomeCard
-                    key={index}
-                    data={data}
-                  />
-                );
-              })}
-            </SimpleGrid>
+            courses.length !== 0 ? (
+              <SimpleGrid
+                columns={{ base: "1", md: "2", lg: "3" }}
+                spacing="4"
+              >
+                {courses?.slice(0, 3).map((data, index) => {
+                  return (
+                    <HomeCard
+                      key={index}
+                      data={data}
+                    />
+                  );
+                })}
+              </SimpleGrid>
+            ) : (
+              <Flex fontSize="2xl" fontWeight="semibold" justifyContent="center">
+                <Text>
+                  You havent created a course yet pls embark on the journey
+                </Text>
+              </Flex>
+            )
           ) : (
             <Flex justifyContent="center">
               {" "}
-              <Spinner size='xl' />{" "}
+              <Spinner size="xl" />{" "}
             </Flex>
           )}
-          {/* <Skeleton isLoaded={isLoadingCourses}>
-           <SimpleGrid
-            columns={{ base: "1", md: "2", lg: "3" }}
-            spacing="4"
-          >
-            {courses?.slice(0,3).map((data, index) => {
-              return (
-                <HomeCard
-                  key={index}
-                  data={data}
-                />
-              );
-            })}
-          </SimpleGrid> 
-          </Skeleton> */}
         </Stack>
         <Flex justifyContent="center">
           {isLoadingCourses && courses?.length > 3 && (
