@@ -293,6 +293,7 @@ const Course = () => {
                     >
                       <Text>Edit Title</Text>
                       <Input
+                        focusBorderColor="purple.500"
                         value={editorSection?.title}
                         onChange={(e) => {
                           dispatch({
@@ -307,6 +308,7 @@ const Course = () => {
                       />
                       <Text>Edit Description</Text>
                       <Input
+                        focusBorderColor="purple.500"
                         value={editorSection?.description}
                         onChange={(e) => {
                           dispatch({
