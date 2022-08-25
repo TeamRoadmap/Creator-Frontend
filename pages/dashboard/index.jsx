@@ -1,5 +1,5 @@
 import Head from "next/head";
-import { Layout, HomeCard } from "../../dashboard/components";
+import { Layout, HomeCard, CourseModal } from "../../dashboard/components";
 import {
   Button,
   Flex,
@@ -10,14 +10,17 @@ import {
   Spinner,
   Stack,
   Text,
+  useDisclosure,
 } from "@chakra-ui/react";
 import { useSelector, useDispatch } from "react-redux";
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import axios from "axios";
+import { AiOutlinePlus } from "react-icons/ai";
 
 export default function Home() {
   const dispatch = useDispatch();
+  const { isOpen, onOpen, onClose } = useDisclosure();
   const { user, token } = useSelector((state) => state.user);
   const { courses } = useSelector((state) => state.course);
   const router = useRouter();
@@ -59,20 +62,36 @@ export default function Home() {
         direction="column"
         gap="12"
       >
-        <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
-          <Text
-            as={"span"}
-            position={"relative"}
+        <Stack
+          direction="row"
+          justify="space-between"
+        >
+          <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
+            <Text
+              as={"span"}
+              position={"relative"}
+            >
+              Hey There,
+            </Text>{" "}
+            <Text
+              color={"purple.600"}
+              as={"span"}
+            >
+              {user?.name}!
+            </Text>{" "}
+          </Heading>
+          <Button
+            onClick={onOpen}
+            leftIcon={<AiOutlinePlus />}
           >
-            Hey There,
-          </Text>{" "}
-          <Text
-            color={"purple.600"}
-            as={"span"}
-          >
-            {user?.name}!
-          </Text>{" "}
-        </Heading>
+            Create Course
+          </Button>
+          <CourseModal
+            isOpen={isOpen}
+            onClose={onClose}
+          />
+        </Stack>
+
         <Stack
           m="6"
           direction="column"
@@ -96,7 +115,7 @@ export default function Home() {
           ) : (
             <Flex justifyContent="center">
               {" "}
-              <Spinner size='xl' />{" "}
+              <Spinner size="xl" />{" "}
             </Flex>
           )}
           {/* <Skeleton isLoaded={isLoadingCourses}>
