@@ -130,7 +130,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                 </Select>
               </FormControl>
               <FormControl mt={4}>
-                <Text mb="8px">Description</Text>
+              <FormLabel>Description</FormLabel>
                 <Textarea
                   placeholder="Description"
                   {...register("description", {
@@ -145,9 +145,12 @@ const CourseModal = ({ isOpen, onClose }) => {
               <FormControl
                 mt={4}
                 display="flex"
+                flexDirection="column"
                 gap="2"
               >
+                <FormLabel>Course Banner</FormLabel>
                 <Input
+                  padding="0.2rem 0.5rem"
                   type="file"
                   onChange={(e) => setImage(e.target.files[0])}
                 />
@@ -155,6 +158,7 @@ const CourseModal = ({ isOpen, onClose }) => {
                   bg={"purple.600"}
                   color={"white"}
                   onClick={uploadFile}
+                  width="fit-content"
                 >
                   Upload
                 </Button>
