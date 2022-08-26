@@ -12,6 +12,7 @@ import {
 import Image from "next/image";
 import HeaderImage from "../../public/images/creator-dashboard.png";
 import Link from "next/link";
+import Dashboard from "../../public/images/dashboard.png";
 
 const Header = () => {
 	const testimonialBg = useColorModeValue("gray.100", "gray.700");
@@ -66,7 +67,7 @@ const Header = () => {
 					<Image
 						alt={"Header Image"}
 						style={{ borderRadius: "8px" }}
-						src={HeaderImage}
+						src={Dashboard} 
 					/>
 				</Flex>
 			</Stack>

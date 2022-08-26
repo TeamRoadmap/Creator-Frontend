@@ -20,7 +20,7 @@ export default function Home() {
       </Head>
       <Header />
       <About />
-      <How />
+      {/* <How /> */}
       <Footer />
     </Layout>
   );

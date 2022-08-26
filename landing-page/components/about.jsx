@@ -9,6 +9,8 @@ import Image from "next/image";
 
 import AboutImage1 from "../../public/images/about1.png";
 import Stats from "../../public/images/stats.png";
+import Editor from "../../public/images/editor-img.png";
+import StatImg from "../../public/images/stats-img.png";
 
 const About = () => {
   return (
@@ -17,7 +19,8 @@ const About = () => {
         id="aboutus"
         minH={"50vh"}
         direction={{ base: "column-reverse", md: "row" }}
-        m={{ base: "2rem", md: "4rem" }}
+        mx={{ base: "2rem", md: "4rem" }}
+        my="2rem"
         spacing="2rem"
       >
         <Flex
@@ -35,22 +38,14 @@ const About = () => {
                 as={"span"}
                 position={"relative"}
               >
-                Create your courses in a quick customizable way
+                Create your courses
               </Text>
             </Heading>
             <Text
               fontSize={{ base: "md", lg: "lg" }}
               color={useColorModeValue("gray.700", "gray.300")}
             >
-              Create Interactive courses with our course creator which allows
-              you to create courses with ease.
-            </Text>
-            <Text
-              fontSize={{ base: "sm", lg: "md" }}
-              color={useColorModeValue("gray.600", "gray.500")}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Build Courses in a Interactive and customizable way
             </Text>
           </Stack>
         </Flex>
@@ -63,14 +58,16 @@ const About = () => {
         >
           <Image
             alt={"Create courses Image"}
-            src={AboutImage1}
+            src={Editor}
           />
         </Flex>
       </Stack>
       <Stack
         minH={"50vh"}
         direction={{ base: "column-reverse", md: "row-reverse" }}
-        m={{ base: "2rem", md: "4rem" }}
+        mx={{ base: "2rem", md: "4rem" }}
+        my="2rem"
+        mb={"4rem"}
         spacing="2rem"
       >
         <Flex
@@ -88,22 +85,14 @@ const About = () => {
                 as={"span"}
                 position={"relative"}
               >
-                Get Detailed Statistics of your courses
+              Detailed Statistics
               </Text>
             </Heading>
             <Text
               fontSize={{ base: "md", lg: "lg" }}
               color={useColorModeValue("gray.700", "gray.300")}
             >
-              Create Interactive courses with our course creator which allows
-              you to create courses with ease.
-            </Text>
-            <Text
-              fontSize={{ base: "sm", lg: "md" }}
-              color={useColorModeValue("gray.600", "gray.500")}
-            >
-              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
-              eiusmod tempor incididunt ut labore et dolore magna aliqua.
+              Get detailed Stats about upvote downvotes and total bookmark and enrollment of courses
             </Text>
           </Stack>
         </Flex>
@@ -116,7 +105,7 @@ const About = () => {
         >
           <Image
             alt={"Statistics Image"}
-            src={Stats}
+            src={StatImg}
           />
         </Flex>
       </Stack>
