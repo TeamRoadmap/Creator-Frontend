@@ -279,8 +279,23 @@ const Course = () => {
                 {previewToggle ? (
                   <Box>
                     <div style={{ fontWeight: "unset", fontSize: "unset" }}>
-                      <Text>{editorSection.title}</Text>
-                      <Text>{editorSection.description}</Text>
+                      <Text
+                        as="h1"
+                        fontSize={{ sm: "1rem", md: "1.2rem" }}
+                        fontWeight="700"
+                        casing="capitalize"
+                      >
+                        Title: {editorSection?.title}
+                      </Text>
+                      <Text
+                        as="h1"
+                        mb="6"
+                        fontSize={{ sm: "1rem", md: "1.2rem" }}
+                        fontWeight="400"
+                        casing="capitalize"
+                      >
+                        Description: {editorSection?.description}
+                      </Text>
                       {parse(`${editorSection?.content}`, options)}
                     </div>
                   </Box>

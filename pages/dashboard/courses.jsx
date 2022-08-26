@@ -97,10 +97,13 @@ export default function Course() {
               })}
             </SimpleGrid>
           ) : (
-            <Flex
-              justifyContent="center"
-            >
-              <Text fontSize="2xl" fontWeight="semibold">Start Your Course Building Journey</Text>
+            <Flex justifyContent="center">
+              <Text
+                fontSize="2xl"
+                fontWeight="semibold"
+              >
+                Start building your course now through the create course button
+              </Text>
             </Flex>
           )}
         </Stack>

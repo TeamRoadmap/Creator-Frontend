@@ -76,6 +76,7 @@ export default function Home() {
             <Text
               color={"purple.600"}
               as={"span"}
+              casing="capitalize"
             >
               {user?.name}!
             </Text>{" "}
@@ -114,9 +115,14 @@ export default function Home() {
                 })}
               </SimpleGrid>
             ) : (
-              <Flex fontSize="2xl" fontWeight="semibold" justifyContent="center">
+              <Flex
+                fontSize="2xl"
+                fontWeight="semibold"
+                justifyContent="center"
+              >
                 <Text>
-                  You havent created a course yet pls embark on the journey
+                  You have not created any courses yet Please embark on the
+                  journey!
                 </Text>
               </Flex>
             )
