@@ -14,14 +14,14 @@ const Footer = () => {
   return (
     <Box
       bg={testimonialBg}
-      py={"2rem"}
+      py="2rem"
     >
       <Flex
         justify={{ base: "center", md: "space-around" }}
         direction={{ base: "column", md: "row" }}
         align={"center"}
         mx={"2rem"}
-        py={"4rem"}
+        py={"2rem"}
       >
         <Flex
           direction={"column"}
@@ -29,7 +29,7 @@ const Footer = () => {
           mb={"2rem"}
         >
           <Text fontSize={"2xl"}>Ready to get started?</Text>
-          <Text fontSize={"md"}>Sign up or contact us</Text>
+          <Text fontSize={"md"}>Sign up</Text>
         </Flex>
         <Flex gap={"1rem"}>
           <Button
@@ -45,17 +45,6 @@ const Footer = () => {
           >
             Sign Up
           </Button>
-          <Button
-            as={"a"}
-            fontSize={"sm"}
-            fontWeight={400}
-            borderColor={"purple.500"}
-            variant={"outline"}
-            rounded="8px"
-            href={"#"}
-          >
-            Contact Us
-          </Button>
         </Flex>
       </Flex>
       <Flex
@@ -67,7 +56,6 @@ const Footer = () => {
         <Flex
           direction={"column"}
           gap={{ base: "1rem", md: "2rem" }}
-          mb={"2rem"}
           align={"center"}
         >
           <Flex align={"baseline"}>
@@ -87,34 +75,7 @@ const Footer = () => {
             align="center"
           >
             <h1>© 2022</h1>
-            <h1>Privacy — Terms</h1>
           </Flex>
-        </Flex>
-        <Flex
-          direction={"column"}
-          align={{ base: "center", md: "start" }}
-          gap={"0.8rem"}
-        >
-          <Text fontSize={"lg"}>Join NewsLetter</Text>
-          <Flex
-            direction={"column"}
-            align={{ base: "center", md: "start" }}
-            gap={"0.4rem"}
-          >
-            <Text fontSize={"sm"}>Your Email</Text>
-            <Input
-              placeholder="Your Email"
-              maxW={{ base: "50%", md: "70%" }}
-            />
-          </Flex>
-          <Button
-            p={4}
-            color={"white"}
-            bg="purple.600"
-            variant="solid"
-          >
-            Subscribe
-          </Button>
         </Flex>
       </Flex>
     </Box>

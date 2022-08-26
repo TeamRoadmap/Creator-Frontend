@@ -122,7 +122,6 @@ export default function SignUp() {
                         type="text"
                         focusBorderColor="purple.500"
                         {...register("lastName")}
-                        required
                       />
                     </FormControl>
                   </Box>
