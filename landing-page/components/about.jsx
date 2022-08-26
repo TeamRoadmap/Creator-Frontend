@@ -7,10 +7,6 @@ import {
 } from "@chakra-ui/react";
 import Image from "next/image";
 
-import AboutImage1 from "../../public/images/about1.png";
-import Stats from "../../public/images/stats.png";
-import Editor from "../../public/images/editor-img.png";
-import StatImg from "../../public/images/stats-img.png";
 
 const About = () => {
   return (
@@ -56,9 +52,13 @@ const About = () => {
           justify={"center"}
           align={{ base: "flex-end", md: "center" }}
         >
-          <Image
-            alt={"Create courses Image"}
-            src={Editor}
+          <img
+            alt="Create courses Image"
+            src="/images/editor-img.png"
+            style={{
+              borderRadius: "8px",
+              boxShadow: "0px 0px 40px 20px rgba(0, 0, 0, 0.05)",
+            }}
           />
         </Flex>
       </Stack>
@@ -85,14 +85,15 @@ const About = () => {
                 as={"span"}
                 position={"relative"}
               >
-              Detailed Statistics
+                Detailed Statistics
               </Text>
             </Heading>
             <Text
               fontSize={{ base: "md", lg: "lg" }}
               color={useColorModeValue("gray.700", "gray.300")}
             >
-              Get detailed Stats about upvote downvotes and total bookmark and enrollment of courses
+              Get detailed Stats about upvote downvotes and total bookmark and
+              enrollment of courses
             </Text>
           </Stack>
         </Flex>
@@ -103,9 +104,13 @@ const About = () => {
           justify={"center"}
           align={{ base: "flex-end", md: "center" }}
         >
-          <Image
-            alt={"Statistics Image"}
-            src={StatImg}
+          <img
+            alt="Statistics Image"
+            src="/images/stats-img.png"
+            style={{
+              borderRadius: "8px",
+              boxShadow: "0px 0px 40px 20px rgba(0, 0, 0, 0.05)",
+            }}
           />
         </Flex>
       </Stack>

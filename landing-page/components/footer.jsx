@@ -54,28 +54,22 @@ const Footer = () => {
         gap={{ base: "2rem", md: "1rem" }}
       >
         <Flex
-          direction={"column"}
-          gap={{ base: "1rem", md: "2rem" }}
+          direction={"row"}
+          ap="0.4rem"
+          mb={"2rem"}
           align={"center"}
         >
-          <Flex align={"baseline"}>
-            <Text
-              textAlign={useBreakpointValue({ base: "start", md: "left" })}
-              fontFamily={"heading"}
-              fontSize="xl"
-              mr="3px"
-              color={useColorModeValue("gray.800", "white")}
-            >
-              ROADMAP
-            </Text>
-            <Text fontSize="xs">CREATOR</Text>
-          </Flex>
-          <Flex
-            direction={"column"}
-            align="center"
+          <Text
+            textAlign={useBreakpointValue({ base: "start", md: "left" })}
+            fontFamily={"heading"}
+            fontSize="xl"
+            mr="3px"
+            color={useColorModeValue("gray.800", "white")}
           >
-            <h1>© 2022</h1>
-          </Flex>
+            ROADMAP
+          </Text>
+          <Text fontSize="xs">CREATOR</Text>
+          <h1>© 2022</h1>
         </Flex>
       </Flex>
     </Box>
