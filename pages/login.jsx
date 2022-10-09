@@ -39,7 +39,7 @@ export default function Login() {
   const { register, handleSubmit, formState: { errors } } = useForm();
 
   useEffect(() => {
-    if (token !== "") {
+    if (token !== "" && token !== undefined) {
       router.push("/dashboard", undefined, { shallow: true });
     }
   }, [token]);
