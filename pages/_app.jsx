@@ -10,30 +10,41 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 import "../styles/quill.css";
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import UserProvider from "../shared/components/user-provider";
+
 function MyApp({ Component, pageProps }) {
   const route = useRouter();
   const publicPaths = ["/login", "/signup", "/"];
   return (
     <Provider store={store}>
-      <PersistGate loading={null} persistor={persistor}>
-      <Chakra
-        cookies={pageProps.cookies}
-        theme={theme}
-        cssVarsRoot="body"
+      <PersistGate
+        loading={null}
+        persistor={persistor}
       >
-        {publicPaths.includes(route.pathname) ? (
-          <>
-            <CSSReset />
-            <Component {...pageProps} />
-          </>
-        ) : (
-          <ProtectedPath>
-            <CSSReset />
-            <Component {...pageProps} />
-          </ProtectedPath>
-        )}
-        <ToastContainer theme='dark' hideProgressBar={true} position="bottom-center" autoClose={1000} />
-      </Chakra>
+        <UserProvider />
+        <Chakra
+          cookies={pageProps.cookies}
+          theme={theme}
+          cssVarsRoot="body"
+        >
+          {publicPaths.includes(route.pathname) ? (
+            <>
+              <CSSReset />
+              <Component {...pageProps} />
+            </>
+          ) : (
+            <ProtectedPath>
+              <CSSReset />
+              <Component {...pageProps} />
+            </ProtectedPath>
+          )}
+          <ToastContainer
+            theme="dark"
+            hideProgressBar={true}
+            position="bottom-center"
+            autoClose={1000}
+          />
+        </Chakra>
       </PersistGate>
     </Provider>
   );
