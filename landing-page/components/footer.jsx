@@ -8,55 +8,22 @@ import {
   useColorModeValue,
   useBreakpointValue,
 } from "@chakra-ui/react";
+import { Link as ChakraLink } from "@chakra-ui/react";
 
 const Footer = () => {
   const testimonialBg = useColorModeValue("gray.100", "gray.700");
   return (
-    <Box
-      bg={testimonialBg}
-      py="2rem"
-    >
-      <Flex
-        justify={{ base: "center", md: "space-around" }}
-        direction={{ base: "column", md: "row" }}
-        align={"center"}
-        mx={"2rem"}
-        py={"2rem"}
-      >
-        <Flex
-          direction={"column"}
-          justify={{ base: "start", md: "center" }}
-          mb={"2rem"}
-        >
-          <Text fontSize={"2xl"}>Ready to get started?</Text>
-          <Text fontSize={"md"}>Sign up</Text>
-        </Flex>
-        <Flex gap={"1rem"}>
-          <Button
-            fontSize={"sm"}
-            fontWeight={600}
-            color={"white"}
-            bg={"purple.600"}
-            rounded="8px"
-            href={"#"}
-            _hover={{
-              bg: "purple.800",
-            }}
-          >
-            Sign Up
-          </Button>
-        </Flex>
-      </Flex>
+    <Box bg={testimonialBg}>
       <Flex
         justify={{ base: "center", md: "space-around" }}
         align={"center"}
-        direction={{ base: "column-reverse", md: "row" }}
-        gap={{ base: "2rem", md: "1rem" }}
+        direction={"column"}
+        py={"1rem"}
       >
         <Flex
           direction={"row"}
           ap="0.4rem"
-          mb={"2rem"}
+          m={"2rem"}
           align={"center"}
         >
           <Text
@@ -68,9 +35,18 @@ const Footer = () => {
           >
             ROADMAP
           </Text>
-          <Text fontSize="xs">CREATOR</Text>
+          <Text fontSize="xs">CREATOR &nbsp;</Text>
           <h1>© 2022</h1>
         </Flex>
+        <Text>
+          Created By &nbsp;
+          <ChakraLink
+            color="purple.600"
+            href="https://github.com/TeamRoadmap"
+          >
+            Team Roadmap
+          </ChakraLink>
+        </Text>
       </Flex>
     </Box>
   );
