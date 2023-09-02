@@ -21,7 +21,7 @@ export default function Course() {
   const { user, token } = useSelector((state) => state.user);
   const getCourses = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course?creatorId=${user?.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

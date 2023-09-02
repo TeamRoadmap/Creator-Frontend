@@ -28,7 +28,7 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
   const initialRef = useRef(null);
   const getUpdatedCourse = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course/${courseId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course/${courseId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -36,10 +36,10 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
       }
     );
     dispatch({ type: "course/setCourse", payload: res.data.data });
-  }
+  };
   const addSectionPost = async (data) => {
     const res = await axios.post(
-      "https://roadmap-backend-host.herokuapp.com/api/v1/section",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/section`,
       {
         order: order,
         title: data.title,
@@ -57,9 +57,9 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
     onClose();
     reset({ title: "", description: "" });
   };
-  const addSubSectionPost = async(data) => {
+  const addSubSectionPost = async (data) => {
     const res = await axios.post(
-      "https://roadmap-backend-host.herokuapp.com/api/v1/subsection",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/subsection`,
       {
         order: order,
         title: data.title,
@@ -76,7 +76,7 @@ const CourseSidebarModal = ({ type , sectionId, order }) => {
     getUpdatedCourse();
     onClose();
     reset({ title: "", description: "" });
-  }
+  };
   const onSubmit = (data) => {
     if(type == "Section") {
        addSectionPost(data)

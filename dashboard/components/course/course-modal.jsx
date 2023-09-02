@@ -40,7 +40,7 @@ const CourseModal = ({ isOpen, onClose }) => {
 
     formData.append("image", image);
 
-    let url = `https://roadmap-backend-host.herokuapp.com/api/v1/image`;
+    let url = `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/image`;
 
     axios
       .post(url, formData, {
@@ -55,7 +55,7 @@ const CourseModal = ({ isOpen, onClose }) => {
   const onSubmit = async (data, e) => {
     console.log(data);
     const res = await axios.post(
-      "https://roadmap-backend-host.herokuapp.com/api/v1/course",
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course`,
       {
         title: data?.title,
         description: data?.description,
@@ -74,7 +74,7 @@ const CourseModal = ({ isOpen, onClose }) => {
   };
   const getType = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/coursetype`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/coursetype`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

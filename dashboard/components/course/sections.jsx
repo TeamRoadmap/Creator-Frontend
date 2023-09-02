@@ -28,7 +28,7 @@ export default function Sections() {
       notify("Please Save Latest Changes");
     } else {
       const res = await axios.get(
-        `https://roadmap-backend-host.herokuapp.com/api/v1/section/${sectionId}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/section/${sectionId}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,
@@ -47,7 +47,7 @@ export default function Sections() {
       notify("Please Save Latest Changes");
     } else {
       const res = await axios.get(
-        `https://roadmap-backend-host.herokuapp.com/api/v1/subsection/${id}`,
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/subsection/${id}`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

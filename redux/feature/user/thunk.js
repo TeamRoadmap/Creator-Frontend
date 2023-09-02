@@ -7,7 +7,7 @@ export const signUpHandler = createAsyncThunk(
   async (signUpData, { rejectWithValue }) => {
     try {
       const res = await axios.post(
-        "https://roadmap-backend-host.herokuapp.com/api/v1/auth/signup",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/signup`,
         {
           ...signUpData,
         }
@@ -24,7 +24,7 @@ export const loginHandler = createAsyncThunk(
   async ( token ,{ rejectWithValue }) => {
     try {
       const res = await axios.get(
-        "https://roadmap-backend-host.herokuapp.com/api/v1/auth/login",
+        `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/auth/login`,
         {
           headers: {
             Authorization: `Bearer ${token}`,

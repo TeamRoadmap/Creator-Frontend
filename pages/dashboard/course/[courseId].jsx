@@ -48,7 +48,7 @@ const Course = () => {
 
   const getCourseDetail = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course/${courseId}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course/${courseId}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -64,7 +64,7 @@ const Course = () => {
 
   const updateSection = async () => {
     const res = await axios.patch(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
       {
         order: editorSection.order,
         title: editorSection.title,
@@ -86,7 +86,7 @@ const Course = () => {
   };
   const deleteSection = async () => {
     const res = await axios.delete(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/${editorSection?.type}/${editorSection?.public_id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,

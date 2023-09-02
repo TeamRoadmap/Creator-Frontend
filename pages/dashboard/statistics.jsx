@@ -24,33 +24,33 @@ import { useEffect } from "react";
 import { useState } from "react";
 
 export default function Statistics() {
-  const { token } = useSelector((state) => state.user);
-  const [loading, setLoading] = useState(true);
-  const [stats, setStats] = useState();
-  const [totalStats, setTotalStats] = useState(0);
+  // const { token } = useSelector((state) => state.user);
+  // const [loading, setLoading] = useState(true);
+  // const [stats, setStats] = useState();
+  // const [totalStats, setTotalStats] = useState(0);
 
-  const getStats = async () => {
-    setLoading(true);
-    try {
-      const res = await axios.get(
-        `https://roadmap-backend-host.herokuapp.com/api/v1/user/statistics`,
-        {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        }
-      );
-      setTotalStats(res.data.data);
-      setStats(res.data.data.courses);
-      setLoading(false);
-    } catch (error) {
-      console.log(error);
-    }
-  };
+  // const getStats = async () => {
+  //   setLoading(true);
+  //   try {
+  //     const res = await axios.get(
+  //       `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/user/statistics`,
+  //       {
+  //         headers: {
+  //           Authorization: `Bearer ${token}`,
+  //         },
+  //       }
+  //     );
+  //     setTotalStats(res.data.data);
+  //     setStats(res.data.data.courses);
+  //     setLoading(false);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // };
 
-  useEffect(() => {
-    getStats();
-  }, []);
+  // useEffect(() => {
+  //   getStats();
+  // }, []);
 
   return (
     <Layout>
@@ -70,13 +70,19 @@ export default function Statistics() {
         direction="column"
         gap="12"
       >
-        <Stack direction="row">
+        <Stack
+          direction="column"
+          justify={"center"}
+          align={"center"}
+          gap={6}
+        >
           <Heading fontSize={{ base: "2xl", md: "3xl", lg: "4xl" }}>
             Statistics
           </Heading>
+          <Text fontSize={{ base: "1xl", md: "2xl" }}>COMING SOON ⌛</Text>
         </Stack>
 
-        <Stack
+        {/* <Stack
           m="6"
           direction="column"
           gap="6"
@@ -122,15 +128,12 @@ export default function Statistics() {
                   <StatLabel>
                     Total Downvotes <StatArrow type="decrease" />
                   </StatLabel>
-                  <StatNumber>{totalStats?.totalDownvotes}</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Total Bookmarks</StatLabel>
-                  <StatNumber>{totalStats?.totalBookmarks}</StatNumber>
                 </Stat>
                 <Stat>
                   <StatLabel>Total Enrollments</StatLabel>
-                  <StatNumber>{totalStats?.totalEnrollments}</StatNumber>
                 </Stat>
               </>
             )}
@@ -188,7 +191,7 @@ export default function Statistics() {
               </>
             )}
           </SimpleGrid>
-        </Stack>
+        </Stack> */}
       </Stack>
     </Layout>
   );

@@ -51,7 +51,7 @@ const CourseCard = ({ title, id, description, public_id, image, type }) => {
   const lastUpdatedColor = useColorModeValue("gray.600", "gray.300");
   const getCourses = async () => {
     const res = await axios.get(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course?creatorId=${user?.id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course?creatorId=${user?.id}`,
       {
         headers: {
           Authorization: `Bearer ${token}`,
@@ -62,7 +62,7 @@ const CourseCard = ({ title, id, description, public_id, image, type }) => {
   };
   const onSubmit = async (data) => {
     const res = await axios.patch(
-      `https://roadmap-backend-host.herokuapp.com/api/v1/course/${public_id}`,
+      `${process.env.NEXT_PUBLIC_BACKEND_URL}/api/v1/course/${public_id}`,
       {
         title: data.title,
         description: data.description,
